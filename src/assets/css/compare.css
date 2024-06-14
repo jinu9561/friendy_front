@@ -1,0 +1,19 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  }
+  
+  #email-from {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    border: 1px solid #ced4da;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+  }
+  
+  button {
+    width: 100%;
+  }

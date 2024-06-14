@@ -1,0 +1,234 @@
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import clsx from "clsx";
+import MenuCart from "./sub-components/MenuCart";
+import { LogingedContext } from "../../App"
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
+
+
+const IconGroup = ({ iconWhiteClass }) => {
+
+  let logingedCon =useContext(LogingedContext);
+
+  const [saveData, setSaveData] = useState({
+    userId : "",
+    userSeq : ""
+  });
+
+
+  useEffect(() => {
+    const storedUserId = localStorage.getItem('userId');
+    const storedUserSeq = localStorage.getItem('userSeq');
+
+    if (storedUserId) {
+      setSaveData(prevFormData => ({
+        ...prevFormData,
+        userId: storedUserId
+      }));
+    }
+
+    if (storedUserSeq) {
+      setSaveData(prevFormData => ({
+        ...prevFormData,
+        userSeq: storedUserSeq
+      }));
+    }
+
+
+
+  }, []);
+  
+  const logoutCheck = (e)=>{ 
+      e.preventDefault();
+
+      let formData = new FormData(); //폼전송으로 보내기위한 작업 
+      formData.append("userId", saveData.userId); 
+
+    // 전송
+    axios({ 
+    method:"POST", 
+    url : "http://localhost:9000/logout",
+    data : formData
+    }) 
+     .then((res)=>{ 
+        alert(res.data); 
+
+        localStorage.removeItem("userId"); 
+        localStorage.removeItem("country"); 
+        localStorage.removeItem("gender"); 
+        localStorage.removeItem("userName");
+        localStorage.removeItem("userSeq"); 
+        localStorage.removeItem("nickName"); 
+        localStorage.removeItem("userJelly"); 
+        localStorage.removeItem("Authorization");
+      // 공유된 변수를 상태를 변경하면 이 컨텍스트를 사용하는 모든 컴포넌트가 상태변경을 감지하고 업데이트 된다!!
+      logingedCon.onLoggedChange(false); 
+
+    navigator("/");
+  
+    }) 
+    .catch((err)=>{ console.log(err) 
+        let errMessage = err.response.data.type +"\n"; 
+        errMessage += err.response.data.title +"\n"; 
+        errMessage += err.response.data.detail +"\n"; 
+        errMessage += err.response.data.status +"\n"; 
+        errMessage += err.response.data.instance +"\n"; 
+        
+        errMessage += err.response.data.timestamp; 
+        alert(errMessage); 
+    });
+
+       
+ }
+
+ const resign = () =>{
+
+  const check = window.confirm("정말 회원 탈퇴하시겠습니까?");
+  // 전송
+  if(check){
+    axios({ 
+      method:"GET", 
+      url : "http://localhost:9000/users/resign/"+saveData.userSeq,
+      }) 
+       .then((res)=>{ 
+          alert(res.data); 
+  
+          localStorage.removeItem("userId"); 
+          localStorage.removeItem("userName");
+          localStorage.removeItem("userSeq"); 
+          localStorage.removeItem("Authorization");
+          localStorage.removeItem("rememberedUserId");
+          localStorage.removeItem("rememberedPassword");
+        // 공유된 변수를 상태를 변경하면 이 컨텍스트를 사용하는 모든 컴포넌트가 상태변경을 감지하고 업데이트 된다!!
+        logingedCon.onLoggedChange(false); 
+  
+        navigator("/");
+       }) 
+       .catch((err)=>{ console.log(err) 
+            let errMessage = err.response.data.type +"\n"; 
+            errMessage += err.response.data.title +"\n"; 
+            errMessage += err.response.data.detail +"\n"; 
+            errMessage += err.response.data.status +"\n"; 
+            errMessage += err.response.data.instance +"\n"; 
+            errMessage += err.response.data.timestamp; 
+            alert(errMessage); 
+      });
+    }
+  }
+
+  const handleClick = e => {
+    e.currentTarget.nextSibling.classList.toggle("active");
+  };
+
+  const triggerMobileMenu = () => {
+    const offcanvasMobileMenu = document.querySelector(
+      "#offcanvas-mobile-menu"
+    );
+    offcanvasMobileMenu.classList.add("active");
+  };
+  const { compareItems } = useSelector((state) => state.compare);
+  const { wishlistItems } = useSelector((state) => state.wishlist);
+  const { cartItems } = useSelector((state) => state.cart);
+
+  return (
+    <div className={clsx("header-right-wrap", iconWhiteClass)} >
+      <div className="same-style header-search d-none d-lg-block">
+        <button className="search-active" onClick={e => handleClick(e)}>
+          <i className="pe-7s-search" />
+        </button>
+        <div className="search-content">
+          <form action="#">
+            <input type="text" placeholder="Search" />
+            <button className="button-search">
+              <i className="pe-7s-search" />
+            </button>
+          </form>
+        </div>
+      </div>
+      <div className="same-style account-setting d-none d-lg-block">
+        <button
+          className="account-setting-active"
+          onClick={e => handleClick(e)}
+        >
+          <i className="pe-7s-user-female" />
+        </button>
+        <div className="account-dropdown">
+          <ul>
+            <li>
+              { logingedCon.isLoggedIn ? <Link to="#" onClick={logoutCheck} className="nav-link">로그아웃</Link> :(<Link to={process.env.PUBLIC_URL + "/login-register"}>로그인</Link>)}
+            </li>
+            <li>
+              {!logingedCon.isLoggedIn && <Link to={process.env.PUBLIC_URL + "/login-register"}>
+                회원 가입
+              </Link>}
+            </li>
+            <li>
+              {!logingedCon.isLoggedIn && <Link to={process.env.PUBLIC_URL + "/emailVerification"}>
+                이메일 인증
+              </Link>}
+            </li>
+            <li>
+              { logingedCon.isLoggedIn && <Link to={process.env.PUBLIC_URL + "/my-profile"}>
+                프로필
+              </Link>}
+            </li>
+            <li>
+              { logingedCon.isLoggedIn && <Link to="#" onClick={resign}>
+                회원 탈퇴
+              </Link>}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div className="same-style header-compare">
+        <Link to={process.env.PUBLIC_URL + "/"}>
+          <i className="pe-7s-shuffle" />
+        </Link>
+      </div>
+      <div className="same-style header-wishlist">
+        <Link to={process.env.PUBLIC_URL + "/wishlist"}>
+          <i className="pe-7s-like" />
+          <span className="count-style">
+            {wishlistItems && wishlistItems.length ? wishlistItems.length : 0}
+          </span>
+        </Link>
+      </div>
+      <div className="same-style cart-wrap d-none d-lg-block">
+        <button className="icon-cart" onClick={e => handleClick(e)}>
+          <i className="pe-7s-shopbag" />
+          <span className="count-style">
+            {cartItems && cartItems.length ? cartItems.length : 0}
+          </span>
+        </button>
+        {/* menu cart */}
+        <MenuCart />
+      </div>
+      <div className="same-style cart-wrap d-block d-lg-none">
+        <Link className="icon-cart" to={process.env.PUBLIC_URL + "/cart"}>
+          <i className="pe-7s-shopbag" />
+          <span className="count-style">
+            {cartItems && cartItems.length ? cartItems.length : 0}
+          </span>
+        </Link>
+      </div>
+      <div className="same-style mobile-off-canvas d-block d-lg-none">
+        <button
+          className="mobile-aside-button"
+          onClick={() => triggerMobileMenu()}
+        >
+          <i className="pe-7s-menu" />
+        </button>
+      </div>
+    </div>
+  );
+};
+
+IconGroup.propTypes = {
+  iconWhiteClass: PropTypes.string,
+};
+
+
+
+export default IconGroup;
