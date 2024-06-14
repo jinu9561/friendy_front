@@ -21,4 +21,107 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Additional directories and files to ignore
+
+# Log files
+*.log
+
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm
+
+# Local environment variables
+.env
+.env.*
+
+# IDEs and editors
+/.idea
+/.vscode
+/.project
+/.classpath
+/.settings/
+/*.launch
+
+# macOS
+*.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# SASS artifacts
+.sass-cache
+
+# Next.js
+.next/
+/out/
+
+# Gatsby files
+.cache/
+/public/
+
+# Parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Storybook files
+.storybook-out
+
+# Static site generators
+/site
+/docs/.vuepress/dist
+
+# Gridsome cache
+.gridsome/cache
+.gridsome/assets
+
+# vuepress
+.vuepress/dist
+
+# Hugo
+/public/
+/resources/_gen/
+
+# Nuxt.js
+.nuxt
+/dist
+
+# Hexo
+public/
+
+# Jekyll
+_site
+
+# Eleventy
+/.cache
+/.temp
+
+# Quasar
+/.quasar
+
+# temporary files
+*.tmp
+*.temp
+*.swp
+
+# backups
+*.bak
+
+# Haskell Stack
+.stack-work/
+
+# Microsoft Visual Studio Code
+.vscode/
+
+# Local History plugin for IntelliJ IDEA
+/.localhistory/
+
+# Additional directories
 _gsdata_
