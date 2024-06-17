@@ -1,6 +1,7 @@
 import { Suspense, createContext, lazy, useEffect, useState } from "react";
 import ScrollToTop from "./helpers/scroll-top";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import QnaButton from "./components/qna-button/QnaButton";
 
 export const LogingedContext = createContext();
 
@@ -57,9 +58,14 @@ const App = () => {
      }
 
   return (
-    <LogingedContext.Provider value={ {isLoggedIn:isLoggedIn , onLoggedChange:handleLoggedChange } }>
+    <LogingedContext.Provider
+      value={{ isLoggedIn: isLoggedIn, onLoggedChange: handleLoggedChange }}
+    >
       <Router>
-        <ScrollToTop> {/* url이 변동이 있을때 페이지를 맨위로 스크롤 하는 기능 */}
+        <QnaButton />
+        <ScrollToTop>
+          {' '}
+          {/* url이 변동이 있을때 페이지를 맨위로 스크롤 하는 기능 */}
           <Suspense
             fallback={
               <div className="flone-preloader-wrapper">
@@ -71,109 +77,105 @@ const App = () => {
             }
           >
             <Routes>
-
-               {/* 메인페이지 */}
+              {/* 메인페이지 */}
               <Route
-                path={process.env.PUBLIC_URL + "/"}
-                element={<HomeBookStore/>}
+                path={process.env.PUBLIC_URL + '/'}
+                element={<HomeBookStore />}
               />
 
               {/* 소모임 게시판 */}
               <Route
-                path={process.env.PUBLIC_URL + "/shop-grid-standard"}
-                element={<ShopGridStandard/>}
+                path={process.env.PUBLIC_URL + '/shop-grid-standard'}
+                element={<ShopGridStandard />}
               />
 
-               {/* 사진 게시판 */}
+              {/* 사진 게시판 */}
               <Route
-                path={process.env.PUBLIC_URL + "/shop-grid-filter"}
-                element={<ShopGridFilter/>}
+                path={process.env.PUBLIC_URL + '/shop-grid-filter'}
+                element={<ShopGridFilter />}
               />
 
               {/* 이벤트 게시판 */}
               <Route
-                path={process.env.PUBLIC_URL + "/shop-list-two-column"}
-                element={<ShopListTwoColumn/>}
+                path={process.env.PUBLIC_URL + '/shop-list-two-column'}
+                element={<ShopListTwoColumn />}
               />
 
               {/* 자유 게시판, 익명 게시판 */}
               <Route
-                path={process.env.PUBLIC_URL + "/blog-no-sidebar"}
-                element={<BlogNoSidebar/>}
+                path={process.env.PUBLIC_URL + '/blog-no-sidebar'}
+                element={<BlogNoSidebar />}
               />
 
-               {/* 자유 게시판, 익명 게시판 상세보기 */}
+              {/* 자유 게시판, 익명 게시판 상세보기 */}
               <Route
-                path={process.env.PUBLIC_URL + "/blog-details-standard"}
-                element={<BlogDetailsStandard/>}
-              /> 
+                path={process.env.PUBLIC_URL + '/blog-details-standard'}
+                element={<BlogDetailsStandard />}
+              />
 
               {/* 사진 게시판 상세보기 */}
               <Route
-                path={process.env.PUBLIC_URL + "/product-slider/:id"}
-                element={<ProductSlider/>}
+                path={process.env.PUBLIC_URL + '/product-slider/:id'}
+                element={<ProductSlider />}
               />
 
               {/* 이벤트 게시판 상세보기 */}
               <Route
-                path={process.env.PUBLIC_URL + "/product/:id"}
+                path={process.env.PUBLIC_URL + '/product/:id'}
                 element={<Product />}
               />
 
               {/* 소모임 게시판 상세보기 */}
               <Route
-                path={process.env.PUBLIC_URL + "/product-sticky/:id"}
-                element={<ProductSticky/>}
+                path={process.env.PUBLIC_URL + '/product-sticky/:id'}
+                element={<ProductSticky />}
               />
-            
+
               {/* 나의 프로필 */}
               <Route
-                path={process.env.PUBLIC_URL + "/my-profile"}
-                element={<MyProfile/>}
+                path={process.env.PUBLIC_URL + '/my-profile'}
+                element={<MyProfile />}
               />
 
               {/* 로그인 회원가입 */}
               <Route
-                path={process.env.PUBLIC_URL + "/login-register"}
-                element={<LoginRegister/>}
+                path={process.env.PUBLIC_URL + '/login-register'}
+                element={<LoginRegister />}
               />
-               {/* 이메일 인증 */}
-               <Route
-                path={process.env.PUBLIC_URL + "/emailVerification"}
-                element={<EmailVerification/>}
-              />
-               {/* 비밀 번호 찾기 */}
-               <Route
-                path={process.env.PUBLIC_URL + "/findPassword"}
-                element={<FindPassword/>}
-              />
-               {/* 비밀 변경 */}
-               <Route
-                path={process.env.PUBLIC_URL + "/passwordAlter"}
-                element={<PasswordAlter/>}
-              />
-               {/* 이메일 재발급 */}
-               <Route
-                path={process.env.PUBLIC_URL + "/findEmailVerification"}
-                element={<FindEmailVerification/>}
-              />
-            
-             {/* 젤리 결제 */}
+              {/* 이메일 인증 */}
               <Route
-                path={process.env.PUBLIC_URL + "/wishlist"}
-                element={<Wishlist/>}
+                path={process.env.PUBLIC_URL + '/emailVerification'}
+                element={<EmailVerification />}
               />
-             
+              {/* 비밀 번호 찾기 */}
+              <Route
+                path={process.env.PUBLIC_URL + '/findPassword'}
+                element={<FindPassword />}
+              />
+              {/* 비밀 변경 */}
+              <Route
+                path={process.env.PUBLIC_URL + '/passwordAlter'}
+                element={<PasswordAlter />}
+              />
+              {/* 이메일 재발급 */}
+              <Route
+                path={process.env.PUBLIC_URL + '/findEmailVerification'}
+                element={<FindEmailVerification />}
+              />
 
+              {/* 젤리 결제 */}
+              <Route
+                path={process.env.PUBLIC_URL + '/wishlist'}
+                element={<Wishlist />}
+              />
 
-              <Route path="*" element={<NotFound/>} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
         </ScrollToTop>
       </Router>
     </LogingedContext.Provider>
-
-  );
+  )
 };
 
 export default App;
