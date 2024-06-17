@@ -17,6 +17,8 @@ const IconGroup = ({ iconWhiteClass }) => {
     userSeq : ""
   });
 
+  const [friendList, setFriendList] = useState([]); // 친구
+  const [showFriendList, setShowFriendList] = useState(false); // 친구
 
   useEffect(() => {
     const storedUserId = localStorage.getItem('userId');
@@ -39,6 +41,21 @@ const IconGroup = ({ iconWhiteClass }) => {
 
 
   }, []);
+
+  const toggleFriendListHandler  = () => { // 친구목록 불러오기
+    setShowFriendList(!showFriendList);
+
+    if (!showFriendList) {
+      axios.get("http://localhost:9000/friend/list")
+        .then(res => {
+          setFriendList(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+          alert("친구 목록을 불러오는 중 오류가 발생했습니다.");
+        });
+    }
+  };
   
   const logoutCheck = (e)=>{ 
       e.preventDefault();
@@ -128,6 +145,8 @@ const IconGroup = ({ iconWhiteClass }) => {
     );
     offcanvasMobileMenu.classList.add("active");
   };
+
+
   const { compareItems } = useSelector((state) => state.compare);
   const { wishlistItems } = useSelector((state) => state.wishlist);
   const { cartItems } = useSelector((state) => state.cart);
@@ -179,6 +198,11 @@ const IconGroup = ({ iconWhiteClass }) => {
                 회원 탈퇴
               </Link>}
             </li>
+            <li>
+              {logingedCon.isLoggedIn && <Link to="#" onClick={toggleFriendListHandler }>
+                친구 목록
+              </Link>}
+            </li>
           </ul>
         </div>
       </div>
@@ -221,6 +245,22 @@ const IconGroup = ({ iconWhiteClass }) => {
           <i className="pe-7s-menu" />
         </button>
       </div>
+
+      {showFriendList && ( // 친구목록
+        <div className="offcanvas offcanvas-end show" tabIndex="-1" style={{ visibility: "visible" }}>
+          <div className="offcanvas-header">
+            <h5 className="offcanvas-title">친구 목록</h5>
+            <button type="button" className="btn-close text-reset" onClick={toggleFriendListHandler}></button>
+          </div>
+          <div className="offcanvas-body">
+            <ul>
+              {friendList.map(friend => (
+                <li key={friend.userSeq}>{friend.userName}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
