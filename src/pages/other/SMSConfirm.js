@@ -11,14 +11,15 @@ import { Button } from "react-bootstrap";
 import '../../assets/css/compare.css';
 
 
-const EmailVerification = () => {
+const SMSConfirm = () => {
   let { pathname } = useLocation();
 
   const navigator = useNavigate();
+  const [userSeq, setUserSeq] = useState(localStorage.getItem('userSeq'));
 
   const [formData, setFormData] = useState({
     userId:"",
-    emailToken : ""
+    smsToken : ""
   });
 
   const handleInputChange = (e) => {
@@ -39,7 +40,7 @@ const EmailVerification = () => {
    // 필드 검증
    if (!formData.userId) {
      errorMessage = "ID를 입력해 주세요.";
-   }else if(!formData.emailToken){
+   }else if(!formData.smsToken){
     errorMessage = "인증 번호를 입력해 주세요.";
    }
    
@@ -50,16 +51,22 @@ const EmailVerification = () => {
    // 전송
    axios({ 
     method:"POST", 
-    url : "http://localhost:9000/email",
+    url : "http://localhost:9000/sms/confirm/"+userSeq,
+    headers: {
+      Authorization: localStorage.getItem("Authorization"),
+    },
     data : formData, 
     }) 
      .then((res)=>{ 
         res.data === true ? alert("인증에 성공했습니다!") : alert("인증에 실패했습니다..");
-        navigator("/login-register"); 
+        navigator("/"); 
     }) 
     .catch((err)=>{ 
-      console(err)
-      alert(err.response.data.title ); 
+      if (err.response && err.response.data && err.response.data.title === undefined) {
+        alert("로그아웃 후 다시 로그인해 주세요");
+    } else {
+        alert(err.response.data.title);
+    }
     });
 
     console.log(formData);
@@ -74,15 +81,15 @@ const EmailVerification = () => {
   return (
     <Fragment>
       <SEO
-        titleTemplate="이메일 인증"
-        description="해당 이메일로 인증번호를 보냈습니다!"
+        titleTemplate="본인 인증"
+        description="해당 번호의 인증번호로 인증을 완료하세요!"
       />
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
         <Breadcrumb 
           pages={[
             {label: "Home", path: process.env.PUBLIC_URL + "/" },
-            {label: "Create Account", path: process.env.PUBLIC_URL + pathname }
+            {label: "Authentication", path: process.env.PUBLIC_URL + pathname }
           ]} 
         />
          <div className="form-container">
@@ -100,23 +107,18 @@ const EmailVerification = () => {
             <Form.Group>
               <Form.Control 
               type="text" 
-              id="emailToken" 
-              name="emailToken" 
-              placeholder="이메일 인증 번호" 
+              id="smsToken" 
+              name="smsToken" 
+              placeholder="문자 인증번호" 
               onChange={handleInputChange}
               className="input-field"
               />
             </Form.Group>
-            <p>
-            <Link to={process.env.PUBLIC_URL+"/findEmailVerification"}>
-                                    인증번호가 오지않았나요?
-            </Link>
-            </p>
            <Button 
            variant="primary" 
            onClick={handleSubmit}
            className="submit-button"
-           >등록하기</Button>
+           >인증하기</Button>
           </Form>
 
         </div>
@@ -125,5 +127,5 @@ const EmailVerification = () => {
   );
 };
 
-export default EmailVerification;
+export default SMSConfirm;
 

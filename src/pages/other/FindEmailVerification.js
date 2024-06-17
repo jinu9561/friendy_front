@@ -56,14 +56,8 @@ const FindEmailVerification = () => {
         alert(res.data);
         navigator("/emailVerification")
     }) 
-    .catch((err)=>{ console.log(err) 
-        let errMessage = err.response.data.type +"\n"; 
-        errMessage += err.response.data.title +"\n"; 
-        errMessage += err.response.data.detail +"\n"; 
-        errMessage += err.response.data.status +"\n"; 
-        errMessage += err.response.data.instance +"\n"; 
-        errMessage += err.response.data.timestamp; 
-        alert(errMessage); 
+    .catch((err)=>{ 
+      alert(err.response.data.title ); 
     });
    
   };
@@ -79,18 +73,40 @@ const FindEmailVerification = () => {
         <Breadcrumb 
           pages={[
             {label: "Home", path: process.env.PUBLIC_URL + "/" },
-            {label: "인증번호 재발급", path: process.env.PUBLIC_URL + pathname }
+            {label: "Re-issuance", path: process.env.PUBLIC_URL + pathname }
           ]} 
         />
-         <div className="form-container">
+      <div className="form-container">
           <Form>
-            <Form.Control type="text" id="userId" name="userId" placeholder="ID" onChange={handleInputChange}/>
-            <br></br>
-            <Form.Control type="text" id="email" name="email" placeholder="Email" onChange={handleInputChange}/>
-            <br></br>
-            <p><Button variant="primary" onClick={handleSubmit}>코드 받기</Button> </p>  
+            <Form.Group>
+              <Form.Control 
+                type="text" 
+                id="userId" 
+                name="userId" 
+                placeholder="ID" 
+                onChange={handleInputChange} 
+                className="input-field"
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Control 
+                type="text" 
+                id="email" 
+                name="email" 
+                placeholder="Email" 
+                onChange={handleInputChange} 
+                className="input-field"
+              />
+            </Form.Group>
+            <Button 
+              variant="primary" 
+              onClick={handleSubmit} 
+              className="submit-button"
+            >
+              코드 받기
+            </Button>
           </Form>
-        </div>
+    </div>
       </LayoutOne>
     </Fragment>
   );

@@ -1,0 +1,65 @@
+.radio-card {
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.radio-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.radio-card input[type="radio"] {
+  display: none;
+}
+
+.radio-card input[type="radio"]:checked + .radio-card-content {
+  border-color: #007bff;
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+.radio-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: white;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.radio-card-content img.icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+.button-box {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.button-box button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-box button:hover {
+  background-color: #0056b3;
+}

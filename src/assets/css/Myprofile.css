@@ -1,0 +1,150 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  padding: 10px;
+  background-color: #f9f9f9; /* Light background */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.profile-image-container {
+  display: flex;
+  align-items: center;
+  position: relative; /* Make it relative to position icons */
+  margin-bottom: 10px;
+}
+
+.round-image {
+  width: 100px; /* Adjust the size as needed */
+  height: 100px; /* Adjust the size as needed */
+  border-radius: 50%; /* This makes the image round */
+  object-fit: cover; /* This ensures the image covers the container without distortion */
+  border: 2px solid #ccc; /* Optional: Adds a border around the image */
+}
+
+.icon {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 0; /* Align icon to the right */
+  margin-left: 5px;
+  margin-bottom: 75px;
+}
+
+.remove-icon{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 50; /* Align icon to the right */
+  margin-left: 75px;
+  margin-bottom: 75px;
+  cursor: pointer;
+}
+
+.remove-icon-detail{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 10px; /* Right offset from the container */
+  top: 10px; /* Top offset from the container */
+  cursor: pointer;
+}
+
+.profile-details p {
+  margin: 5px 0;
+  font-size: 1.1em;
+  color: #333; /* Darker text */
+}
+
+.profile-details strong {
+  color: #555; /* Medium dark color for labels */
+}
+
+.profile-details p span {
+  color: #007bff; /* Blue color for user data */
+}
+
+.profile-slider {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.slide {
+  position: relative;
+  width: auto; /* Allows for variable width */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.slide-image-container {
+  width: 300px; /* Set your desired width */
+  height: 300px; /* Set your desired height */
+  overflow: hidden; /* Hide overflow to maintain the fixed size */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for images */
+}
+
+.slide-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.slick-prev, .slick-next {
+  font-size: 30px;
+  color: #007bff; /* Customize the arrow color */
+}
+
+.slick-dots li button:before {
+  font-size: 10px;
+  color: #007bff; /* Customize the dots color */
+}
+
+.slick-dots li.slick-active button:before {
+  color: #0056b3; /* Different color for active dot */
+}
+
+.interest-list {
+  list-style-type: none; /* Removes default list style */
+  padding: 0; /* Removes default padding */
+  display: flex; /* Align items in a row */
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+}
+
+.interest-item {
+  background-color: #f0f0f0; /* Light grey background */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 15px; /* Padding inside the item */
+  margin: 5px; /* Space between items */
+  font-size: 1.1em; /* Slightly larger text */
+  color: #333; /* Dark text color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.purchase-item {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+}
+
+.purchase-item div {
+  margin-bottom: 5px;
+}
+
+.purchase-item strong {
+  margin-right: 5px;
+}
+
+.refund-button {
+  margin-top: 10px;
+}
+  

@@ -31,7 +31,7 @@ const PasswordAlter = () => {
         ...formData,
         [name]: value
       });
-      console.log(formData)
+  
   };
 
   const handleSubmit = (e) => {
@@ -61,14 +61,8 @@ const PasswordAlter = () => {
         alert(res.data);
         navigator("/login-register")
     }) 
-    .catch((err)=>{ console.log(err) 
-        let errMessage = err.response.data.type +"\n"; 
-        errMessage += err.response.data.title +"\n"; 
-        errMessage += err.response.data.detail +"\n"; 
-        errMessage += err.response.data.status +"\n"; 
-        errMessage += err.response.data.instance +"\n"; 
-        errMessage += err.response.data.timestamp; 
-        alert(errMessage); 
+    .catch((err)=>{ 
+      alert(err.response.data.title );
     });
   };
 
@@ -87,16 +81,53 @@ const PasswordAlter = () => {
           ]} 
         />
          <div className="form-container">
-          <Form>
-            <Form.Control type="text" id="userId" name="userId" placeholder="ID" onChange={handleInputChange}/>
-            <br></br>
-            <Form.Control type="text" id="emailToken" name="emailToken" placeholder="인증 번호" onChange={handleInputChange}/>
-            <br></br>
-            <Form.Control type="password" id="userPwd" name="userPwd" placeholder="New Password" onChange={handleInputChange}/>
-            <br></br>
-            <Form.Control type="password" id="userPwdCheck" name="userPwdCheck" placeholder="Password Check" onChange={handleInputChange}/>
-            <br></br>
-            <p><Button variant="primary" onClick={handleSubmit}>비밀번호 변경</Button> </p>  
+          <Form> 
+            <Form.Group>
+              <Form.Control 
+              type="text" 
+              id="userId" 
+              name="userId" 
+              placeholder="ID" 
+              onChange={handleInputChange}
+              className="input-field"
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Control 
+              type="text" 
+              id="emailToken" 
+              name="emailToken" 
+              placeholder="인증 번호" 
+              onChange={handleInputChange}
+              className="input-field"
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Control 
+              type="password" 
+              id="userPwd" 
+              name="userPwd" 
+              placeholder="New Password" 
+              onChange={handleInputChange}
+              className="input-field"
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Control 
+              type="password" 
+              id="userPwdCheck" 
+              name="userPwdCheck" 
+              placeholder="Password Check" 
+              onChange={handleInputChange}
+              className="input-field"
+              />
+            </Form.Group>
+            <Button 
+            variant="primary" 
+            onClick={handleSubmit}
+            className="submit-button"
+            >비밀번호 변경
+            </Button> 
           </Form>
         </div>
       </LayoutOne>
