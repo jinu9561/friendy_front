@@ -1,0 +1,76 @@
+import PropTypes from "prop-types";
+import { Fragment, useState } from "react";
+import { Link } from "react-router-dom";
+import clsx from "clsx";
+import PhotoModal from "./PhotoModal";
+
+const PhotoGridListSingle = ({ photo, spaceBottomClass }) => {
+  const [modalShow, setModalShow] = useState(false);
+
+  const hasImages = Array.isArray(photo.photoImgSrc) && photo.photoImgSrc.length > 0;
+
+  return (
+    <Fragment>
+      <div className={clsx("product-wrap", spaceBottomClass)}>
+        <div className="product-img">
+          <Link to={process.env.PUBLIC_URL + "/photo/" + photo.photoBoardSeq}>
+            {hasImages && (
+              <img
+                className="default-img"
+                src={process.env.PUBLIC_URL + photo.photoImgSrc[0]}
+                alt=""
+              />
+            )}
+            {hasImages && photo.photoImgSrc.length > 1 && (
+              <img
+                className="hover-img"
+                src={process.env.PUBLIC_URL + photo.photoImgSrc[1]}
+                alt=""
+              />
+            )}
+          </Link>
+          {photo.new && (
+            <div className="product-img-badges">
+              <span className="purple">New</span>
+            </div>
+          )}
+          <div className="product-action">
+            <div className="pro-same-action pro-quickview">
+              <button onClick={() => setModalShow(true)} title="Quick View">
+                <i className="pe-7s-look" />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="product-content text-center">
+          <h3>
+            <Link to={process.env.PUBLIC_URL + "/photo/" + photo.photoBoardSeq}>
+              {photo.photoBoardTitle}
+            </Link>
+          </h3>
+          <div className="product-price">
+            <span>{photo.photoBoardRegDate}</span>
+          </div>
+        </div>
+      </div>
+      <PhotoModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        photo={photo}
+      />
+    </Fragment>
+  );
+};
+
+PhotoGridListSingle.propTypes = {
+  photo: PropTypes.shape({
+    photoBoardSeq: PropTypes.number,
+    photoImgSrc: PropTypes.arrayOf(PropTypes.string),
+    photoBoardTitle: PropTypes.string,
+    photoBoardRegDate: PropTypes.string,
+    new: PropTypes.bool,
+  }),
+  spaceBottomClass: PropTypes.string,
+};
+
+export default PhotoGridListSingle;
