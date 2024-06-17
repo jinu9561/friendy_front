@@ -1,0 +1,52 @@
+[
+    {
+      "value": "5000",
+      "label": "5,000원 (50 젤리)",
+      "amount": 5000,
+      "jellyAmount": 50,
+      "backgroundImage": "/assets/img/icon-img/jelly-icon/jelly-titile.png",
+      "iconImage": "/assets/img/icon-img/jelly-icon/jelly-titile.png"
+    },
+    {
+      "value": "10000",
+      "label": "10,000원 (100 젤리)",
+      "amount": 10000,
+      "jellyAmount": 100,
+      "backgroundImage": "/assets/img/icon-img/jelly-icon/jelly-titile.png",
+       "iconImage": "/assets/img/icon-img/jelly-icon/jelly-titile.png"
+    },
+    {
+      "value": "50000",
+      "label": "50,000원 (500 젤리)",
+      "amount":50000,
+      "jellyAmount": 500,
+      "backgroundImage": "/assets/img/icon-img/jelly-icon/jelly-titile.png",
+       "iconImage": "/assets/img/icon-img/jelly-icon/jelly-titile.png"
+    },
+    {
+      "value": "100000",
+      "label": "100,000원 (1000 젤리)",
+      "amount": 100000,
+      "jellyAmount": 1000,
+      "backgroundImage": "/assets/img/icon-img/jelly-icon/jelly-icon2.png",
+       "iconImage": "/assets/img/icon-img/jelly-icon/jelly-icon2.png"
+    }
+    ,
+    {
+      "value": "150000",
+      "label": "150,000원 (1500 젤리)",
+      "amount": 150000,
+      "jellyAmount": 1500,
+      "backgroundImage": "/assets/img/icon-img/jelly-icon/jelly-icon2.png",
+       "iconImage": "/assets/img/icon-img/jelly-icon/jelly-icon2.png"
+    }
+    ,
+    {
+      "value": "500000",
+      "label": "500,000원 (5000 젤리)",
+      "amount": 500000,
+      "jellyAmount": 5000,
+      "backgroundImage": "/assets/img/icon-img/jelly-icon/jelly-icon2.png",
+       "iconImage": "/assets/img/icon-img/jelly-icon/jelly-icon2.png"
+    }
+  ]

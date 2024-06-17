@@ -11,14 +11,15 @@ import { Button } from "react-bootstrap";
 import '../../assets/css/compare.css';
 
 
-const EmailVerification = () => {
+const SMSVerification = () => {
   let { pathname } = useLocation();
 
   const navigator = useNavigate();
 
+  const [userSeq, setUserSeq] = useState(localStorage.getItem('userSeq'));
+
   const [formData, setFormData] = useState({
-    userId:"",
-    emailToken : ""
+    phoneNumber:"",
   });
 
   const handleInputChange = (e) => {
@@ -37,10 +38,8 @@ const EmailVerification = () => {
    let errorMessage = "";
 
    // 필드 검증
-   if (!formData.userId) {
-     errorMessage = "ID를 입력해 주세요.";
-   }else if(!formData.emailToken){
-    errorMessage = "인증 번호를 입력해 주세요.";
+   if (!formData.phoneNumber) {
+     errorMessage = "전화번로를 입력해 주세요.";
    }
    
    if (errorMessage !=="") {
@@ -50,20 +49,62 @@ const EmailVerification = () => {
    // 전송
    axios({ 
     method:"POST", 
-    url : "http://localhost:9000/email",
+    url : "http://localhost:9000/sms/"+userSeq,
+    headers: {
+      Authorization: localStorage.getItem("Authorization"),
+    },
     data : formData, 
     }) 
      .then((res)=>{ 
-        res.data === true ? alert("인증에 성공했습니다!") : alert("인증에 실패했습니다..");
-        navigator("/login-register"); 
+       alert(res.data);
+       navigator("/smsVerification/cofirm"); 
     }) 
     .catch((err)=>{ 
-      console(err)
-      alert(err.response.data.title ); 
+      if (err.response && err.response.data && err.response.data.title === undefined) {
+        alert("로그아웃 후 다시 로그인해 주세요");
+    } else {
+        alert(err.response.data.title);
+    }
     });
 
     console.log(formData);
   };
+
+  const reissue = (()=>{
+
+    let errorMessage = "";
+
+    if (!formData.phoneNumber) {
+      errorMessage = "전화번로를 입력해 주세요.";
+    }
+    
+    if (errorMessage !=="") {
+      alert(errorMessage);
+      return;
+    }
+    // 전송
+    axios({ 
+     method:"POST", 
+     url : "http://localhost:9000/sms/reissue/"+userSeq,
+     headers: {
+      Authorization: localStorage.getItem("Authorization"),
+    },
+     data : formData, 
+     }) 
+      .then((res)=>{ 
+        alert(res.data);
+  
+     }) 
+     .catch((err)=>{ 
+      if (err.response && err.response.data && err.response.data.title === undefined) {
+        alert("로그아웃 후 다시 로그인해 주세요");
+    } else {
+        alert(err.response.data.title);
+    }
+     });
+ 
+     console.log(formData);
+  })
 
 
 
@@ -74,15 +115,15 @@ const EmailVerification = () => {
   return (
     <Fragment>
       <SEO
-        titleTemplate="이메일 인증"
-        description="해당 이메일로 인증번호를 보냈습니다!"
+        titleTemplate="본인 인증"
+        description="해당 번호로 인증번호를 보냈습니다!"
       />
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
         <Breadcrumb 
           pages={[
             {label: "Home", path: process.env.PUBLIC_URL + "/" },
-            {label: "Create Account", path: process.env.PUBLIC_URL + pathname }
+            {label: "Authentication", path: process.env.PUBLIC_URL + pathname }
           ]} 
         />
          <div className="form-container">
@@ -90,25 +131,15 @@ const EmailVerification = () => {
             <Form.Group>
               <Form.Control 
               type="text" 
-              id="userId" 
-              name="userId" 
-              placeholder="ID" 
-              onChange={handleInputChange}
-              className="input-field"
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Control 
-              type="text" 
-              id="emailToken" 
-              name="emailToken" 
-              placeholder="이메일 인증 번호" 
+              id="phoneNumber" 
+              name="phoneNumber" 
+              placeholder="전화번호 (-)제거 ex)01012345678" 
               onChange={handleInputChange}
               className="input-field"
               />
             </Form.Group>
             <p>
-            <Link to={process.env.PUBLIC_URL+"/findEmailVerification"}>
+            <Link to="#" onClick={reissue}>
                                     인증번호가 오지않았나요?
             </Link>
             </p>
@@ -116,7 +147,7 @@ const EmailVerification = () => {
            variant="primary" 
            onClick={handleSubmit}
            className="submit-button"
-           >등록하기</Button>
+           >인증번호 받기</Button>
           </Form>
 
         </div>
@@ -125,5 +156,5 @@ const EmailVerification = () => {
   );
 };
 
-export default EmailVerification;
+export default SMSVerification;
 
