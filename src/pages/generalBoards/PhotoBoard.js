@@ -1,17 +1,18 @@
-import axios from 'axios';
-import { Fragment, useState, useEffect } from 'react';
-import Paginator from 'react-hooks-paginator';
-import { useLocation } from 'react-router-dom';
-import SEO from '../../components/seo';
-import LayoutOne from '../../layouts/LayoutOne';
-import Breadcrumb from '../../wrappers/breadcrumb/Breadcrumb';
-import ShopTopbarFilter from '../../wrappers/product/ShopTopbarFilter';
-import PhotoGridList from '../../wrappers/photo/PhotoGridList'; // 추가된 import
+import axios from "axios";
+import { Fragment, useState, useEffect } from "react";
+import Paginator from "react-hooks-paginator";
+import { useLocation } from "react-router-dom";
+import SEO from "../../components/seo";
+import LayoutOne from "../../layouts/LayoutOne";
+import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import ShopTopbarFilter from "../../wrappers/product/ShopTopbarFilter";
+import PhotoGridList from "../../wrappers/photo/PhotoGridList"; // 추가된 import
+import { getType } from "@reduxjs/toolkit";
 
 const PhotoBoard = () => {
-  const [layout, setLayout] = useState('grid three-column');
-  const [sortType, setSortType] = useState('date');
-  const [sortValue, setSortValue] = useState('desc');
+  const [layout, setLayout] = useState("grid three-column");
+  const [sortType, setSortType] = useState("date");
+  const [sortValue, setSortValue] = useState("desc");
   const [offset, setOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentData, setCurrentData] = useState([]);
@@ -21,12 +22,13 @@ const PhotoBoard = () => {
   let { pathname } = useLocation();
 
   useEffect(() => {
-    axios.get('http://localhost:9000/photo-boards/')
-      .then(response => {
+    axios
+      .get("http://localhost:9000/photo-boards/")
+      .then((response) => {
         setPhotos(response.data);
       })
-      .catch(error => {
-        console.error('Error fetching photos:', error);
+      .catch((error) => {
+        console.error("Error fetching photos:", error);
       });
   }, []);
 
@@ -34,9 +36,11 @@ const PhotoBoard = () => {
     const sortedPhotos = [...photos].sort((a, b) => {
       const dateA = new Date(a.photoBoardRegDate);
       const dateB = new Date(b.photoBoardRegDate);
-      return sortValue === 'desc' ? dateB - dateA : dateA - dateB;
+      return sortValue === "desc" ? dateB - dateA : dateA - dateB;
     });
+
     setCurrentData(sortedPhotos.slice(offset, offset + pageLimit));
+    console.log("currentData = ", currentData);
   }, [offset, photos, sortValue]);
 
   const getLayout = (layout) => {
@@ -58,14 +62,18 @@ const PhotoBoard = () => {
         <Breadcrumb
           pages={[
             { label: "Home", path: process.env.PUBLIC_URL + "/" },
-            { label: "Gallery", path: process.env.PUBLIC_URL + pathname }
+            { label: "Gallery", path: process.env.PUBLIC_URL + pathname },
           ]}
         />
         <div className="shop-area pt-95 pb-100">
           <div className="container">
             <div className="row">
               <div className="col-lg-12">
-                <ShopTopbarFilter getLayout={getLayout} productCount={photos.length} sortedProductCount={currentData.length} />
+                <ShopTopbarFilter
+                  getLayout={getLayout}
+                  productCount={photos.length}
+                  sortedProductCount={currentData.length}
+                />
                 <PhotoGridList layout={layout} photos={currentData} />
                 <div className="pro-pagination-style text-center mt-30">
                   <Paginator
