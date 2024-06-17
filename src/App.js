@@ -11,7 +11,7 @@ const HomeBookStore = lazy(() => import("./pages/home/HomeBookStore"));
 // 사진게시판 , 소모임게시판, 이벤트 게시판
 const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
 const ShopGridFilter = lazy(() => import("./pages/shop/ShopGridFilter"));
-const ShopListTwoColumn = lazy(() => import("./pages/shop/ShopListTwoColumn"));
+const Event = lazy(() => import("./pages/event/Event"));
 
 
 // 사진게시판 , 소모임게시판, 이벤트 게시판 상세보기
@@ -93,7 +93,7 @@ const App = () => {
               {/* 이벤트 게시판 */}
               <Route
                 path={process.env.PUBLIC_URL + "/shop-list-two-column"}
-                element={<ShopListTwoColumn/>}
+                element={<Event/>}
               />
 
               {/* 자유 게시판, 익명 게시판 */}
