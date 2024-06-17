@@ -57,16 +57,9 @@ const FindPassword = () => {
         alert(res.data);
         navigator("/passwordAlter")
     }) 
-    .catch((err)=>{ console.log(err) 
-        let errMessage = err.response.data.type +"\n"; 
-        errMessage += err.response.data.title +"\n"; 
-        errMessage += err.response.data.detail +"\n"; 
-        errMessage += err.response.data.status +"\n"; 
-        errMessage += err.response.data.instance +"\n"; 
-        errMessage += err.response.data.timestamp; 
-        alert(errMessage); 
+    .catch((err)=>{ 
+      alert(err.response.data.title ); 
     });
-    console.log(formData);
   };
 
   return (
@@ -85,11 +78,31 @@ const FindPassword = () => {
         />
          <div className="form-container">
           <Form>
-            <Form.Control type="text" id="email" name="email" placeholder="Email" onChange={handleInputChange}/>
-            <br></br>
-            <Form.Control type="text" id="userId" name="userId" placeholder="ID" onChange={handleInputChange}/>
-            <br></br>
-            <p><Button variant="primary" onClick={handleSubmit}>변경코드 받기</Button> </p>  
+             <Form.Group>
+                <Form.Control 
+                type="text" 
+                id="email" 
+                name="email"
+                placeholder="Email" 
+                onChange={handleInputChange}
+                className="input-field"
+                />
+            </Form.Group>
+            <Form.Group>
+              <Form.Control 
+              type="text" 
+              id="userId" 
+              name="userId"
+              placeholder="ID" 
+              onChange={handleInputChange}
+              className="input-field"
+              />
+            </Form.Group>
+            <Button 
+            variant="primary" 
+            onClick={handleSubmit}
+            className="submit-button"
+            >변경코드 받기</Button>
           </Form>
         </div>
       </LayoutOne>
