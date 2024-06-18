@@ -66,6 +66,8 @@ const PlaceDetail = ({ place, currency, show, onHide }) => {
           alt="Product"
         />
       </div>
+      <br></br>
+      {"    "}
       <div className="product-details-content quickview-content">
         {/* 디테일 사진을 설명 위에 배치 */}
         {place.placeDetailImgList && place.placeDetailImgList.map((placeDetail, i) => (
