@@ -1,6 +1,7 @@
 import { Suspense, createContext, lazy, useEffect, useState } from "react";
 import ScrollToTop from "./helpers/scroll-top";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import axios from "axios";
 
 export const LogingedContext = createContext();
 
@@ -38,8 +39,12 @@ const EmailVerification = lazy(() => import("./pages/other/EmailVerification"));
 const FindEmailVerification = lazy(() =>
   import("./pages/other/FindEmailVerification")
 );
+// SMS 인증번호 발급
+const SMSVerification = lazy(() => import("./pages/other/SMSVerification"));
+// SMS 인증
+const SMSConfirm = lazy(() => import("./pages/other/SMSConfirm"));
 // 젤리 결제
-const Wishlist = lazy(() => import("./pages/other/Wishlist"));
+const JellyTransctiont = lazy(() => import("./pages/other/JellyTransction"));
 
 const NotFound = lazy(() => import("./pages/other/NotFound"));
 
@@ -57,6 +62,51 @@ const App = () => {
   const handleLoggedChange = (isLoggedIn) => {
     setIsLoggedIn(isLoggedIn);
   };
+  useEffect(() => {
+    // Axios 인터셉터 설정
+    const interceptor = axios.interceptors.response.use(
+      (response) => response,
+      async (error) => {
+        if (error.response && error.response.status === 401) {
+          // 토큰 만료 시 로그아웃 처리
+          setIsLoggedIn(false);
+          let formData = new FormData(); //폼전송으로 보내기 위한 작업
+          formData.append("userId", localStorage.getItem("userId"));
+
+          try {
+            // 로그아웃 요청 전송
+            await axios({
+              method: "POST",
+              url: "http://localhost:9000/logout",
+              data: formData,
+            });
+
+            // 로컬 스토리지 데이터 삭제
+            localStorage.removeItem("userId");
+            localStorage.removeItem("country");
+            localStorage.removeItem("gender");
+            localStorage.removeItem("userName");
+            localStorage.removeItem("userSeq");
+            localStorage.removeItem("nickName");
+            localStorage.removeItem("userJelly");
+            localStorage.removeItem("Authorization");
+
+            // 로그인 페이지로 리다이렉트
+            window.location.href = "http://localhost:3000/login-register";
+          } catch (err) {
+            console.log(err);
+            alert(err.response.data.title);
+          }
+        }
+        return Promise.reject(error);
+      }
+    );
+
+    // 컴포넌트 언마운트 시 인터셉터 제거
+    return () => {
+      axios.interceptors.response.eject(interceptor);
+    };
+  }, [navigator]);
 
   return (
     <LogingedContext.Provider
@@ -168,11 +218,22 @@ const App = () => {
                 path={process.env.PUBLIC_URL + "/findEmailVerification"}
                 element={<FindEmailVerification />}
               />
+              {/* SMS 번호 발급 */}
+              <Route
+                path={process.env.PUBLIC_URL + "/smsVerification"}
+                element={<SMSVerification />}
+              />
+
+              {/* SMS 번호 인증 */}
+              <Route
+                path={process.env.PUBLIC_URL + "/smsVerification/cofirm"}
+                element={<SMSConfirm />}
+              />
 
               {/* 젤리 결제 */}
               <Route
-                path={process.env.PUBLIC_URL + "/wishlist"}
-                element={<Wishlist />}
+                path={process.env.PUBLIC_URL + "/jellyTransction"}
+                element={<JellyTransctiont />}
               />
 
               <Route path="*" element={<NotFound />} />

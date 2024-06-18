@@ -92,7 +92,7 @@ const LoginRegister = () => {
        navigator("/");
      }) 
       .catch((err)=>{ 
-      alert("정보를 다시 확인해주세요."); 
+      alert(err.response.data.errMsg); 
       setLoginData({ 
         userId :"" , 
         userPwd:""})
@@ -238,15 +238,8 @@ const LoginRegister = () => {
         alert(res.data); 
         navigator("/emailVerification"); 
     }) 
-    .catch((err)=>{ console.log(err) 
-        let errMessage = err.response.data.type +"\n"; 
-        errMessage += err.response.data.title +"\n"; 
-        errMessage += err.response.data.detail +"\n"; 
-        errMessage += err.response.data.status +"\n"; 
-        errMessage += err.response.data.instance +"\n"; 
-        
-        errMessage += err.response.data.timestamp; 
-        alert(errMessage); 
+    .catch((err)=>{ 
+        alert(err.response.data.title ); 
     });
 
     console.log(formData);

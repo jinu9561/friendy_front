@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import clsx from "clsx";
 import MenuCart from "./sub-components/MenuCart";
@@ -11,6 +11,7 @@ import axios from "axios";
 const IconGroup = ({ iconWhiteClass }) => {
 
   let logingedCon =useContext(LogingedContext);
+  const navigator = useNavigate();
 
   const [saveData, setSaveData] = useState({
     userId : "",
@@ -64,9 +65,8 @@ const IconGroup = ({ iconWhiteClass }) => {
         localStorage.removeItem("userJelly"); 
         localStorage.removeItem("Authorization");
       // 공유된 변수를 상태를 변경하면 이 컨텍스트를 사용하는 모든 컴포넌트가 상태변경을 감지하고 업데이트 된다!!
-      logingedCon.onLoggedChange(false); 
-
-    navigator("/");
+        logingedCon.onLoggedChange(false); 
+        navigator("/");
   
     }) 
     .catch((err)=>{ console.log(err) 
@@ -166,12 +166,22 @@ const IconGroup = ({ iconWhiteClass }) => {
             </li>
             <li>
               {!logingedCon.isLoggedIn && <Link to={process.env.PUBLIC_URL + "/emailVerification"}>
-                이메일 인증
+                회원 인증
               </Link>}
             </li>
             <li>
               { logingedCon.isLoggedIn && <Link to={process.env.PUBLIC_URL + "/my-profile"}>
                 프로필
+              </Link>}
+            </li>
+            <li>
+              { logingedCon.isLoggedIn && <Link to={process.env.PUBLIC_URL + "/smsVerification"}>
+                본인 인증
+              </Link>}
+            </li>
+            <li>
+              { logingedCon.isLoggedIn && <Link to={process.env.PUBLIC_URL + "/jellyTransction"}>
+                젤리 구매
               </Link>}
             </li>
             <li>
