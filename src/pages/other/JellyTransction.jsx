@@ -243,48 +243,51 @@ const JellyTransction = () => {
             <div className="row">
               <div className="col-lg-7 col-md-12 ms-auto me-auto">
                 <div className="login-register-wrapper">
-            
-                        <div className="login-form-container">
-                          <div className="login-register-form">
-                            <form>
-                              <div className="row">
-                                {jellyIconData.map((single, key) => (
-                                  <div className="col-lg-4 col-md-6 col-sm-6" key={key}>
-                                    <label
-                                      className="radio-card"
-                                      style={{ backgroundImage: single.backgroundImage }}
-                                    >
-                                      <input
-                                        type="radio"
-                                        name="amount"
-                                        value={single.value}
-                                        onChange={handleCheckboxChange}
-                                      />
-                                      <div className="radio-card-content">
-                                        <img src={single.iconImage} alt="icon" className="icon" />
-                                        {single.label}
-                                      </div>
-                                    </label>
-                                  </div>
-                                ))}
+                  <div className="login-form-container">
+                    <div className="login-register-form">
+                      <form>
+                        <div className="row">
+                          {jellyIconData.map((single, key) => (
+                            <div className="col-lg-4 col-md-6 col-sm-6" key={key}>
+                              <label
+                                className="radio-card"
+                                style={{ backgroundImage: single.backgroundImage }}
+                              >
+                                <input
+                                  type="radio"
+                                  name="amount"
+                                  value={single.value}
+                                  onChange={handleCheckboxChange}
+                                />
+                                <div className="radio-card-content">
+                                  <img
+                                    src={single.iconImage}
+                                    alt="icon"
+                                    className="icon"
+                                    style={{ objectFit: 'cover' }} // Ensure aspect ratio is maintained
+                                  />
+                                  {single.label}
                                 </div>
-                                <div className="button-box">
-                                  <button type="button" onClick={handleKakaoPayment}>
-                                    <span>카카오 결제</span>
-                                  </button>
-                                  {"  "}
-                                  <button type="button" onClick={handlePaykoPayment}>
-                                    <span>페이코 결제</span>
-                                  </button>
-                                  {"  "}
-                                  <button type="button" onClick={handleTossPayment}>
-                                    <span>토스 결제</span>
-                                  </button>
-                                </div>
-                               </form>
-                          </div>
+                              </label>
+                            </div>
+                          ))}
                         </div>
-
+                        <div className="button-box">
+                          <button type="button" onClick={handleKakaoPayment}>
+                            <span>카카오 결제</span>
+                          </button>
+                          {"  "}
+                          <button type="button" onClick={handlePaykoPayment}>
+                            <span>페이코 결제</span>
+                          </button>
+                          {"  "}
+                          <button type="button" onClick={handleTossPayment}>
+                            <span>토스 결제</span>
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

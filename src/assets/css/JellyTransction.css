@@ -1,4 +1,4 @@
-.radio-card {
+.login-register-wrapper .radio-card {
   display: inline-block;
   width: 150px;
   height: 150px;
@@ -15,20 +15,20 @@
   position: relative;
 }
 
-.radio-card:hover {
+.login-register-wrapper .radio-card:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.radio-card input[type="radio"] {
+.login-register-wrapper .radio-card input[type="radio"] {
   display: none;
 }
 
-.radio-card input[type="radio"]:checked + .radio-card-content {
+.login-register-wrapper .radio-card input[type="radio"]:checked + .radio-card-content {
   border-color: #007bff;
   background-color: rgba(0, 123, 255, 0.1);
 }
 
-.radio-card-content {
+.login-register-wrapper .radio-card-content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,10 +39,11 @@
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-.radio-card-content img.icon {
+.login-register-wrapper .radio-card-content img.icon {
   width: 40px;
   height: 40px;
   margin-bottom: 10px;
+  object-fit: cover; /* Add this to maintain aspect ratio */
 }
 
 .button-box {
