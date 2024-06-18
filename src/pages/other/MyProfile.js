@@ -9,10 +9,10 @@ import Select from 'react-select';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../../assets/css/Myprofile.css';
-import Profile from "../../components/Profile/Profile";
-import SlideImg from "../../components/Profile/SlideImg";
-import InterestList from "../../components/Profile/InterestList";
-import ProfileDetail from "../../components/Profile/ProfileDetail";
+import Profile from "../../components/profile/Profile";
+import SlideImg from "../../components/profile/SlideImg";
+import InterestList from "../../components/profile/InterestList";
+import ProfileDetail from "../../components/profile/ProfileDetail";
 import { Button, Modal ,Form } from "react-bootstrap";
 
 const MyProfile = () => {

@@ -31,8 +31,7 @@ const SlideImg = ({ profileData,refresh }) => {
             // 전송
             axios({
                 method: "DELETE",
-                url: "http://localhost:9000/profile/detail/img",
-                data: profileDetailImgSeq,
+                url: "http://localhost:9000/profile/detail/img/"+profileDetailImgSeq,
                 headers: {
                     Authorization: localStorage.getItem("Authorization"),
                 }

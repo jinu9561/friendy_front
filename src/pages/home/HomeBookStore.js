@@ -5,9 +5,9 @@ import FeatureIconFour from "../../wrappers/feature-icon/FeatureIconFour";
 import SliderBanner from "../../wrappers/slider-banner/SliderBanner";
 import TabProductFour from "../../wrappers/product/TabProductFour";
 import CtaOne from "../../wrappers/cta/CtaOne";
-import NewProductSlider from "../../wrappers/product/NewProductSlider";
 import BlogFeatured from "../../wrappers/blog-featured/BlogFeatured";
 import BrandLogoSliderTwo from "../../wrappers/brand-logo/BrandLogoSliderTwo";
+import PlaceRecommendSlider from "../../wrappers/place/PlaceRecommendSlider";
 
 const HomeBookStore = () => {
   return (
@@ -32,8 +32,8 @@ const HomeBookStore = () => {
           spaceTopClass="pt-100"
           backgroundImage="/assets/img/bg/bg-5.jpg"
         />
-        {/* new product slider */}
-        <NewProductSlider
+        {/* 장소 추천 */}
+          <PlaceRecommendSlider
           spaceTopClass="pt-100"
           spaceBottomClass="pb-95"
           category="book"

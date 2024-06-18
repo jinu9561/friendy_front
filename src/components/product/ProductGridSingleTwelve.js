@@ -160,7 +160,8 @@ const ProductGridSingleTwo = ({
                     </div>
                 </div>
             </div>
-            {/* product modal */}
+
+            {/* 이미지 상세 보기 */}
             <ProductModal
                 show={modalShow}
                 onHide={() => setModalShow(false)}
