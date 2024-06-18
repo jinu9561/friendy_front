@@ -7,7 +7,6 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import ShopTopbarFilter from "../../wrappers/product/ShopTopbarFilter";
 import PhotoGridList from "../../wrappers/photo/PhotoGridList"; // 추가된 import
-import { getType } from "@reduxjs/toolkit";
 
 const PhotoBoard = () => {
   const [layout, setLayout] = useState("grid three-column");
@@ -45,11 +44,6 @@ const PhotoBoard = () => {
 
   const getLayout = (layout) => {
     setLayout(layout);
-  };
-
-  const getSortParams = (sortType, sortValue) => {
-    setSortType(sortType);
-    setSortValue(sortValue);
   };
 
   return (
