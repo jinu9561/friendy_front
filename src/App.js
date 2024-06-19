@@ -2,6 +2,7 @@ import { Suspense, createContext, lazy, useEffect, useState } from "react";
 import ScrollToTop from "./helpers/scroll-top";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
+import QnaButton from "./components/qna-button/QnaButton";
 
 export const LogingedContext = createContext();
 
@@ -9,13 +10,14 @@ export const LogingedContext = createContext();
 const HomeBookStore = lazy(() => import("./pages/home/HomeBookStore"));
 
 // 사진게시판 , 소모임게시판, 이벤트 게시판
-const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
+const MeetUpBoard = lazy(() => import("./pages/shop/MeetUpBoard"));
 const PhotoBoard = lazy(() => import("./pages/generalBoards/PhotoBoard")); //사진게시판
 const ShopGridFilter = lazy(() => import("./pages/shop/ShopGridFilter")); //사진 게시판 데모
+const Event = lazy(() => import("./pages/event/Event"));
 const ShopListTwoColumn = lazy(() => import("./pages/shop/ShopListTwoColumn"));
 
 // 사진게시판 , 소모임게시판, 이벤트 게시판 상세보기
-const Product = lazy(() => import("./pages/shop-product/Product"));
+const EventDetail = lazy(() => import("./pages/event/EventDetail"));
 const ProductSticky = lazy(() => import("./pages/shop-product/ProductSticky"));
 const ProductSlider = lazy(() => import("./pages/shop-product/ProductSlider"));
 
@@ -113,6 +115,7 @@ const App = () => {
       value={{ isLoggedIn: isLoggedIn, onLoggedChange: handleLoggedChange }}
     >
       <Router>
+        <QnaButton />
         <ScrollToTop>
           {" "}
           {/* url이 변동이 있을때 페이지를 맨위로 스크롤 하는 기능 */}
@@ -135,8 +138,8 @@ const App = () => {
 
               {/* 소모임 게시판 */}
               <Route
-                path={process.env.PUBLIC_URL + "/shop-grid-standard"}
-                element={<ShopGridStandard />}
+                path={process.env.PUBLIC_URL + "/MeetUpBoard"}
+                element={<MeetUpBoard />}
               />
 
               {/* 사진 게시판 */}
@@ -153,8 +156,8 @@ const App = () => {
 
               {/* 이벤트 게시판 */}
               <Route
-                path={process.env.PUBLIC_URL + "/shop-list-two-column"}
-                element={<ShopListTwoColumn />}
+                path={process.env.PUBLIC_URL + "/event"}
+                element={<Event />}
               />
 
               {/* 자유 게시판, 익명 게시판 */}
@@ -177,8 +180,8 @@ const App = () => {
 
               {/* 이벤트 게시판 상세보기 */}
               <Route
-                path={process.env.PUBLIC_URL + "/product/:id"}
-                element={<Product />}
+                path={process.env.PUBLIC_URL + "/event/:eventSeq"}
+                element={<EventDetail />}
               />
 
               {/* 소모임 게시판 상세보기 */}

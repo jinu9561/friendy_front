@@ -60,7 +60,7 @@ const IconGroup = ({ iconWhiteClass }) => {
     }
   };
 
-  const requestFriend = () => {
+  const requestFriend = () => { // 친구요청
     axios({
       url: "http://localhost:9000/friend/request",
       method: "post",
