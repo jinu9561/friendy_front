@@ -3,14 +3,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import clsx from "clsx";
 import MenuCart from "./sub-components/MenuCart";
-import { LogingedContext } from "../../App"
+import { LogingedContext } from "../../App";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import adminIcon from '../../assets/img/admin/admin-icon.png';
+import './../../assets/css/icon.css';
+
+
 
 
 const IconGroup = ({ iconWhiteClass }) => {
 
   let logingedCon =useContext(LogingedContext);
+
+
   const navigator = useNavigate();
 
   const [saveData, setSaveData] = useState({
@@ -89,7 +95,8 @@ const IconGroup = ({ iconWhiteClass }) => {
       e.preventDefault();
 
       let formData = new FormData(); //폼전송으로 보내기위한 작업 
-      formData.append("userId", saveData.userId); 
+      let userId = sessionStorage.getItem("userId") !=null ? sessionStorage.getItem("userId") : localStorage.getItem('userId');
+      formData.append("userId", userId);
 
     // 전송
     axios({ 
@@ -108,20 +115,19 @@ const IconGroup = ({ iconWhiteClass }) => {
         localStorage.removeItem("nickName"); 
         localStorage.removeItem("userJelly"); 
         localStorage.removeItem("Authorization");
+
+       sessionStorage.removeItem("userId", res.data.userId); 
+       sessionStorage.removeItem("userName", res.data.userName);
+       sessionStorage.removeItem("userSeq", res.data.userSeq); 
+       sessionStorage.removeItem("Authorization", res.headers.authorization);
       // 공유된 변수를 상태를 변경하면 이 컨텍스트를 사용하는 모든 컴포넌트가 상태변경을 감지하고 업데이트 된다!!
         logingedCon.onLoggedChange(false); 
+        logingedCon.onAdminInChange(false); 
         navigator("/");
   
     }) 
-    .catch((err)=>{ console.log(err) 
-        let errMessage = err.response.data.type +"\n"; 
-        errMessage += err.response.data.title +"\n"; 
-        errMessage += err.response.data.detail +"\n"; 
-        errMessage += err.response.data.status +"\n"; 
-        errMessage += err.response.data.instance +"\n"; 
-        
-        errMessage += err.response.data.timestamp; 
-        alert(errMessage); 
+    .catch((err)=>{ 
+      console.log(err) 
     });
 
        
@@ -201,47 +207,45 @@ const IconGroup = ({ iconWhiteClass }) => {
           <i className="pe-7s-user-female" />
         </button>
         <div className="account-dropdown">
-          <ul>
-            <li>
-              { logingedCon.isLoggedIn ? <Link to="#" onClick={logoutCheck} className="nav-link">로그아웃</Link> :(<Link to={process.env.PUBLIC_URL + "/login-register"}>로그인</Link>)}
-            </li>
-            <li>
-              {!logingedCon.isLoggedIn && <Link to={process.env.PUBLIC_URL + "/login-register"}>
-                회원 가입
-              </Link>}
-            </li>
-            <li>
-              {!logingedCon.isLoggedIn && <Link to={process.env.PUBLIC_URL + "/emailVerification"}>
-                회원 인증
-              </Link>}
-            </li>
-            <li>
-              { logingedCon.isLoggedIn && <Link to={process.env.PUBLIC_URL + "/my-profile"}>
-                프로필
-              </Link>}
-            </li>
-            <li>
-              { logingedCon.isLoggedIn && <Link to={process.env.PUBLIC_URL + "/smsVerification"}>
-                본인 인증
-              </Link>}
-            </li>
-            <li>
-              { logingedCon.isLoggedIn && <Link to={process.env.PUBLIC_URL + "/jellyTransction"}>
-                젤리 구매
-              </Link>}
-            </li>
-            <li>
-              { logingedCon.isLoggedIn && <Link to="#" onClick={resign}>
-                회원 탈퇴
-              </Link>}
-            </li>
-            <li>
-              {logingedCon.isLoggedIn && <Link to="#" onClick={toggleFriendListHandler }>
-                친구 목록
-              </Link>}
-            </li>
-
-            {/* 친구요청 기능확인용 임시(채팅 완성되면 거기에 쓸거) */}
+        <ul>
+          {logingedCon.isAdminIn ? (
+            // Admin 계정일 때
+            <>
+              <li>
+                <Link to="#" onClick={logoutCheck} className="nav-link">로그아웃</Link>
+              </li>
+              {/* 필요한 관리자 전용 링크 추가 */}
+            </>
+          ) : (
+            // 일반 사용자 계정일 때
+            <>
+              <li>
+                {logingedCon.isLoggedIn ? (
+                  <Link to="#" onClick={logoutCheck} className="nav-link">로그아웃</Link>
+                ) : (
+                  <Link to={process.env.PUBLIC_URL + "/login-register"}>로그인</Link>
+                )}
+              </li>
+              <li>
+                {!logingedCon.isLoggedIn && (
+                  <>
+                    <Link to={process.env.PUBLIC_URL + "/login-register"}>회원 가입</Link>
+                    <Link to={process.env.PUBLIC_URL + "/emailVerification"}>회원 인증</Link>
+                  </>
+                )}
+              </li>
+              <li>
+                {logingedCon.isLoggedIn && (
+                  <>
+                    <Link to={process.env.PUBLIC_URL + "/my-profile"}>프로필</Link>
+                    <Link to="#" onClick={toggleFriendListHandler }>친구 목록</Link>
+                    <Link to={process.env.PUBLIC_URL + "/smsVerification"}>본인 인증</Link>
+                    <Link to={process.env.PUBLIC_URL + "/jellyTransction"}>젤리 구매</Link>
+                    <Link to="#" onClick={resign}>회원 탈퇴</Link>
+                  </>
+                )}
+              </li>
+                {/* 친구요청 기능확인용 임시(채팅 완성되면 거기에 쓸거) */}
             <li>
               <input
                 type="text"
@@ -254,8 +258,9 @@ const IconGroup = ({ iconWhiteClass }) => {
             <li>
               {message && <p>{message}</p>}
             </li>
-
-          </ul>
+            </>
+          )}
+        </ul>
         </div>
       </div>
       <div className="same-style header-compare">
@@ -278,8 +283,6 @@ const IconGroup = ({ iconWhiteClass }) => {
             {cartItems && cartItems.length ? cartItems.length : 0}
           </span>
         </button>
-        {/* menu cart */}
-        <MenuCart />
       </div>
       <div className="same-style cart-wrap d-block d-lg-none">
         <Link className="icon-cart" to={process.env.PUBLIC_URL + "/cart"}>
@@ -287,6 +290,12 @@ const IconGroup = ({ iconWhiteClass }) => {
           <span className="count-style">
             {cartItems && cartItems.length ? cartItems.length : 0}
           </span>
+        </Link>
+      </div>
+      {/* 관리자 페이지로 가기*/}
+      <div className="same-style cart-wrap d-none d-lg-block">
+        <Link className="icon-cart" to={process.env.PUBLIC_URL + "/adminLogin"}>
+          <img src={adminIcon} alt="관리자아이콘"/>
         </Link>
       </div>
       <div className="same-style mobile-off-canvas d-block d-lg-none">
