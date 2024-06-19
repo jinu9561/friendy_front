@@ -34,10 +34,12 @@ const HeaderTwo = () => {
                 currency={currency}
               />
             </div>
-            <div className="col-lg-2 d-none d-lg-block text-center">
+            <div className="col-lg-2 d-none d-lg-block text-center"
+            style={{ position: "relative", top: "-30px" }}
+            >
               {/* header logo */}
               <Logo
-                imageUrl="/assets/img/logo/friendy"
+                imageUrl="/assets/img/friendy-logo/friendy_logo.png"
                 logoClass="logo-hm-9"
               />
             </div>

@@ -12,11 +12,11 @@ const HomeBookStore = lazy(() => import("./pages/home/HomeBookStore"));
 // 사진게시판 , 소모임게시판, 이벤트 게시판
 const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
 const ShopGridFilter = lazy(() => import("./pages/shop/ShopGridFilter"));
-const ShopListTwoColumn = lazy(() => import("./pages/shop/ShopListTwoColumn"));
+const Event = lazy(() => import("./pages/event/Event"));
 
 
 // 사진게시판 , 소모임게시판, 이벤트 게시판 상세보기
-const Product = lazy(() => import("./pages/shop-product/Product"));
+const EventDetail  = lazy(() => import("./pages/event/EventDetail"));
 const ProductSticky = lazy(() => import("./pages/shop-product/ProductSticky"));
 const ProductSlider = lazy(() => import("./pages/shop-product/ProductSlider"));
 
@@ -145,8 +145,8 @@ const App = () => {
 
               {/* 이벤트 게시판 */}
               <Route
-                path={process.env.PUBLIC_URL + "/shop-list-two-column"}
-                element={<ShopListTwoColumn/>}
+                path={process.env.PUBLIC_URL + "/event"}
+                element={<Event/>}
               />
 
               {/* 자유 게시판, 익명 게시판 */}
@@ -169,8 +169,8 @@ const App = () => {
 
               {/* 이벤트 게시판 상세보기 */}
               <Route
-                path={process.env.PUBLIC_URL + "/product/:id"}
-                element={<Product />}
+                path={process.env.PUBLIC_URL + "/event/:eventSeq"}
+                element={<EventDetail   />}
               />
 
               {/* 소모임 게시판 상세보기 */}
