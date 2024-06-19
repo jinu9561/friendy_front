@@ -2,6 +2,7 @@ import { Suspense, createContext, lazy, useEffect, useState } from "react";
 import ScrollToTop from "./helpers/scroll-top";
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import axios from "axios";
+import QnaButton from "./components/qna-button/QnaButton";
 
 export const LogingedContext = createContext();
 
@@ -112,6 +113,7 @@ const App = () => {
   return (
     <LogingedContext.Provider value={ {isLoggedIn:isLoggedIn , onLoggedChange:handleLoggedChange } }>
       <Router>
+        <QnaButton />
         <ScrollToTop> {/* url이 변동이 있을때 페이지를 맨위로 스크롤 하는 기능 */}
           <Suspense
             fallback={
