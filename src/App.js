@@ -50,70 +50,84 @@ const JellyTransctiont = lazy(() => import("./pages/other/JellyTransction"));
 
 const NotFound = lazy(() => import("./pages/other/NotFound"));
 
+// 관리자 전용
+
+// 관리자 로그인
+const AdminLogin = lazy(()=> import('./admin/pages/other/AdminLogin'));
+// 관리자 회원 조회
+const AdminUser = lazy(()=> import('./admin/pages/users/AdminUser'));
+
 const App = () => {
   //컴포넌트가 mount or update 될때 로그인 여부에 따른 상태값 변경
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    localStorage.getItem("userSeq") != null
-      ? setIsLoggedIn(true)
-      : setIsLoggedIn(false);
-    console.log("isLoggeedIn = ", isLoggedIn);
-  });
+    const [isAdminIn, setIsAdminIn] = useState(false); 
+    
+    useEffect(()=>{ 
+      localStorage.getItem("userSeq")!=null ? setIsLoggedIn(true) : setIsLoggedIn(false); 
+      console.log("isLoggeedIn = ", isLoggedIn)
 
-  const handleLoggedChange = (isLoggedIn) => {
-    setIsLoggedIn(isLoggedIn);
-  };
-  useEffect(() => {
-    // Axios 인터셉터 설정
-    const interceptor = axios.interceptors.response.use(
-      (response) => response,
-      async (error) => {
-        if (error.response && error.response.status === 401) {
-          // 토큰 만료 시 로그아웃 처리
-          setIsLoggedIn(false);
-          let formData = new FormData(); //폼전송으로 보내기 위한 작업
-          formData.append("userId", localStorage.getItem("userId"));
+      sessionStorage.getItem("userId") !=null ? setIsAdminIn(true) : setIsAdminIn(false); 
+      console.log("isAdminIn = ", isAdminIn)
+    }); 
 
-          try {
-            // 로그아웃 요청 전송
-            await axios({
-              method: "POST",
-              url: "http://localhost:9000/logout",
-              data: formData,
-            });
+    const handleLoggedChange = (isLoggedIn)=>{ 
+      setIsLoggedIn(isLoggedIn);
+     }
+     const handleAdminInChange = (isAdminIn)=>{ 
+      setIsAdminIn(isAdminIn);
+     }
 
-            // 로컬 스토리지 데이터 삭제
-            localStorage.removeItem("userId");
-            localStorage.removeItem("country");
-            localStorage.removeItem("gender");
-            localStorage.removeItem("userName");
-            localStorage.removeItem("userSeq");
-            localStorage.removeItem("nickName");
-            localStorage.removeItem("userJelly");
-            localStorage.removeItem("Authorization");
-
-            // 로그인 페이지로 리다이렉트
-            window.location.href = "http://localhost:3000/login-register";
-          } catch (err) {
-            console.log(err);
-            alert(err.response.data.title);
+     useEffect(() => {
+      // Axios 인터셉터 설정
+      const interceptor = axios.interceptors.response.use(
+        response => response,
+        async (error) => {
+          if (error.response && error.response.status === 401) {
+            // 토큰 만료 시 로그아웃 처리
+            setIsLoggedIn(false);
+            let formData = new FormData(); //폼전송으로 보내기 위한 작업 
+            formData.append("userId", localStorage.getItem("userId")); 
+            
+            try {
+              // 로그아웃 요청 전송
+              await axios({ 
+                method: "POST", 
+                url: "http://localhost:9000/logout",
+                data: formData
+              });
+  
+              // 로컬 스토리지 데이터 삭제
+              localStorage.removeItem("userId"); 
+              localStorage.removeItem("country"); 
+              localStorage.removeItem("gender"); 
+              localStorage.removeItem("userName");
+              localStorage.removeItem("userSeq"); 
+              localStorage.removeItem("nickName"); 
+              localStorage.removeItem("userJelly"); 
+              localStorage.removeItem("Authorization");
+  
+              // 로그인 페이지로 리다이렉트
+              window.location.href = 'http://localhost:3000/login-register';
+            } catch (err) {
+              console.log(err);
+              alert(err.response.data.title);
+            }
           }
+          return Promise.reject(error);
         }
-        return Promise.reject(error);
-      }
-    );
+      );
+  
+      // 컴포넌트 언마운트 시 인터셉터 제거
+      return () => {
+        axios.interceptors.response.eject(interceptor);
+      };
+    }, []);
 
-    // 컴포넌트 언마운트 시 인터셉터 제거
-    return () => {
-      axios.interceptors.response.eject(interceptor);
-    };
-  }, [navigator]);
 
   return (
-    <LogingedContext.Provider
-      value={{ isLoggedIn: isLoggedIn, onLoggedChange: handleLoggedChange }}
-    >
+    <LogingedContext.Provider value={ {isLoggedIn:isLoggedIn , onLoggedChange:handleLoggedChange , isAdminIn:isAdminIn, onAdminInChange:handleAdminInChange } }>
+
       <Router>
         <QnaButton />
         <ScrollToTop>
@@ -239,7 +253,22 @@ const App = () => {
                 element={<JellyTransctiont />}
               />
 
-              <Route path="*" element={<NotFound />} />
+             {/* 관리자 전용*/}
+
+
+             {/* 관리자 로그인*/}
+             <Route
+                path={process.env.PUBLIC_URL + "/adminLogin"}
+                element={<AdminLogin/>}
+              />
+               {/* 관리자 유저 조회*/}
+               <Route
+                path={process.env.PUBLIC_URL + "/adminUser"}
+                element={<AdminUser/>}
+              />
+
+
+              <Route path="*" element={<NotFound/>} />
             </Routes>
           </Suspense>
         </ScrollToTop>
