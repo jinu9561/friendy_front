@@ -35,7 +35,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
             </Link>
           </li>
           <li>
-            <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+            <Link to={process.env.PUBLIC_URL + "/MeetUpBoard"}>
               {t("소모임 게시판")}
             </Link>
           </li>
