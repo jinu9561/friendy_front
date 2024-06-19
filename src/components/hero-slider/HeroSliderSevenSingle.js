@@ -17,7 +17,7 @@ const HeroSliderSevenSingle = ({ data }) => {
         />
         <div className="slider-btn-9 btn-hover">
           <Link className="animated" to={data.url}>
-            SHOP NOW
+            바로 가기
           </Link>
         </div>
       </div>

@@ -6,9 +6,10 @@ import { getSortedProducts } from "../../helpers/product";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import ShopTopbarFilter from "../../wrappers/product/ShopTopbarFilter";
+import EventTopbarFilter from "../../wrappers/event/EventTopbarFilter";
 import ShopProducts from "../../wrappers/product/ShopProducts";
 import EventList from "./EventList";
+import EventDeadLine from "./EventDeadLine";
 
 const Event = ({ location }) => {
   const [layout, setLayout] = useState("list two-column");
@@ -21,6 +22,7 @@ const Event = ({ location }) => {
   const [currentData, setCurrentData] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([]);
   const { products } = useSelector((state) => state.product);
+  const [selectedFilter, setSelectedFilter] = useState("default");
 
   const pageLimit = 16;
   let { pathname } = useLocation();
@@ -37,6 +39,10 @@ const Event = ({ location }) => {
   const getFilterSortParams = (sortType, sortValue) => {
     setFilterSortType(sortType);
     setFilterSortValue(sortValue);
+  };
+
+  const handleFilterChange = (value) => {
+    setSelectedFilter(value);
   };
 
   useEffect(() => {
@@ -71,8 +77,10 @@ const Event = ({ location }) => {
           <div className="container-fluid">
             <div className="row">
               <div className="col-lg-12">
+                
                 {/* 상단 목록 보기 */}
-                <ShopTopbarFilter
+                <EventTopbarFilter
+                  onFilterChange={handleFilterChange}
                   getLayout={getLayout}
                   getFilterSortParams={getFilterSortParams}
                   productCount={products.length}
@@ -82,7 +90,11 @@ const Event = ({ location }) => {
                 />
 
                 {/* 이벤트 리스트 */}
-                <EventList layout={layout} products={currentData} />
+                {selectedFilter === "default" ? (
+                  <EventList />
+                ) : (
+                  <EventDeadLine />
+                )}
 
               </div>
             </div>

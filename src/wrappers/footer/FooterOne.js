@@ -16,7 +16,8 @@ const FooterOne = ({
   sideMenu
 }) => {
   return (
-    <footer className={clsx("footer-area", backgroundColorClass, spaceTopClass, spaceBottomClass, extraFooterClass, spaceLeftClass, spaceRightClass )}>
+    <footer className={clsx("footer-area", backgroundColorClass, spaceTopClass, spaceBottomClass, extraFooterClass, spaceLeftClass, spaceRightClass )}
+    style={{backgroundColor : '#ffb3b3', opacity: 0.8}}>
       <div className={`${containerClass ? containerClass : "container"}`}>
         <div className="row">
           <div
