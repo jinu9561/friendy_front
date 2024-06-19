@@ -2,10 +2,15 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
+import { LogingedContext } from "../../App";
+import { useContext } from "react";
 
 const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
   const { t } = useTranslation();
 
+
+  let logingedCon =useContext(LogingedContext);
+  
   return (
     <div
       className={clsx(
@@ -15,8 +20,11 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
       )}
     >
       <nav>
-        <ul>
-          <li>
+      <ul>
+        {!logingedCon.isAdminIn ? (
+          // 사용자 내비게이션
+          <>
+             <li>
             <Link to={process.env.PUBLIC_URL + "/"}>{t("Home")}</Link>
           </li>
           <li>
@@ -44,7 +52,17 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
               {t("이벤트 게시판")}
             </Link>
           </li>
-        </ul>
+          </>
+        ) : (
+          // 관리자 내비게이션
+          <>
+            <li>
+              <Link to={process.env.PUBLIC_URL + "/adminUser"}>회원 관리</Link>
+            </li>
+           
+          </>
+        )}
+      </ul>
       </nav>
     </div>
   );
