@@ -22,7 +22,7 @@ const PhotoBoard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:9000/photo-boards/")
+      .get("http://localhost:9000/photo-board/")
       .then((response) => {
         setPhotos(response.data);
       })

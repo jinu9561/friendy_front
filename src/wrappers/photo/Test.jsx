@@ -16,7 +16,7 @@ const Test = ({ photo, spaceBottomClass }) => {
         <div className="product-img">
           <img
             className="default-img"
-            src={photo.photoImgSrc}
+            src={photo.photoMainImgSrc}
             alt={photo.photoBoardTitle}
             onClick={() => setModalShow(true)}
           />
@@ -32,7 +32,7 @@ const Test = ({ photo, spaceBottomClass }) => {
             </span>
             <p>{photo.photoBoardLike}</p>
             <p>{photo.interestSeq}</p>
-            <p>{photo.photoImgSrc}</p>
+            <p>{photo.photoMainImgSrc}</p>
           </div>
         </div>
       </div>
