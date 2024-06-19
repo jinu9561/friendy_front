@@ -8,37 +8,50 @@ import { useContext } from "react";
 const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
   const { t } = useTranslation();
 
+
   let logingedCon =useContext(LogingedContext);
   
   return (
     <div
-      className={clsx(sidebarMenu
+      className={clsx(
+        sidebarMenu
           ? "sidebar-menu"
-          : `main-menu ${menuWhiteClass ? menuWhiteClass : ""}`)}
+          : `main-menu ${menuWhiteClass ? menuWhiteClass : ""}`
+      )}
     >
       <nav>
       <ul>
         {!logingedCon.isAdminIn ? (
           // 사용자 내비게이션
           <>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/"}>Home</Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/blog-no-sidebar"}>자유 게시판</Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/blog-no-sidebar"}>익명 게시판</Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/shop-grid-filter"}>사진 게시판</Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>소모임 게시판</Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/shop-list-two-column"}>이벤트 게시판</Link>
-            </li>
+             <li>
+            <Link to={process.env.PUBLIC_URL + "/"}>{t("Home")}</Link>
+          </li>
+          <li>
+            <Link to={process.env.PUBLIC_URL + "/blog-no-sidebar"}>
+              {t("자유 게시판")}
+            </Link>
+          </li>
+          <li>
+            <Link to={process.env.PUBLIC_URL + "/blog-no-sidebar"}>
+              {t("익명 게시판")}
+            </Link>
+          </li>
+          <li>
+            <Link to={process.env.PUBLIC_URL + "/photo-board"}>
+              {t("사진 게시판")}
+            </Link>
+          </li>
+          <li>
+            <Link to={process.env.PUBLIC_URL + "/MeetUpBoard"}>
+              {t("소모임 게시판")}
+            </Link>
+          </li>
+          <li>
+            <Link to={process.env.PUBLIC_URL + "/event"}>
+              {t("이벤트 게시판")}
+            </Link>
+          </li>
           </>
         ) : (
           // 관리자 내비게이션

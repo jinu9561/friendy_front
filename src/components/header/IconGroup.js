@@ -24,6 +24,10 @@ const IconGroup = ({ iconWhiteClass }) => {
     userSeq : ""
   });
 
+  const [friendList, setFriendList] = useState([]); // 친구
+  const [showFriendList, setShowFriendList] = useState(false); // 친구
+  const [receiverId, setReceiverId] = useState(''); // 친구 요청 ID 상태 추가
+  const [message, setMessage] = useState(''); // 메시지 상태 추가
 
   useEffect(() => {
     const storedUserId = localStorage.getItem('userId');
@@ -46,6 +50,46 @@ const IconGroup = ({ iconWhiteClass }) => {
 
 
   }, []);
+
+  const toggleFriendListHandler  = () => { // 친구목록 불러오기
+    setShowFriendList(!showFriendList);
+
+    if (!showFriendList) {
+      axios.get("http://localhost:9000/friend/list")
+        .then(res => {
+          setFriendList(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+          alert("친구 목록이 없습니다.");
+        });
+    }
+  };
+
+  const requestFriend = () => { // 친구요청
+    axios({
+      url: "http://localhost:9000/friend/request",
+      method: "post",
+      headers: {
+        Authorization: localStorage.getItem("Authorization"),
+      },
+      params: {
+        receiverId: receiverId, // receiverId를 파라미터로 전송
+      },
+    })
+    .then((res) => {
+      setMessage('친구 요청이 성공적으로 전송되었습니다.');
+    })
+    .catch((err) => {
+      console.log(err);
+      setMessage('친구 요청에 실패했습니다.');
+    });
+  }
+
+  const handleFriendRequestSubmit = (event) => {
+    event.preventDefault();
+    requestFriend();
+  }
   
   const logoutCheck = (e)=>{ 
       e.preventDefault();
@@ -134,6 +178,8 @@ const IconGroup = ({ iconWhiteClass }) => {
     );
     offcanvasMobileMenu.classList.add("active");
   };
+
+
   const { compareItems } = useSelector((state) => state.compare);
   const { wishlistItems } = useSelector((state) => state.wishlist);
   const { cartItems } = useSelector((state) => state.cart);
@@ -192,12 +238,26 @@ const IconGroup = ({ iconWhiteClass }) => {
                 {logingedCon.isLoggedIn && (
                   <>
                     <Link to={process.env.PUBLIC_URL + "/my-profile"}>프로필</Link>
+                    <Link to="#" onClick={toggleFriendListHandler }>친구 목록</Link>
                     <Link to={process.env.PUBLIC_URL + "/smsVerification"}>본인 인증</Link>
                     <Link to={process.env.PUBLIC_URL + "/jellyTransction"}>젤리 구매</Link>
                     <Link to="#" onClick={resign}>회원 탈퇴</Link>
                   </>
                 )}
               </li>
+                {/* 친구요청 기능확인용 임시(채팅 완성되면 거기에 쓸거) */}
+            <li>
+              <input
+                type="text"
+                placeholder="친구 ID 입력"
+                value={receiverId}
+                onChange={(e) => setReceiverId(e.target.value)}
+              />
+              <button onClick={handleFriendRequestSubmit} style={{fontSize:"15px"}}>친구요청</button>
+            </li>
+            <li>
+              {message && <p>{message}</p>}
+            </li>
             </>
           )}
         </ul>
@@ -246,6 +306,22 @@ const IconGroup = ({ iconWhiteClass }) => {
           <i className="pe-7s-menu" />
         </button>
       </div>
+
+      {showFriendList && ( // 친구목록
+        <div className="offcanvas offcanvas-end show" tabIndex="-1" style={{ visibility: "visible" }}>
+          <div className="offcanvas-header">
+            <h5 className="offcanvas-title">친구 목록</h5>
+            <button type="button" className="btn-close text-reset" onClick={toggleFriendListHandler}></button>
+          </div>
+          <div className="offcanvas-body">
+            <ul>
+              {friendList.map(friend => (
+                <li key={friend.userSeq}>{friend.userName}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
