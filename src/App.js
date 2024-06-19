@@ -47,19 +47,35 @@ const JellyTransctiont = lazy(() => import("./pages/other/JellyTransction"));
 
 const NotFound = lazy(() => import("./pages/other/NotFound"));
 
+// 관리자 전용
+
+// 관리자 로그인
+const AdminLogin = lazy(()=> import('./admin/pages/other/AdminLogin'));
+// 관리자 회원 조회
+const AdminUser = lazy(()=> import('./admin/pages/users/AdminUser'));
+
 const App = () => {
 
     //컴포넌트가 mount or update 될때 로그인 여부에 따른 상태값 변경 
     const [isLoggedIn, setIsLoggedIn] = useState(false); 
+
+    const [isAdminIn, setIsAdminIn] = useState(false); 
     
     useEffect(()=>{ 
       localStorage.getItem("userSeq")!=null ? setIsLoggedIn(true) : setIsLoggedIn(false); 
       console.log("isLoggeedIn = ", isLoggedIn)
+
+      sessionStorage.getItem("userId") !=null ? setIsAdminIn(true) : setIsAdminIn(false); 
+      console.log("isAdminIn = ", isAdminIn)
     }); 
 
     const handleLoggedChange = (isLoggedIn)=>{ 
       setIsLoggedIn(isLoggedIn);
      }
+     const handleAdminInChange = (isAdminIn)=>{ 
+      setIsAdminIn(isAdminIn);
+     }
+
      useEffect(() => {
       // Axios 인터셉터 설정
       const interceptor = axios.interceptors.response.use(
@@ -104,13 +120,13 @@ const App = () => {
       return () => {
         axios.interceptors.response.eject(interceptor);
       };
-    }, [navigator]);
+    }, []);
 
      
      
 
   return (
-    <LogingedContext.Provider value={ {isLoggedIn:isLoggedIn , onLoggedChange:handleLoggedChange } }>
+    <LogingedContext.Provider value={ {isLoggedIn:isLoggedIn , onLoggedChange:handleLoggedChange , isAdminIn:isAdminIn, onAdminInChange:handleAdminInChange } }>
       <Router>
         <ScrollToTop> {/* url이 변동이 있을때 페이지를 맨위로 스크롤 하는 기능 */}
           <Suspense
@@ -228,6 +244,20 @@ const App = () => {
                 element={<JellyTransctiont/>}
               />
              
+
+             {/* 관리자 전용*/}
+
+
+             {/* 관리자 로그인*/}
+             <Route
+                path={process.env.PUBLIC_URL + "/adminLogin"}
+                element={<AdminLogin/>}
+              />
+               {/* 관리자 유저 조회*/}
+               <Route
+                path={process.env.PUBLIC_URL + "/adminUser"}
+                element={<AdminUser/>}
+              />
 
 
               <Route path="*" element={<NotFound/>} />
