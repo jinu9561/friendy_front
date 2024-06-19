@@ -5,19 +5,19 @@ import clsx from "clsx";
 
 const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
   const { t } = useTranslation();
-  
+
   return (
     <div
-      className={clsx(sidebarMenu
+      className={clsx(
+        sidebarMenu
           ? "sidebar-menu"
-          : `main-menu ${menuWhiteClass ? menuWhiteClass : ""}`)}
+          : `main-menu ${menuWhiteClass ? menuWhiteClass : ""}`
+      )}
     >
       <nav>
         <ul>
           <li>
-            <Link to={process.env.PUBLIC_URL + "/"}>
-              {t("Home")}
-            </Link>
+            <Link to={process.env.PUBLIC_URL + "/"}>{t("Home")}</Link>
           </li>
           <li>
             <Link to={process.env.PUBLIC_URL + "/blog-no-sidebar"}>
@@ -30,7 +30,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
             </Link>
           </li>
           <li>
-            <Link to={process.env.PUBLIC_URL + "/shop-grid-filter"}>
+            <Link to={process.env.PUBLIC_URL + "/photo-board"}>
               {t("사진 게시판")}
             </Link>
           </li>

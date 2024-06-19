@@ -38,13 +38,20 @@ const ShopGridFilter = () => {
         setFilterSortValue(sortValue);
     }
 
+    /**
+     * useEffect는 배열 내의 상태나 props가 변경될 때마다 실행.
+     * 여기서 주어진 배열에는 offset, products, sortType, sortValue, filterSortType, filterSortValue, photos가 포함되어 있으므로,
+     * 이들 중 하나라도 변경되면 useEffect 내의 함수가 실행된다.
+     */
+
     useEffect(() => {
-        let sortedProducts = getSortedProducts(products, sortType, sortValue);
-        const filterSortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
+        let sortedProducts = getSortedProducts(products, sortType, sortValue);  //products : 정렬대상, sortType : 정렬 기준, sortValue : 정렬 방법
+        const filterSortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);    //필터에 따라 다시 한 번 정렬.
         sortedProducts = filterSortedProducts;
-        setSortedProducts(sortedProducts);
-        setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
-    }, [offset, products, sortType, sortValue, filterSortType, filterSortValue ]);
+        setSortedProducts(sortedProducts); //sortedProducts : 최종 정렬된 상품 목록
+        setCurrentData(sortedProducts.slice(offset, offset + pageLimit));   //페이지네이션을 위해 sortedProducts 목록에서 현재 페이지에 해당하는 데이터만 잘라냄. 
+        //예를 들어, offset이 0이고 pageLimit이 15라면, 첫 15개의 제품을 선택. 잘라낸 데이터는 currentData 상태에 저장
+    }, [offset, products, sortType, sortValue, filterSortType, filterSortValue ]);//이 배열 내의 값들이 변경될 때마다 useEffect가 재실행. offset이 변경되면, 페이지네이션 범위가 변경되므로, 현재 페이지에 해당하는 데이터를 다시 설정.
 
     return (
         <Fragment>
