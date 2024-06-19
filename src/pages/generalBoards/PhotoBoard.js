@@ -18,7 +18,7 @@ const PhotoBoard = () => {
   const [currentData, setCurrentData] = useState([]); // 현재 데이터 상태 설정
   const [photos, setPhotos] = useState([]); // 사진 배열 상태 설정
 
-  const pageLimit = 9; // 페이지당 항목 수 설정
+  const pageLimit = 6; // 페이지당 항목 수 설정
   let { pathname } = useLocation(); // 현재 경로 가져오기
 
   useEffect(() => {
