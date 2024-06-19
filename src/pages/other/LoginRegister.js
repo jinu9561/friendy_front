@@ -30,7 +30,6 @@ const LoginRegister = () => {
     country: "",
     gender: "",
     interestCategory: []
-    
   });
 
   const [interestOptions, setInterestOptions] = useState([]);
@@ -44,8 +43,16 @@ const LoginRegister = () => {
     { value: "FEMALE", label: "Female" }
   ]);
 
-  const [idText,setIdText] = useState("");
+
   const [isCheck,setIsCheck] = useState(false);
+  const [isEmailCheck,setIsEmailCheck] = useState(false);
+  const [isPhoneCheck,setIsPhoneCheck] = useState(false);
+  const [isNickNameCheck,setIsNickNameCheck] = useState(false);
+
+  const [idText,setIdText] = useState("");
+  const [phoneText,setPhoneText] = useState("");
+  const [emailText,setEmailText] = useState("");
+  const [nickNameText,setNickNameText] = useState("");
 
   const [loginData, setLoginData] = useState({
     userId:"",
@@ -165,7 +172,7 @@ const LoginRegister = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(name)
+  
     if( name==="userId" && value!==""){ 
       axios({ 
           method:"POST", 
@@ -177,14 +184,57 @@ const LoginRegister = () => {
         console.log(res.data)
       })
       .catch((err)=>{ //실패 
-          let errMessage = err.response.data.type +"\n"; 
-          errMessage += err.response.data.title +"\n"; 
-          errMessage += err.response.data.detail +"\n";
-          errMessage += err.response.data.status +"\n"; 
-          errMessage += err.response.data.instance +"\n"; 
-          errMessage += err.response.data.timestamp; 
-          alert(errMessage); }); 
+          console.log(err); 
+        }); 
       }
+
+      //이메일 체크
+      if( name==="email" && value!==""){ 
+        axios({ 
+            method:"POST", 
+            url : "http://localhost:9000/users/email/"+value,
+        }) 
+        .then((res)=>{ 
+          setIsEmailCheck(res.data)
+          res.data === false ? setEmailText("사용가능한 email입니다") : setEmailText("중복된 이메일입니다.");
+          console.log(res.data)
+        })
+        .catch((err)=>{ //실패 
+            console.log(err); 
+          }); 
+        }
+
+        //전화번호 체크
+        if( name==="phone" && value!==""){ 
+          axios({ 
+              method:"POST", 
+              url : "http://localhost:9000/users/phone/"+value,
+          }) 
+          .then((res)=>{ 
+            setIsPhoneCheck(res.data)
+            res.data === false ? setPhoneText("사용가능한 전화번호입니다") : setPhoneText("중복된 전화번호입니다");
+            console.log(res.data)
+          })
+          .catch((err)=>{ //실패 
+              console.log(err); 
+            }); 
+          }
+
+          // 닉네임 중복
+          if( name==="nickName" && value!==""){ 
+            axios({ 
+                method:"POST", 
+                url : "http://localhost:9000/users/nickName/"+value,
+            }) 
+            .then((res)=>{ 
+              setIsNickNameCheck(res.data)
+              res.data === false ? setNickNameText("사용가능한 닉네임입니다") : setNickNameText("중복된 닉네임입니다");
+              console.log(res.data)
+            })
+            .catch((err)=>{ //실패 
+                console.log(err); 
+              }); 
+            }
 
     setFormData({
       ...formData,
@@ -222,6 +272,14 @@ const LoginRegister = () => {
     errorMessage = "성별을 입력해주세요.";
   }else if (formData.interestList === "") {
     errorMessage = "관심사를 선택해주세요.";
+  }else if (isCheck) {
+    errorMessage = "중복된 아이디입니다.";
+  } else if (isEmailCheck) {
+    errorMessage = "중복된 이메일입니다.";
+  }else if (isPhoneCheck) {
+    errorMessage = "중복된 전화번호입니다.";
+  }else if (isNickNameCheck) {
+    errorMessage = "중복된 닉네임입니다.";
   }
    
    if (errorMessage !=="") {
@@ -340,6 +398,7 @@ const LoginRegister = () => {
                                 placeholder="이름"
                                 onChange={handleInputChange}
                               />
+                               {<span style={ isNickNameCheck ? {color:'red'} : {color:'blue'}}>{nickNameText}</span>}
                                 <input
                                 type="text"
                                 name="nickName"
@@ -358,12 +417,14 @@ const LoginRegister = () => {
                                 placeholder="주소"
                                 onChange={handleInputChange}
                               />
+                               {<span style={ isEmailCheck ? {color:'red'} : {color:'blue'}}>{emailText}</span>}
                               <input
                                 name="email"
                                 placeholder="이메일"
                                 type="email"
                                 onChange={handleInputChange}
                               />
+                               {<span style={ isPhoneCheck ? {color:'red'} : {color:'blue'}}>{phoneText}</span>}
                                <input
                                 type="text"
                                 name="phone"
