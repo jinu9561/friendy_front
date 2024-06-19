@@ -11,7 +11,7 @@ const HomeBookStore = lazy(() => import("./pages/home/HomeBookStore"));
 
 
 // 사진게시판 , 소모임게시판, 이벤트 게시판
-const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
+const MeetUpBoard = lazy(() => import("./pages/shop/MeetUpBoard"));
 const ShopGridFilter = lazy(() => import("./pages/shop/ShopGridFilter"));
 const Event = lazy(() => import("./pages/event/Event"));
 
@@ -135,8 +135,8 @@ const App = () => {
 
               {/* 소모임 게시판 */}
               <Route
-                path={process.env.PUBLIC_URL + "/shop-grid-standard"}
-                element={<ShopGridStandard/>}
+                  path={process.env.PUBLIC_URL + "/MeetUpBoard"}
+                  element={<MeetUpBoard/>}
               />
 
                {/* 사진 게시판 */}
