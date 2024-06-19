@@ -1,0 +1,10 @@
+.qna-button {
+    position: fixed;
+    top: 200px;
+    right: 10px;
+    width: 120px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    z-index: 1000; /* 다른 요소들보다 위에 표시되도록 z-index 설정 */
+}
