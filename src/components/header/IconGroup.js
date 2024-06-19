@@ -20,6 +20,8 @@ const IconGroup = ({ iconWhiteClass }) => {
 
   const [friendList, setFriendList] = useState([]); // 친구
   const [showFriendList, setShowFriendList] = useState(false); // 친구
+  const [receiverId, setReceiverId] = useState(''); // 친구 요청 ID 상태 추가
+  const [message, setMessage] = useState(''); // 메시지 상태 추가
 
   useEffect(() => {
     const storedUserId = localStorage.getItem('userId');
@@ -53,10 +55,35 @@ const IconGroup = ({ iconWhiteClass }) => {
         })
         .catch(err => {
           console.log(err);
-          alert("친구 목록을 불러오는 중 오류가 발생했습니다.");
+          alert("친구 목록이 없습니다.");
         });
     }
   };
+
+  const requestFriend = () => {
+    axios({
+      url: "http://localhost:9000/friend/request",
+      method: "post",
+      headers: {
+        Authorization: localStorage.getItem("Authorization"),
+      },
+      params: {
+        receiverId: receiverId, // receiverId를 파라미터로 전송
+      },
+    })
+    .then((res) => {
+      setMessage('친구 요청이 성공적으로 전송되었습니다.');
+    })
+    .catch((err) => {
+      console.log(err);
+      setMessage('친구 요청에 실패했습니다.');
+    });
+  }
+
+  const handleFriendRequestSubmit = (event) => {
+    event.preventDefault();
+    requestFriend();
+  }
   
   const logoutCheck = (e)=>{ 
       e.preventDefault();
@@ -213,6 +240,21 @@ const IconGroup = ({ iconWhiteClass }) => {
                 친구 목록
               </Link>}
             </li>
+
+            {/* 친구요청 기능확인용 임시(채팅 완성되면 거기에 쓸거) */}
+            <li>
+              <input
+                type="text"
+                placeholder="친구 ID 입력"
+                value={receiverId}
+                onChange={(e) => setReceiverId(e.target.value)}
+              />
+              <button onClick={handleFriendRequestSubmit} style={{fontSize:"15px"}}>친구요청</button>
+            </li>
+            <li>
+              {message && <p>{message}</p>}
+            </li>
+
           </ul>
         </div>
       </div>
