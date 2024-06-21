@@ -34,33 +34,40 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
           </li>
           <li>
             <Link to={process.env.PUBLIC_URL + "/blog-no-sidebar"}>
-              {t("익명 게시판")}
+              {("ANONYMOUS")}
             </Link>
           </li>
           <li>
             <Link to={process.env.PUBLIC_URL + "/photo-board"}>
-              {t("사진 게시판")}
+              {("PHOTO")}
             </Link>
           </li>
           <li>
             <Link to={process.env.PUBLIC_URL + "/MeetUpBoard"}>
-              {t("소모임 게시판")}
+              {("MEETUP")}
             </Link>
           </li>
           <li>
             <Link to={process.env.PUBLIC_URL + "/event"}>
-              {t("이벤트 게시판")}
+              {("EVENT")}
             </Link>
           </li>
           </>
         ) : (
           // 관리자 내비게이션
-          <>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/adminUser"}>회원 관리</Link>
-            </li>
-           
-          </>
+            <>
+                <li>
+                    <Link to={process.env.PUBLIC_URL + "/adminUser"}>회원 관리</Link>
+                </li>
+                <li>
+                    <Link to={process.env.PUBLIC_URL + "/adminPlace"}>Hot Place</Link>
+                </li>
+
+                <li>
+                    <Link to={process.env.PUBLIC_URL + "/adminEvent"}>ADMIN EVENT</Link>
+                </li>
+
+            </>
         )}
       </ul>
       </nav>
@@ -69,7 +76,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
 };
 
 NavMenu.propTypes = {
-  menuWhiteClass: PropTypes.string,
+    menuWhiteClass: PropTypes.string,
   sidebarMenu: PropTypes.bool,
 };
 

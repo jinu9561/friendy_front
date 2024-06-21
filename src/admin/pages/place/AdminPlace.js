@@ -7,11 +7,11 @@ import SEO from "../../../components/seo";
 import LayoutOne from '../../../layouts/LayoutOne';
 import Breadcrumb from '../../../wrappers/breadcrumb/Breadcrumb';
 import { LogingedContext } from "../../../App";
-import UserTopbarFilter from '../../wrappers/UserTopbarFilter';
-import UserProfiles from '../../wrappers/UserProfiles';
+import PlaceTopbarFilter from '../../wrappers/PlaceTopbarFilter';
 import axios from 'axios';
+import AdminPlacesList from "../../wrappers/AdminPlacesList";
 
-const AdminUser = () => {
+const AdminPlace = () => {
     const [layout, setLayout] = useState('grid three-column');
     const [sortType, setSortType] = useState('');
     const [sortValue, setSortValue] = useState('');
@@ -22,8 +22,11 @@ const AdminUser = () => {
     const [currentData, setCurrentData] = useState([]);
     const [sortedProducts, setSortedProducts] = useState([]);
     const { products } = useSelector((state) => state.product);
-    
-    const [profileDataList , setProfileDataList] = useState([]);
+
+    const currency = useSelector((state) => state.currency);
+    const [places,setPlaces] = useState([]);
+    const [status,setStatus] = useState(false);
+
 
 
     const pageLimit = 10;
@@ -47,38 +50,40 @@ const AdminUser = () => {
         setFilterSortValue(sortValue);
     }
 
-
-    //user profile 데이터 받아 오기
     useEffect(() => {
 
-        let url = "http://localhost:9000/admin/users/profile";
+        // let url = "http://localhost:9000/admin/users/profile";
+        //
+        // if (filterSortValue === 'regDate') {
+        //     url = "http://localhost:9000/admin/users/regDate";
+        // }else if(filterSortValue === 'update') {
+        //     url = "http://localhost:9000/admin/users/update";
+        // }else if(filterSortValue === 'lastLogin') {
+        //     url = "http://localhost:9000/admin/users/lastLogin";
+        // }else if(filterSortValue === 'userRate') {
+        //     url = "http://localhost:9000/admin/users/userRate";
+        // }
 
-        if (filterSortValue === 'regDate') {
-            url = "http://localhost:9000/admin/users/regDate";
-        }else if(filterSortValue === 'update') {
-            url = "http://localhost:9000/admin/users/update";
-        }else if(filterSortValue === 'lastLogin') {
-            url = "http://localhost:9000/admin/users/lastLogin";
-        }else if(filterSortValue === 'userRate') {
-            url = "http://localhost:9000/admin/users/userRate";
-        }
-
-        axios.get(url, {
-            headers: { Authorization: sessionStorage.getItem("Authorization") },
+        axios({
+            method:"GET",
+            url : "http://localhost:9000/admin/place/",
+            headers: {
+                "Content-Type": "application/json"
+            }
         })
-            .then((response) => {
-                setProfileDataList(response.data);
-                console.log("정렬된 데이터 : "+profileDataList);
-                console.log("filterSortValue : " + filterSortValue);
+            .then((res) => {
+                setPlaces(res.data);
             })
-            .catch((err) => {
-                if (err.response && err.response.data && err.response.data.title === undefined) {
-                    alert("로그아웃 후 다시 로그인해 주세요");
-                } else {
-                    alert(err.response.data.title);
-                }
+            .catch((err)=>{
+                console.log(err)
+                console.log(err.response.data.title);
             });
-    }, [filterSortValue]);
+
+    },[filterSortValue,status]);
+
+    const getStatus = (status)=>{
+        setStatus(status);
+    }
 
 
 
@@ -94,7 +99,7 @@ const AdminUser = () => {
                 <Breadcrumb 
                     pages={[
                         {label: "Home", path: homPath },
-                        {label: "프로필 조희", path: process.env.PUBLIC_URL + pathname }
+                        {label: "추천 장소 관리", path: process.env.PUBLIC_URL + pathname }
                     ]} 
                 />
 
@@ -103,15 +108,16 @@ const AdminUser = () => {
                         <div className="row">
                             <div className="col-lg-12">
                                 {/* 필터 종류 설정 */}
-                                <UserTopbarFilter getLayout={getLayout} getFilterSortParams={getFilterSortParams} productCount={profileDataList.length} sortedProductCount={currentData.length} products={products} getSortParams={getSortParams}/>
+                                <PlaceTopbarFilter getLayout={getLayout} getFilterSortParams={getFilterSortParams} productCount={places.length} sortedProductCount={currentData.length} places={places} getSortParams={getSortParams}/>
 
                                 {/* 현재 페이지에 데이터 뿌려주기*/}
-                                <UserProfiles layout={layout} profileDataList={profileDataList}/>
+                                <AdminPlacesList layout={layout} places={places} getStatus={getStatus} status={status} />
+
 
                                 {/* shop product pagination */}
                                 <div className="pro-pagination-style text-center mt-30">
                                     <Paginator
-                                        totalRecords={profileDataList.length}
+                                        totalRecords={places.length}
                                         pageLimit={pageLimit}
                                         pageNeighbours={2}
                                         setOffset={setOffset}
@@ -133,4 +139,4 @@ const AdminUser = () => {
 
 
 
-export default AdminUser;
+export default AdminPlace;

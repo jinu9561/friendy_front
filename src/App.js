@@ -3,6 +3,7 @@ import ScrollToTop from "./helpers/scroll-top";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import QnaButton from "./components/qna-button/QnaButton";
+import SaveForm from "./components/ui/wrappper/SaveForm";
 
 export const LogingedContext = createContext();
 
@@ -50,12 +51,18 @@ const JellyTransctiont = lazy(() => import("./pages/other/JellyTransction"));
 
 const NotFound = lazy(() => import("./pages/other/NotFound"));
 
+
 // 관리자 전용
 
 // 관리자 로그인
 const AdminLogin = lazy(()=> import('./admin/pages/other/AdminLogin'));
 // 관리자 회원 조회
 const AdminUser = lazy(()=> import('./admin/pages/users/AdminUser'));
+// 관리자 장소 추천
+const AdminPlace = lazy(()=> import('./admin/pages/place/AdminPlace'));
+
+// 관리자 이벤트 조회
+const AdminEvent = lazy(()=> import('./admin/pages/event/AdminEvent'));
 
 const App = () => {
   //컴포넌트가 mount or update 될때 로그인 여부에 따른 상태값 변경
@@ -266,9 +273,27 @@ const App = () => {
                 path={process.env.PUBLIC_URL + "/adminUser"}
                 element={<AdminUser/>}
               />
+              {/* 관리자 장소 추천*/}
+              <Route
+                  path={process.env.PUBLIC_URL + "/adminPlace"}
+                  element={<AdminPlace/>}
+              />
+
+              {/* 이벤트 게시판 */}
+              <Route
+                  path={process.env.PUBLIC_URL + "/adminEvent"}
+                  element={<AdminEvent />}
+              />
+
+                <Route
+                    path={process.env.PUBLIC_URL + "/SaveForm"}
+                    element={<SaveForm/>}
+                />
 
 
-              <Route path="*" element={<NotFound/>} />
+
+
+                <Route path="*" element={<NotFound/>} />
             </Routes>
           </Suspense>
         </ScrollToTop>

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const FooterCopyright = ({ footerLogo, spaceBottomClass, colorClass }) => {
   return (
     <div className={clsx("copyright", spaceBottomClass, colorClass)}>
-      <div className="footer-logo">
+      <div className="footer-logo" style={{ position: "relative", top: "30px", right: "20px" }}>
         <Link to={process.env.PUBLIC_URL + "/"}>
           <img alt="" src={process.env.PUBLIC_URL + footerLogo} />
         </Link>

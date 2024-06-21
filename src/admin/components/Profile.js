@@ -1,16 +1,10 @@
-import PropTypes from "prop-types";
 import { Fragment, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
-import { getDiscountPrice } from "../../helpers/product";
-import { addToCart } from "../../store/slices/cart-slice";
-import { addToWishlist } from "../../store/slices/wishlist-slice";
-import { addToCompare } from "../../store/slices/compare-slice";
-import ProductRating from "../../components/product/sub-components/ProductRating";
-import ProductModal from "../../components/product/ProductModal";
 import defaultProfileImage from '../../assets/img/prof/default.jpeg';
 import axios from "axios";
+import UserDetail from './UserDetail'
+import UserDetailIcon from '../../assets/img/admin/user-detail-icon.png';
 
 const Profile = ({
   profileData,
@@ -62,7 +56,6 @@ const Profile = ({
     <Fragment>
         <div className={clsx("product-wrap", spaceBottomClass)}>
           <div className="product-img">
-            <Link to={process.env.PUBLIC_URL + "/product/" + profileData.userSeq}>
               <img
                 className="default-img"
                 src={getImg(true,profileData.profileMainImgName)}
@@ -77,49 +70,34 @@ const Profile = ({
               ) : (
                 ""
               )}
-            </Link>
             <div className="product-action">
-             
+
               <div className="pro-same-action pro-quickview">
-                <button onClick={() => setModalShow(true)} title="Quick View">
-                  <i className="pe-7s-look" />
-                </button>
+                  <button onClick={() => setModalShow(true)} title="Quick View">
+                      <img
+                          className="default-img"
+                          src={UserDetailIcon}
+                          alt=""
+                      />
+                  </button>
               </div>
             </div>
           </div>
         </div>
-          {/* 이미지 밑에 내용*/}
-              <div className="shop-list-content">
-                <h3>
-                  <Link to={process.env.PUBLIC_URL + "/product/" + profileData.userSeq}>
-                    {profileData.userName}
-                  </Link>
-                </h3>         
-                {profileData.userRate && profileData.userRate > 0 ? (
-                  <div className="rating-review">
-                    <div className="product-list-rating">
-                      <ProductRating ratingValue={profileData.userRate} />
-                    </div>
-                  </div>
-                ) : (
-                  ""
-                )}
-            
-              </div>
+        {/* 이미지 밑에 내용*/}
+        <div className="shop-list-content">
+        <h3>{profileData.userName}</h3>
+        </div>
           
         
       {/* 프로필 상세보기 */}
-      {/* <ProductModal
+       <UserDetail
         show={modalShow}
         onHide={() => setModalShow(false)}
-        product={product}
+        profileData={profileData}
         currency={currency}
-        discountedPrice={discountedPrice}
-        finalProductPrice={finalProductPrice}
-        finalDiscountedPrice={finalDiscountedPrice}
-        wishlistItem={wishlistItem}
-        compareItem={compareItem}
-      /> */}
+        profileDetailList={profileDetailList}
+      />
     </Fragment>
   );
 };

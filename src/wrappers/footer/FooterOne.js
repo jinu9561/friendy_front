@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { Link } from "react-router-dom";
 import FooterCopyright from "../../components/footer/FooterCopyright";
 import FooterNewsletter from "../../components/footer/FooterNewsletter";
+import friendy_biglogo from "../../assets/img/friendy-logo/friendy_biglogo.png";
 
 
 const FooterOne = ({
@@ -24,11 +25,13 @@ const FooterOne = ({
             className={`${
               sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-4"
             }`}
+            style={{ position: "relative", top: "-140px"}}
           >
             {/* footer copyright */}
             <FooterCopyright
-              footerLogo="/assets/img/logo/logo.png"
+              footerLogo={friendy_biglogo}
               spaceBottomClass="mb-30"
+              style={{marginTop: "50px"}}
             />
           </div>
           <div
