@@ -1,0 +1,85 @@
+.user-profile-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+    display: flex;
+    align-items: flex-start;
+}
+
+.profile-image {
+    flex: 0 0 150px;
+    margin-right: 20px;
+}
+
+.profile-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+}
+
+.image-status {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.image-status h5 {
+    margin-bottom: 10px;
+}
+
+.profile-details {
+    flex: 1;
+}
+
+.profile-details h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.product-details-price {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.mb-3 label {
+    font-weight: bold;
+}
+
+.mb-3 input.form-control {
+    margin-top: 5px;
+}
+
+.pro-details-rating-wrap {
+    margin-top: 20px;
+}
+
+.pro-details-rating {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.slider {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.btn-hover {
+    text-align: center;
+}
+
+.btn-hover .btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.btn-secondary, .btn-success, .btn-danger {
+    margin: 5px 0;
+}
