@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const Notification = () => {
     const [notifications, setNotifications] = useState([]);
-    const [showNotifications, setShowNotifications] = useState(false);
+    const [showNotifications, setShowNotifications] = useState(false); // 알림 창 가시성 상태 추가
+    const [friendRequests, setFriendRequests] = useState([]); // 친구 요청 상태 추가
 
     useEffect(() => {
         const eventSource = new EventSource("http://localhost:9000/notification/stream");
@@ -25,6 +27,66 @@ const Notification = () => {
     // 알림 창 가시성 토글 함수
     const toggleNotifications = () => {
         setShowNotifications(!showNotifications);
+
+        // showNotifications가 false이면 친구 요청을 불러옴
+        if (!showNotifications) {
+            axios({
+                url: "http://localhost:9000/friend/request/list",
+                method: "get",
+                headers: {
+                    Authorization: localStorage.getItem("Authorization"),
+                },
+            })
+                .then(res => {
+                    setFriendRequests(res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                    alert("친구 요청 목록을 불러오지 못했습니다.");
+                });
+        }
+    };
+
+    const handleAcceptRequest = (requestId) => {
+        axios({
+            url: `http://localhost:9000/friend/request/accept`,
+            method: "post",
+            headers: {
+                Authorization: localStorage.getItem("Authorization"),
+            },
+            params: {
+                friendRequestSeq: requestId
+            },
+        })
+            .then(res => {
+                setFriendRequests(friendRequests.filter(request => request.friendRequestSeq !== requestId));
+                alert("친구 요청을 수락했습니다.");
+            })
+            .catch(err => {
+                console.log(err);
+                alert("친구 요청 수락에 실패했습니다.");
+            });
+    };
+
+    const handleRejectRequest = (requestId) => {
+        axios({
+            url: `http://localhost:9000/friend/request/reject`,
+            method: "post",
+            headers: {
+                Authorization: localStorage.getItem("Authorization"),
+            },
+            params: {
+                friendRequestSeq: requestId
+            },
+        })
+            .then(res => {
+                setFriendRequests(friendRequests.filter(request => request.friendRequestSeq !== requestId));
+                alert("친구 요청을 거절했습니다.");
+            })
+            .catch(err => {
+                console.log(err);
+                alert("친구 요청 거절에 실패했습니다.");
+            });
     };
 
     return (
@@ -34,7 +96,7 @@ const Notification = () => {
                     background: 'none',
                     border: 'none',
                     cursor: 'pointer',
-                    fontSize: '23px', // 버튼 크기 증가
+                    fontSize: '20px', // 버튼 크기 증가
                 }}
                 onClick={toggleNotifications}
             >
@@ -49,19 +111,23 @@ const Notification = () => {
                     border: '1px solid #ccc',
                     padding: '10px',
                     boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
-                    width: '300px',
+                    width: '400px',
                     maxHeight: '400px',
                     overflowY: 'auto',
                     zIndex: '1000'
                 }}>
                     <h4>알림</h4>
                     <ul>
-                        {notifications.length > 0 ? (
-                            notifications.map((notification, index) => (
-                                <li key={index}>{notification}</li>
+                        {friendRequests.length > 0 ? (
+                            friendRequests.map((request, index) => (
+                                <li key={index}>
+                                    {request.senderName}님이 친구 요청을 보냈습니다.
+                                    <button onClick={() => handleAcceptRequest(request.friendRequestSeq)} style={{ marginLeft: "15px" }}>수락</button>
+                                    <button onClick={() => handleRejectRequest(request.friendRequestSeq)} style={{ marginLeft: "15px" }}>거절</button>
+                                </li>
                             ))
                         ) : (
-                            <li>새로운 알림이 없습니다.</li>
+                            <li>친구 요청이 없습니다.</li>
                         )}
                     </ul>
                 </div>
