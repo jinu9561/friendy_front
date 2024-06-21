@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "image": "/assets/img/main-banner/pictureBanner.png",
+    "title": "Picture",
+    "subtitle": "",
+    "price": "",
+    "link": "/photo-board",
+    "titleColor": "#ffffff"
+  },
+  {
+    "id": 2,
+    "image": "/assets/img/main-banner/meetupBanner.png",
+    "title": "MeetUp",
+    "subtitle": "",
+    "price": "",
+    "link": "/MeetUpBoard",
+    "titleColor": "#ffffff"
+  }
+]

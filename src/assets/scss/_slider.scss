@@ -1447,10 +1447,10 @@
 
     text-transform: uppercase;
 
-    color: #010101;
-    border: 1px solid #333;
+    color: #ffc9c9;
+    border: 2px solid #f72a57;
     @media #{$md-layout} {
-      font-size: 15px;
+      font-size: 30px;
 
       padding: 14px 30px 14px;
     }
@@ -1460,7 +1460,7 @@
       padding: 15px 30px 15px;
     }
     &:hover {
-      color: #fff;
+      color: #000000;
       border: 1px solid $theme-color;
     }
   }

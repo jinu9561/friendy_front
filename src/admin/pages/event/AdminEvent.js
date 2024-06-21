@@ -2,17 +2,18 @@ import React, { Fragment, useState, useEffect } from "react";
 import Paginator from "react-hooks-paginator"; 
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { getSortedProducts } from "../../helpers/product";
-import SEO from "../../components/seo";
-import LayoutOne from "../../layouts/LayoutOne";
-import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import EventTopbarFilter from "../../wrappers/event/EventTopbarFilter";
-import ShopProducts from "../../wrappers/product/ShopProducts";
-import EventList from "./EventList";
-import EventDeadLine from "./EventDeadLine";
-import '../../assets/css/Event.css';
+import { getSortedProducts } from "../../../helpers/product";
+import SEO from "../../../components/seo";
+import LayoutOne from "../../../layouts/LayoutOne";
+import Breadcrumb from "../../../wrappers/breadcrumb/Breadcrumb";
+import EventTopbarFilter from "../../../wrappers/event/EventTopbarFilter";
+import EventList from "../../../pages/event/EventList";
+import EventDeadLine from "../../../pages/event/EventDeadLine";
+import '../../../assets/css/Event.css';
 
-const Event = ({ location }) => {
+
+
+const AdminEvent = ({ location }) => {
   const [layout, setLayout] = useState("list two-column");
   const [sortType, setSortType] = useState("");
   const [sortValue, setSortValue] = useState("");
@@ -61,7 +62,7 @@ const Event = ({ location }) => {
   return (
     <Fragment>
       <SEO
-        titleTemplate="이벤트 페이지"
+        titleTemplate="관리자이벤트 페이지"
         description="Shop page of flone react minimalist eCommerce template."
       />
 
@@ -70,7 +71,7 @@ const Event = ({ location }) => {
         <Breadcrumb 
           pages={[
             {label: "Home", path: process.env.PUBLIC_URL + "/" },
-            {label: "Event", path: process.env.PUBLIC_URL + pathname }
+            {label: "AdminEvent", path: process.env.PUBLIC_URL + pathname }
           ]} 
         />
 
@@ -108,4 +109,4 @@ const Event = ({ location }) => {
   );
 };
 
-export default Event;
+export default AdminEvent;

@@ -1,6 +1,8 @@
 
 import BannerEight from "../banner/BannerEight";
 import HeroSliderSeven from "../hero-slider/HeroSliderSeven";
+import EventBanner from "../event/EventBanner";
+import MainPictureBanner from "../main-banner/MainPictureBanner";
 
 const SliderBanner = () => {
   return (
@@ -8,11 +10,11 @@ const SliderBanner = () => {
       <div className="container">
         <div className="row flex-row-reverse">
           <div className="col-lg-8 col-md-12">
-            {/* hero slider */}
-            <HeroSliderSeven />
+            {/* 이벤트 배너 */}
+            <EventBanner />
           </div>
           {/* banner */}
-          <BannerEight />
+          <MainPictureBanner />
         </div>
       </div>
     </div>

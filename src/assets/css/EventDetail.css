@@ -1,0 +1,9 @@
+.event-image-detail {
+    width: 50%;
+    height: auto;
+    border-radius: 25px;
+    margin-top: 25px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
