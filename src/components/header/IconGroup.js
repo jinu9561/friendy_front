@@ -8,6 +8,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import adminIcon from '../../assets/img/admin/admin-icon.png';
 import './../../assets/css/icon.css';
+import Notification from "../notification/Notification";
 
 
 
@@ -28,7 +29,6 @@ const IconGroup = ({ iconWhiteClass }) => {
   const [showFriendList, setShowFriendList] = useState(false); // 친구
   const [receiverId, setReceiverId] = useState(''); // 친구 요청 ID 상태 추가
   const [message, setMessage] = useState(''); // 메시지 상태 추가
-  const [showNotifications, setShowNotifications] = useState(false); // 알림 창 상태 추가
 
   useEffect(() => {
     const storedUserId = localStorage.getItem('userId');
@@ -187,18 +187,7 @@ const IconGroup = ({ iconWhiteClass }) => {
   return (
     <div className={clsx("header-right-wrap", iconWhiteClass)} >
 
-        <div className="same-style header-notification d-none d-lg-block">
-            <button className="notification-active" onClick={e => handleClick(e)}>
-                <i className="pe-7s-bell"/>
-            </button>
-            <div className="account-dropdown">
-                <ul>
-                    <li>
-                        <p>새로운 알림이 없습니다.</p>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        {logingedCon.isLoggedIn && <Notification />}
 
         <div className="same-style header-search d-none d-lg-block">
         <button className="search-active" onClick={e => handleClick(e)}>
