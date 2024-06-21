@@ -3,6 +3,7 @@ import ScrollToTop from "./helpers/scroll-top";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import QnaButton from "./components/qna-button/QnaButton";
+import SaveForm from "./components/ui/wrappper/SaveForm";
 
 export const LogingedContext = createContext();
 
@@ -284,8 +285,15 @@ const App = () => {
                   element={<AdminEvent />}
               />
 
+                <Route
+                    path={process.env.PUBLIC_URL + "/SaveForm"}
+                    element={<SaveForm/>}
+                />
 
-              <Route path="*" element={<NotFound/>} />
+
+
+
+                <Route path="*" element={<NotFound/>} />
             </Routes>
           </Suspense>
         </ScrollToTop>
