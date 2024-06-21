@@ -4,6 +4,7 @@ import Logo from "../../components/header/Logo";
 import IconGroup from "../../components/header/IconGroup";
 import NavMenu from "../../components/header/NavMenu";
 import LanguageCurrencyChanger from "../../components/header/sub-components/LanguageCurrencyChanger";
+import Friendy_logo from "../../assets/img/friendy-logo/friendy_logo.png";
 
 const HeaderTwo = () => {
   const [scroll, setScroll] = useState(0);
@@ -39,7 +40,7 @@ const HeaderTwo = () => {
             >
               {/* header logo */}
               <Logo
-                imageUrl="/assets/img/friendy-logo/friendy_logo.png"
+                imageUrl={Friendy_logo}
                 logoClass="logo-hm-9"
               />
             </div>

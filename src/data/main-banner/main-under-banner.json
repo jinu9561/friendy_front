@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "titleImage": "/assets/img/icon-img/support-8.png",
+    "title": "Find your friends, will be happpy",
+    "iconImage": "/assets/img/icon-img/support-5.png",
+    "backgroundColor": "#ff9191"
+  },
+  {
+    "id": 2,
+    "titleImage": "/assets/img/icon-img/support-9.png",
+    "title": "Have a hobby, getting healthy",
+    "iconImage": "/assets/img/icon-img/support-6.png",
+    "backgroundColor": "#ffbde1"
+  },
+  {
+    "id": 3,
+    "titleImage": "/assets/img/icon-img/support-10.png",
+    "title": "Leave, You who worked hard",
+    "iconImage": "/assets/img/icon-img/support-7.png",
+    "backgroundColor": "#ffabb2"
+  }
+]

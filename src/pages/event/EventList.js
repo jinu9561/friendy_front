@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import defaultProfileImage from '../../assets/img/prof/default.jpeg';
 import { Link } from 'react-router-dom';
+import HeroSliderSevenSingle from "../../components/hero-slider/HeroSliderSevenSingle";
+import '../../assets/css/EventList.css';
 
 const EventList = () => {
   
@@ -30,11 +32,8 @@ const EventList = () => {
         });
       console.log(events);
 
-      // 데드라인
-
-
-
   }, []);
+
 
 
   const getMainImg = (imgName) => {
@@ -43,10 +42,10 @@ const EventList = () => {
 
 
     return (
-        <div>
+        <div className="event-list">
         <ul>
           {events.map((event) => (
-            <li key={event.eventSeq} className="event-item">
+            <li key={event.eventSeq} className="eventlist-item">
             <div className="event-name" style={{fontSize: "30px"}}>
               {event.eventName} 
             </div>      
@@ -56,7 +55,7 @@ const EventList = () => {
              
             {/* <img src={getMainImg(event.eventMainImgName)} alt="" className="event-image" style={{marginTop: "5px"}}/> */}
             
-            <div className="event-reg-date">{event.eventRegDate}</div>
+            <div className="event-reg-date" style={{marginTop: "5px"}}>{event.eventRegDate}</div>
             <br></br>
             <br></br>
           </li>

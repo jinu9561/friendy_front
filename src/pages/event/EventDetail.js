@@ -1,109 +1,81 @@
-import React, { Fragment, useEffect, useState } from "react"; 
-import { useSelector } from "react-redux";
-import { useParams, useLocation, Route } from "react-router-dom";
+import React, { Fragment, useEffect, useState } from "react";
+import {useParams, useLocation, Route, Link} from "react-router-dom";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
-import ProductDescriptionTab from "../../wrappers/product/ProductDescriptionTab";
-import ProductImageDescription from "../../wrappers/product/ProductImageDescription";
 import defaultProfileImage from '../../assets/img/prof/default.jpeg';
 import axios from "axios";
+import EventParticipate from "../../components/event/EventParticipate";
+import '../../assets/css/EventDetail.css';
 
 const EventDetail = () => {
-  const {eventSeq} = useParams();
   let { pathname } = useLocation();
-  const [event, setEvent] = useState(null);
-  const [eventDetail, setEventDetail] = useState(null);
+  const {eventSeq} = useParams();
+  const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
 
   useEffect(() => {
-    if (!eventSeq) return;
-    // 이벤트 상세 정보 로드
     axios({
-      method: "GET",
-      url: `http://localhost:9000/event/detail/${eventSeq}`,
+      method:"GET",
+      url : `http://localhost:9000/event/detail/${eventSeq}`,
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     })
-      .then((res) => {
-        setEvent(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setError("Failed to fetch event details.");
-        setLoading(false);
-      });
+        .then((res)=>{
+          console.log(res)
+          setEvents(res.data);
+          console.log(events)
+        })
+        .catch((err)=>{
+          console(err)
+          alert(err.response.data.title );
+        });
+    console.log(events);
   }, [eventSeq]);
 
-  const getDetailImg = (imgName) => {
-    return imgName ? "http://localhost:9000/admin/event/detail/img?imgName=" + imgName : defaultProfileImage;
-};
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
-  if (!event) return <div>Event not found</div>;
+  const getDetailImg = (imgName) => {
+    return imgName ? `http://localhost:9000/admin/event/detail/img?imgName=${imgName}` : defaultProfileImage;
+  };
 
   return (
-    <Fragment>
-      
+      <Fragment>
       <SEO
-        titleTemplate="Event Detail"
-        description="Product Page of flone react minimalist eCommerce template."
+          titleTemplate="이벤트 페이지"
+          description="Shop page of flone react minimalist eCommerce template."
       />
-
       <LayoutOne headerTop="visible">
-        {/* breadcrumb */}
-        <Breadcrumb 
-          pages={[
+      {/* breadcrumb */}
+    <Breadcrumb
+        pages={[
             {label: "Home", path: process.env.PUBLIC_URL + "/" },
-            {label: "Event Detail", path: process.env.PUBLIC_URL + pathname}
-          ]} 
-        />
-
-        {/* product description with image */}
-        <ProductImageDescription
-          spaceTopClass="pt-100"
-          spaceBottomClass="pb-100"
-          product={{
-            id: event.eventSeq,
-            image: [event.eventMainImgName],
-          }}
-        />
-
-        {/* product description tab */}
-        <ProductDescriptionTab
-          spaceBottomClass="pb-90"
-          productFullDesc={event.fullDescription || "No description available"}
-        />
-
-<ul>
-          {eventDetail.map((event) => (
-            <li key={event.eventSeq} className="event-item">
-            <div className="event-name" style={{fontSize: "30px"}}>
-              {event.eventName} 
-            </div>      
-            
-            <img src={getDetailImg(event.event)} alt="" className="event-image" style={{marginTop: "5px"}}/>
-            
-            <div className="event-reg-date">{event.eventDeadLine}</div>
-            <br></br>
-            <br></br>
-          </li>
-          ))}
-        </ul>
-
-        {/* related product slider */}
-        <RelatedProductSlider
-          spaceBottomClass="pb-95"
-          category={event.category || "default"}
-        />
+            {label: "EventDetail", path: process.env.PUBLIC_URL + pathname }
+        ]}
+    />
+        <div>
+          <ul>
+            {events.map((event) => (
+                <li key={event.eventSeq} className="event-item">
+                    {event.eventDetailImgDTOList?.map((img, index) => (
+                        <img
+                            key={index}
+                            src={getDetailImg(img.eventDetailImgName)}
+                            alt={`Event Detail ${index + 1}`}
+                            className="event-image-detail"
+                        />
+                    ))}
+                  <br></br>
+                  <br></br>
+                </li>
+            ))}
+          </ul>
+        </div>
+          <EventParticipate/>
       </LayoutOne>
-    </Fragment>
+      </Fragment>
   );
 };
 

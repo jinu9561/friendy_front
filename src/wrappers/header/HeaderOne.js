@@ -6,6 +6,7 @@ import NavMenu from "../../components/header/NavMenu";
 import IconGroup from "../../components/header/IconGroup";
 import MobileMenu from "../../components/header/MobileMenu";
 import HeaderTop from "../../components/header/HeaderTop";
+import Friendy_page_logo from "../../assets/img/friendy-logo/friendy_page_logo.png";
 
 const HeaderOne = ({
   layout,
@@ -56,10 +57,10 @@ const HeaderOne = ({
         <div className={layout === "container-fluid" ? layout : "container"}>
           <div className="row">
             <div className="col-xl-2 col-lg-2 col-md-6 col-4"
-            style={{ position: "relative", top: "-40px" }}
+            style={{ position: "relative", top: "-30px" }}
             >
               {/* header logo */}
-              <Logo imageUrl="/assets/img/friendy-logo/friendy_logo.png" logoClass="logo" 
+              <Logo imageUrl={Friendy_page_logo} logoClass="logo"
                 
               />
             </div>

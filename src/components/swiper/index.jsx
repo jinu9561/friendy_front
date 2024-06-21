@@ -59,13 +59,13 @@ const SwiperSlider = forwardRef(
                             type="button"
                             className={`swiper-button-prev ht-swiper-button-nav ${prevClass}`}
                         >
-                            <i className={cn(prevIcon, "icon")} />
+                            <i className={cn(prevIcon, "icon")} style={{color:"white", fontWeight:"bold"}}/>
                         </button>
                         <button
                             type="button"
                             className={`swiper-button-next ht-swiper-button-nav ${nextClass}`}
                         >
-                            <i className={cn(nextIcon, "icon")} />
+                            <i className={cn(nextIcon, "icon")} style={{color:"white", fontWeight:"bold"}}/>
                         </button>
                     </>
                 )}

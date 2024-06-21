@@ -50,6 +50,7 @@ const JellyTransctiont = lazy(() => import("./pages/other/JellyTransction"));
 
 const NotFound = lazy(() => import("./pages/other/NotFound"));
 
+
 // 관리자 전용
 
 // 관리자 로그인
@@ -58,6 +59,9 @@ const AdminLogin = lazy(()=> import('./admin/pages/other/AdminLogin'));
 const AdminUser = lazy(()=> import('./admin/pages/users/AdminUser'));
 // 관리자 장소 추천
 const AdminPlace = lazy(()=> import('./admin/pages/place/AdminPlace'));
+
+// 관리자 이벤트 조회
+const AdminEvent = lazy(()=> import('./admin/pages/event/AdminEvent'));
 
 const App = () => {
   //컴포넌트가 mount or update 될때 로그인 여부에 따른 상태값 변경
@@ -272,6 +276,12 @@ const App = () => {
               <Route
                   path={process.env.PUBLIC_URL + "/adminPlace"}
                   element={<AdminPlace/>}
+              />
+
+              {/* 이벤트 게시판 */}
+              <Route
+                  path={process.env.PUBLIC_URL + "/adminEvent"}
+                  element={<AdminEvent />}
               />
 
 
