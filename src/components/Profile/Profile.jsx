@@ -52,6 +52,9 @@ const Profile = ({ profileData, handledeleteImg }) => {
           <strong>닉네임 : </strong> {profileData.nickName}
         </p>
         <p>
+          <strong>매너 온도 : </strong> {profileData.userRate}도
+        </p>
+        <p>
           <strong>국적 : </strong>{" "}
           {profileData.country === "KOREAN" ? "내국인" : "외국인"}
         </p>
