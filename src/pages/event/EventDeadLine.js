@@ -39,7 +39,7 @@ const EventDeadLine = () => {
         <div>
         <ul>
           {events.map((event) => (
-            <li key={event.eventSeq} className="event-item">
+            <li key={event.eventSeq} className="eventlist-item">
             <div className="event-name" style={{fontSize: "30px"}}>
               {event.eventName} 
             </div>      

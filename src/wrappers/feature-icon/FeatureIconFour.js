@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import featureIconData from "../../data/feature-icons/feature-icon-four.json";
+import featureIconData from "../../data/main-banner/main-under-banner.json";
 import FeatureIconFourSingle from "../../components/feature-icon/FeatureIconFourSingle.js";
 
 const FeatureIconFour = ({

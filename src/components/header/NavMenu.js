@@ -6,6 +6,7 @@ import { LogingedContext } from "../../App";
 import { useContext } from "react";
 
 const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
+  const { t } = useTranslation();
 
 
   let logingedCon =useContext(LogingedContext);
@@ -24,43 +25,47 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
           // 사용자 내비게이션
           <>
              <li>
-            <Link to={process.env.PUBLIC_URL + "/"}>{("Home")}</Link>
+            <Link to={process.env.PUBLIC_URL + "/"}>{t("Home")}</Link>
           </li>
           <li>
             <Link to={process.env.PUBLIC_URL + "/blog-no-sidebar"}>
-              {("자유 게시판")}
+              {t("자유 게시판")}
             </Link>
           </li>
           <li>
             <Link to={process.env.PUBLIC_URL + "/blog-no-sidebar"}>
-              {("익명 게시판")}
+              {("ANONYMOUS")}
             </Link>
           </li>
           <li>
             <Link to={process.env.PUBLIC_URL + "/photo-board"}>
-              {("사진 게시판")}
+              {("PHOTO")}
             </Link>
           </li>
           <li>
             <Link to={process.env.PUBLIC_URL + "/MeetUpBoard"}>
-              {("소모임 게시판")}
+              {("MEETUP")}
             </Link>
           </li>
           <li>
             <Link to={process.env.PUBLIC_URL + "/event"}>
-              {("이벤트 게시판")}
+              {("EVENT")}
             </Link>
           </li>
           </>
         ) : (
           // 관리자 내비게이션
             <>
-              <li>
-                <Link to={process.env.PUBLIC_URL + "/adminUser"}>회원 관리</Link>
-              </li>
-              <li>
-                <Link to={process.env.PUBLIC_URL + "/adminPlace"}>Hot Place</Link>
-              </li>
+                <li>
+                    <Link to={process.env.PUBLIC_URL + "/adminUser"}>회원 관리</Link>
+                </li>
+                <li>
+                    <Link to={process.env.PUBLIC_URL + "/adminPlace"}>Hot Place</Link>
+                </li>
+
+                <li>
+                    <Link to={process.env.PUBLIC_URL + "/adminEvent"}>ADMIN EVENT</Link>
+                </li>
 
             </>
         )}
@@ -71,7 +76,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
 };
 
 NavMenu.propTypes = {
-  menuWhiteClass: PropTypes.string,
+    menuWhiteClass: PropTypes.string,
   sidebarMenu: PropTypes.bool,
 };
 

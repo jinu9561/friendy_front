@@ -1,0 +1,10 @@
+.shop-area {
+    padding-top: 95px;
+    padding-bottom: 100px;
+}
+
+.event-list-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
