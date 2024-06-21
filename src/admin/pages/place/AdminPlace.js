@@ -25,6 +25,10 @@ const AdminPlace = () => {
 
     const currency = useSelector((state) => state.currency);
     const [places,setPlaces] = useState([]);
+<<<<<<< HEAD
+=======
+    const [status,setStatus] = useState(false);
+>>>>>>> 0a5eaa0e5ec1eb5db14f847738ee2bcf588612a0
 
 
     const pageLimit = 10;
@@ -49,7 +53,10 @@ const AdminPlace = () => {
     }
 
     useEffect(() => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0a5eaa0e5ec1eb5db14f847738ee2bcf588612a0
         // let url = "http://localhost:9000/admin/users/profile";
         //
         // if (filterSortValue === 'regDate') {
@@ -77,10 +84,18 @@ const AdminPlace = () => {
                 console.log(err.response.data.title);
             });
 
+<<<<<<< HEAD
 
     },[filterSortValue]);
 
 
+=======
+    },[filterSortValue,status]);
+
+    const getStatus = (status)=>{
+        setStatus(status);
+    }
+>>>>>>> 0a5eaa0e5ec1eb5db14f847738ee2bcf588612a0
 
 
     return (
@@ -107,7 +122,11 @@ const AdminPlace = () => {
                                 <PlaceTopbarFilter getLayout={getLayout} getFilterSortParams={getFilterSortParams} productCount={places.length} sortedProductCount={currentData.length} places={places} getSortParams={getSortParams}/>
 
                                 {/* 현재 페이지에 데이터 뿌려주기*/}
+<<<<<<< HEAD
                                 <AdminPlacesList layout={layout} places={places}/>
+=======
+                                <AdminPlacesList layout={layout} places={places} getStatus={getStatus} status={status} />
+>>>>>>> 0a5eaa0e5ec1eb5db14f847738ee2bcf588612a0
 
                                 {/* shop product pagination */}
                                 <div className="pro-pagination-style text-center mt-30">

@@ -57,6 +57,8 @@ const NotFound = lazy(() => import("./pages/other/NotFound"));
 const AdminLogin = lazy(()=> import('./admin/pages/other/AdminLogin'));
 // 관리자 회원 조회
 const AdminUser = lazy(()=> import('./admin/pages/users/AdminUser'));
+// 관리자 장소 추천
+const AdminPlace = lazy(()=> import('./admin/pages/place/AdminPlace'));
 
 // 관리자 이벤트 조회
 const AdminEvent = lazy(()=> import('./admin/pages/event/AdminEvent'));
@@ -269,6 +271,11 @@ const App = () => {
                <Route
                 path={process.env.PUBLIC_URL + "/adminUser"}
                 element={<AdminUser/>}
+              />
+              {/* 관리자 장소 추천*/}
+              <Route
+                  path={process.env.PUBLIC_URL + "/adminPlace"}
+                  element={<AdminPlace/>}
               />
 
               {/* 이벤트 게시판 */}
