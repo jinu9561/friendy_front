@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import React, { Fragment, useState } from "react";
+import PhotoModal from "../../components/photo/PhotoModal";
 
-const Test = ({ photo, spaceBottomClass }) => {
+const PhotoGridListSingle = ({ photo, spaceBottomClass }) => {
   const [modalShow, setModalShow] = useState(false);
   const options = {
     year: "numeric",
@@ -10,13 +11,18 @@ const Test = ({ photo, spaceBottomClass }) => {
     hour: "2-digit",
     minute: "2-digit",
   };
+
+  const getImg = (imgName) => {
+    return "http://localhost:9000/photo-board/main/img?imgName=" + imgName;
+  };
+
   return (
     <Fragment>
       <div className={`product-wrap ${spaceBottomClass}`}>
         <div className="product-img">
           <img
             className="default-img"
-            src={photo.photoMainImgSrc}
+            src={getImg(photo.photoMainImgSrc)}
             alt={photo.photoBoardTitle}
             onClick={() => setModalShow(true)}
           />
@@ -30,24 +36,28 @@ const Test = ({ photo, spaceBottomClass }) => {
                 options
               )}
             </span>
-            <p>{photo.photoBoardLike}</p>
-            <p>{photo.interestSeq}</p>
-            <p>{photo.photoMainImgSrc}</p>
+            <p>좋아요 수 : {photo.photoBoardLike}</p>
+            <p>취미 카테고리 번호 : {photo.interestSeq}</p>
+            <p>파일명: {photo.photoMainImgSrc}</p>
           </div>
         </div>
       </div>
+      <PhotoModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        photo={photo}
+      />
     </Fragment>
   );
 };
 
-Test.propTypes = {
+PhotoGridListSingle.propTypes = {
   photo: PropTypes.shape({
     photoBoardSeq: PropTypes.number.isRequired,
     photoBoardTitle: PropTypes.string.isRequired,
-    photoImgSrc: PropTypes.string.isRequired,
-    //photoBoardRegDate: PropTypes.string.isRequired,
+    photoBoardRegDate: PropTypes.string.isRequired,
   }).isRequired,
   spaceBottomClass: PropTypes.string,
 };
 
-export default Test;
+export default PhotoGridListSingle;
