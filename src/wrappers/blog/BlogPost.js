@@ -1,20 +1,26 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 
-const BlogPost = () => {
+const BlogPost = ({ post }) => {
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  };
   return (
     <Fragment>
       <div className="blog-details-top">
-        <div className="blog-details-img">
-          <img
-            alt=""
-            src={process.env.PUBLIC_URL + "/assets/img/blog/blog-5.jpg"}
-          />
-        </div>
         <div className="blog-details-content">
           <div className="blog-meta-2">
             <ul>
-              <li>22 April, 2018</li>
+              <li>
+                {new Date(post.boardRegDate).toLocaleDateString(
+                  "ko-KR",
+                  options
+                )}
+              </li>
               <li>
                 <Link to={process.env.PUBLIC_URL + "/blog-details-standard"}>
                   4 <i className="fa fa-comments-o" />
@@ -22,7 +28,7 @@ const BlogPost = () => {
               </li>
             </ul>
           </div>
-          <h3>14 Emerging Fashion Influencers Who Are Going to Own 2018</h3>
+          <h3>{post.boardTitle}</h3>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim

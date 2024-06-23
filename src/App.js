@@ -23,9 +23,13 @@ const ProductSticky = lazy(() => import("./pages/shop-product/ProductSticky"));
 const ProductSlider = lazy(() => import("./pages/shop-product/ProductSlider"));
 
 // 자유게시판 , 익명게시판 , + 상세보기
-const BlogNoSidebar = lazy(() => import("./pages/blog/BlogNoSidebar"));
-const BlogDetailsStandard = lazy(() =>
-  import("./pages/blog/BlogDetailsStandard")
+const PublicBoard = lazy(() => import("./pages/generalBoards/PublicBoard"));
+const PublicDetail = lazy(() => import("./pages/generalBoards/PublicDetail"));
+const AnonymousBoard = lazy(() =>
+  import("./pages/generalBoards/AnonymousBoard")
+);
+const AnonymousDetail = lazy(() =>
+  import("./pages/generalBoards/AnonymousDetail")
 );
 
 // 나의 프로필
@@ -51,90 +55,98 @@ const JellyTransctiont = lazy(() => import("./pages/other/JellyTransction"));
 
 const NotFound = lazy(() => import("./pages/other/NotFound"));
 
-
 // 관리자 전용
 
 // 관리자 로그인
-const AdminLogin = lazy(()=> import('./admin/pages/other/AdminLogin'));
+const AdminLogin = lazy(() => import("./admin/pages/other/AdminLogin"));
 // 관리자 회원 조회
-const AdminUser = lazy(()=> import('./admin/pages/users/AdminUser'));
+const AdminUser = lazy(() => import("./admin/pages/users/AdminUser"));
 // 관리자 장소 추천
-const AdminPlace = lazy(()=> import('./admin/pages/place/AdminPlace'));
+const AdminPlace = lazy(() => import("./admin/pages/place/AdminPlace"));
 
 // 관리자 이벤트 조회
-const AdminEvent = lazy(()=> import('./admin/pages/event/AdminEvent'));
+const AdminEvent = lazy(() => import("./admin/pages/event/AdminEvent"));
 
 const App = () => {
   //컴포넌트가 mount or update 될때 로그인 여부에 따른 상태값 변경
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const [isAdminIn, setIsAdminIn] = useState(false); 
-    
-    useEffect(()=>{ 
-      localStorage.getItem("userSeq")!=null ? setIsLoggedIn(true) : setIsLoggedIn(false); 
-      console.log("isLoggeedIn = ", isLoggedIn)
+  const [isAdminIn, setIsAdminIn] = useState(false);
 
-      sessionStorage.getItem("userId") !=null ? setIsAdminIn(true) : setIsAdminIn(false); 
-      console.log("isAdminIn = ", isAdminIn)
-    }); 
+  useEffect(() => {
+    localStorage.getItem("userSeq") != null
+      ? setIsLoggedIn(true)
+      : setIsLoggedIn(false);
+    console.log("isLoggeedIn = ", isLoggedIn);
 
-    const handleLoggedChange = (isLoggedIn)=>{ 
-      setIsLoggedIn(isLoggedIn);
-     }
-     const handleAdminInChange = (isAdminIn)=>{ 
-      setIsAdminIn(isAdminIn);
-     }
+    sessionStorage.getItem("userId") != null
+      ? setIsAdminIn(true)
+      : setIsAdminIn(false);
+    console.log("isAdminIn = ", isAdminIn);
+  });
 
-     useEffect(() => {
-      // Axios 인터셉터 설정
-      const interceptor = axios.interceptors.response.use(
-        response => response,
-        async (error) => {
-          if (error.response && error.response.status === 401) {
-            // 토큰 만료 시 로그아웃 처리
-            setIsLoggedIn(false);
-            let formData = new FormData(); //폼전송으로 보내기 위한 작업 
-            formData.append("userId", localStorage.getItem("userId")); 
-            
-            try {
-              // 로그아웃 요청 전송
-              await axios({ 
-                method: "POST", 
-                url: "http://localhost:9000/logout",
-                data: formData
-              });
-  
-              // 로컬 스토리지 데이터 삭제
-              localStorage.removeItem("userId"); 
-              localStorage.removeItem("country"); 
-              localStorage.removeItem("gender"); 
-              localStorage.removeItem("userName");
-              localStorage.removeItem("userSeq"); 
-              localStorage.removeItem("nickName"); 
-              localStorage.removeItem("userJelly"); 
-              localStorage.removeItem("Authorization");
-  
-              // 로그인 페이지로 리다이렉트
-              window.location.href = 'http://localhost:3000/login-register';
-            } catch (err) {
-              console.log(err);
-              alert(err.response.data.title);
-            }
+  const handleLoggedChange = (isLoggedIn) => {
+    setIsLoggedIn(isLoggedIn);
+  };
+  const handleAdminInChange = (isAdminIn) => {
+    setIsAdminIn(isAdminIn);
+  };
+
+  useEffect(() => {
+    // Axios 인터셉터 설정
+    const interceptor = axios.interceptors.response.use(
+      (response) => response,
+      async (error) => {
+        if (error.response && error.response.status === 401) {
+          // 토큰 만료 시 로그아웃 처리
+          setIsLoggedIn(false);
+          let formData = new FormData(); //폼전송으로 보내기 위한 작업
+          formData.append("userId", localStorage.getItem("userId"));
+
+          try {
+            // 로그아웃 요청 전송
+            await axios({
+              method: "POST",
+              url: "http://localhost:9000/logout",
+              data: formData,
+            });
+
+            // 로컬 스토리지 데이터 삭제
+            localStorage.removeItem("userId");
+            localStorage.removeItem("country");
+            localStorage.removeItem("gender");
+            localStorage.removeItem("userName");
+            localStorage.removeItem("userSeq");
+            localStorage.removeItem("nickName");
+            localStorage.removeItem("userJelly");
+            localStorage.removeItem("Authorization");
+
+            // 로그인 페이지로 리다이렉트
+            window.location.href = "http://localhost:3000/login-register";
+          } catch (err) {
+            console.log(err);
+            alert(err.response.data.title);
           }
-          return Promise.reject(error);
         }
-      );
-  
-      // 컴포넌트 언마운트 시 인터셉터 제거
-      return () => {
-        axios.interceptors.response.eject(interceptor);
-      };
-    }, []);
+        return Promise.reject(error);
+      }
+    );
 
+    // 컴포넌트 언마운트 시 인터셉터 제거
+    return () => {
+      axios.interceptors.response.eject(interceptor);
+    };
+  }, []);
 
   return (
-    <LogingedContext.Provider value={ {isLoggedIn:isLoggedIn , onLoggedChange:handleLoggedChange , isAdminIn:isAdminIn, onAdminInChange:handleAdminInChange } }>
-
+    <LogingedContext.Provider
+      value={{
+        isLoggedIn: isLoggedIn,
+        onLoggedChange: handleLoggedChange,
+        isAdminIn: isAdminIn,
+        onAdminInChange: handleAdminInChange,
+      }}
+    >
       <Router>
         <QnaButton />
         <ScrollToTop>
@@ -181,16 +193,28 @@ const App = () => {
                 element={<Event />}
               />
 
-              {/* 자유 게시판, 익명 게시판 */}
+              {/* 자유 게시판 */}
               <Route
-                path={process.env.PUBLIC_URL + "/blog-no-sidebar"}
-                element={<BlogNoSidebar />}
+                path={process.env.PUBLIC_URL + "/public-board"}
+                element={<PublicBoard />}
               />
 
-              {/* 자유 게시판, 익명 게시판 상세보기 */}
+              {/* 익명 게시판 */}
               <Route
-                path={process.env.PUBLIC_URL + "/blog-details-standard"}
-                element={<BlogDetailsStandard />}
+                path={process.env.PUBLIC_URL + "/anonymous-board"}
+                element={<AnonymousBoard />}
+              />
+
+              {/* 자유 게시판 상세보기*/}
+              <Route
+                path={process.env.PUBLIC_URL + "/public-board/:commBoardSeq"}
+                element={<PublicDetail />}
+              />
+
+              {/* 익명 게시판 상세보기 */}
+              <Route
+                path={process.env.PUBLIC_URL + "/anonymous-board/:commBoardSeq"}
+                element={<AnonymousDetail />}
               />
 
               {/* 사진 게시판 상세보기 */}
@@ -260,40 +284,36 @@ const App = () => {
                 element={<JellyTransctiont />}
               />
 
-             {/* 관리자 전용*/}
+              {/* 관리자 전용*/}
 
-
-             {/* 관리자 로그인*/}
-             <Route
+              {/* 관리자 로그인*/}
+              <Route
                 path={process.env.PUBLIC_URL + "/adminLogin"}
-                element={<AdminLogin/>}
+                element={<AdminLogin />}
               />
-               {/* 관리자 유저 조회*/}
-               <Route
+              {/* 관리자 유저 조회*/}
+              <Route
                 path={process.env.PUBLIC_URL + "/adminUser"}
-                element={<AdminUser/>}
+                element={<AdminUser />}
               />
               {/* 관리자 장소 추천*/}
               <Route
-                  path={process.env.PUBLIC_URL + "/adminPlace"}
-                  element={<AdminPlace/>}
+                path={process.env.PUBLIC_URL + "/adminPlace"}
+                element={<AdminPlace />}
               />
 
               {/* 이벤트 게시판 */}
               <Route
-                  path={process.env.PUBLIC_URL + "/adminEvent"}
-                  element={<AdminEvent />}
+                path={process.env.PUBLIC_URL + "/adminEvent"}
+                element={<AdminEvent />}
               />
 
-                <Route
-                    path={process.env.PUBLIC_URL + "/SaveForm"}
-                    element={<SaveForm/>}
-                />
+              <Route
+                path={process.env.PUBLIC_URL + "/SaveForm"}
+                element={<SaveForm />}
+              />
 
-
-
-
-                <Route path="*" element={<NotFound/>} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
         </ScrollToTop>
