@@ -6,10 +6,10 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import BlogComment from "../../wrappers/blog/BlogComment";
 import BlogPost from "../../wrappers/blog/BlogPost";
 
+// 게시글 상세페이지
 const PublicDetail = () => {
   const { pathname } = useLocation();
   const { commBoardSeq } = useParams();
-  const location = useLocation();
   const [post, setPost] = useState(null);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const PublicDetail = () => {
         setPost(data);
       })
       .catch((error) => console.error("Error fetching post:", error));
-  }, [commBoardSeq, post]);
+  }, [commBoardSeq]);
 
   if (!post) return <div>Loading...</div>;
 
@@ -39,7 +39,7 @@ const PublicDetail = () => {
               <div className="col-lg-9">
                 <div className="blog-details-wrapper ml-20">
                   <BlogPost post={post} />
-                  <BlogComment comments={post.replyList} />
+                  <BlogComment replyList={post.replyList} />
                 </div>
               </div>
             </div>

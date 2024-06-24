@@ -6,7 +6,9 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import BlogSidebar from "../../wrappers/blog/BlogSidebar";
 import BlogPagination from "../../wrappers/blog/BlogPagination";
 import BlogPosts from "../../wrappers/blog/BlogPosts";
+import Paginator from "react-hooks-paginator"; //페이지네이터
 
+//실명 게시판
 const PublicBoard = () => {
   let { pathname } = useLocation();
   const [posts, setPosts] = useState([]);
