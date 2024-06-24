@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 
+//게시판(~Board)에 포함되는 게시글 목록
 const BlogPosts = ({ posts, pathname }) => {
   const detailPath = pathname.includes("/anonymous-board")
     ? "/anonymous-board/"
@@ -37,7 +38,7 @@ const BlogPosts = ({ posts, pathname }) => {
               </div>
               <h4>
                 <Link
-                  to={process.env.PUBLIC_URL + detailPath + post.commBoardSeq}
+                  to={process.env.PUBLIC_URL + detailPath + post.commBoardSeq} //해당 commBoardSeq의 주소를 가지는 publicDatail로 연결
                 >
                   {post.boardTitle}
                 </Link>
@@ -52,26 +53,7 @@ const BlogPosts = ({ posts, pathname }) => {
                   </Link>
                 </div>
                 <div className="blog-share">
-                  <span>share :</span>
-                  <div className="share-social">
-                    <ul>
-                      <li>
-                        <a className="facebook" href="#!">
-                          <i className="fa fa-facebook" />
-                        </a>
-                      </li>
-                      <li>
-                        <a className="twitter" href="#!">
-                          <i className="fa fa-twitter" />
-                        </a>
-                      </li>
-                      <li>
-                        <a className="instagram" href="#!">
-                          <i className="fa fa-instagram" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
+                  <span>{post.nickName}</span>
                 </div>
               </div>
             </div>
