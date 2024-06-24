@@ -23,6 +23,7 @@ const PublicDetail = () => {
 
   if (!post) return <div>Loading...</div>;
 
+ 
   return (
     <Fragment>
       <SEO title={post.boardTitle} />

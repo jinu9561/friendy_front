@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import QnaButton from "./components/qna-button/QnaButton";
 import SaveForm from "./components/ui/wrappper/SaveForm";
+import WritePost from "./pages/generalBoards/WritePost";
 
 export const LogingedContext = createContext();
 
@@ -194,10 +195,10 @@ const App = () => {
               />
 
               {/* 자유 게시판 */}
-              <Route
-                path={process.env.PUBLIC_URL + "/public-board"}
-                element={<PublicBoard />}
-              />
+              
+              <Route path="/public-board" element={<PublicBoard />}/> 
+              <Route path="/public-board/write" element={<WritePost />}/> 
+
 
               {/* 익명 게시판 */}
               <Route

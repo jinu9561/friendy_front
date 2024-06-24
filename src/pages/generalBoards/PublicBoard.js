@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate  } from "react-router-dom";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
@@ -12,6 +12,7 @@ import Paginator from "react-hooks-paginator"; //페이지네이터
 const PublicBoard = () => {
   let { pathname } = useLocation();
   const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:9000/community-boards/realname")
@@ -21,6 +22,10 @@ const PublicBoard = () => {
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
+
+  const handleWriteClick = () => {
+    navigate("/public-board/write");
+  };
 
   return (
     <Fragment>
@@ -45,6 +50,14 @@ const PublicBoard = () => {
                     {/* blog posts */}
                     <BlogPosts posts={posts} pathname={pathname} />
                   </div>
+                  <div class="d-flex justify-content-end"><button
+                      type="button"
+                      className="btn btn-secondary btn-lg"
+                      onClick={handleWriteClick}
+                    >
+                      글쓰기
+                    </button></div>
+                    
 
                   {/* blog pagination */}
                   <BlogPagination />
