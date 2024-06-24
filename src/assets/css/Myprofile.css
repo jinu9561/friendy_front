@@ -1,9 +1,8 @@
 .profile-container {
   display: flex;
   flex-direction: column;
-  align-items: left;
   padding: 10px;
-  background-color: #f9f9f9; /* Light background */
+  background-color: #ffe4e1; /* Light pink background */
   border-radius: 10px; /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   max-width: 400px;
@@ -22,7 +21,7 @@
   height: 100px; /* Adjust the size as needed */
   border-radius: 50%; /* This makes the image round */
   object-fit: cover; /* This ensures the image covers the container without distortion */
-  border: 2px solid #ccc; /* Optional: Adds a border around the image */
+  border: 2px solid #ffb6c1; /* Optional: Adds a border around the image */
 }
 
 .icon {
@@ -34,17 +33,16 @@
   margin-bottom: 75px;
 }
 
-.remove-icon{
+.remove-icon {
   position: absolute;
   width: 20px;
   height: 20px;
-  right: 50; /* Align icon to the right */
   margin-left: 75px;
   margin-bottom: 75px;
   cursor: pointer;
 }
 
-.remove-icon-detail{
+.remove-icon-detail {
   position: absolute;
   width: 20px;
   height: 20px;
@@ -60,11 +58,11 @@
 }
 
 .profile-details strong {
-  color: #555; /* Medium dark color for labels */
+  color: #d2698e; /* Dark pink color for labels */
 }
 
 .profile-details p span {
-  color: #007bff; /* Blue color for user data */
+  color: #ff69b4; /* Bright pink color for user data */
 }
 
 .profile-slider {
@@ -94,21 +92,21 @@
   height: 100%;
   border-radius: 10px;
   object-fit: cover;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .slick-prev, .slick-next {
   font-size: 30px;
-  color: #007bff; /* Customize the arrow color */
+  color: #ff69b4; /* Customize the arrow color */
 }
 
 .slick-dots li button:before {
   font-size: 10px;
-  color: #007bff; /* Customize the dots color */
+  color: #ff69b4; /* Customize the dots color */
 }
 
 .slick-dots li.slick-active button:before {
-  color: #0056b3; /* Different color for active dot */
+  color: #d2698e; /* Different color for active dot */
 }
 
 .interest-list {
@@ -119,7 +117,7 @@
 }
 
 .interest-item {
-  background-color: #f0f0f0; /* Light grey background */
+  background-color: #ffb6c1; /* Light pink background */
   border-radius: 5px; /* Rounded corners */
   padding: 10px 15px; /* Padding inside the item */
   margin: 5px; /* Space between items */
@@ -129,11 +127,11 @@
 }
 
 .purchase-item {
-  border: 1px solid #ccc;
+  border: 1px solid #ffb6c1;
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
-  background-color: #f9f9f9;
+  background-color: #ffe4e1;
 }
 
 .purchase-item div {
@@ -146,5 +144,14 @@
 
 .refund-button {
   margin-top: 10px;
+  background-color: #ff69b4; /* Pink button background */
+  color: white; /* White text color */
+  border: none; /* Remove default border */
+  padding: 10px 15px; /* Button padding */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
 }
-  
+
+.refund-button:hover {
+  background-color: #d2698e; /* Darker pink on hover */
+}

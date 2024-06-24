@@ -104,8 +104,7 @@ const IconGroup = ({ iconWhiteClass }) => {
     url : "http://localhost:9000/logout",
     data : formData
     }) 
-     .then((res)=>{ 
-        alert(res.data); 
+     .then((res)=>{
 
         localStorage.removeItem("userId"); 
         localStorage.removeItem("country"); 
@@ -142,8 +141,8 @@ const IconGroup = ({ iconWhiteClass }) => {
       method:"GET", 
       url : "http://localhost:9000/users/resign/"+saveData.userSeq,
       }) 
-       .then((res)=>{ 
-          alert(res.data); 
+       .then((res)=>{
+          alert(res.data);
   
           localStorage.removeItem("userId"); 
           localStorage.removeItem("userName");
@@ -178,6 +177,8 @@ const IconGroup = ({ iconWhiteClass }) => {
     );
     offcanvasMobileMenu.classList.add("active");
   };
+
+
 
 
   const { compareItems } = useSelector((state) => state.compare);
@@ -294,9 +295,15 @@ const IconGroup = ({ iconWhiteClass }) => {
       </div>
       {/* 관리자 페이지로 가기*/}
       <div className="same-style cart-wrap d-none d-lg-block">
-        <Link className="icon-cart" to={process.env.PUBLIC_URL + "/adminLogin"}>
-          <img src={adminIcon} alt="관리자아이콘"/>
-        </Link>
+          { logingedCon.isAdminIn ? ( <Link className="icon-cart" to={process.env.PUBLIC_URL + "/"} onClick={logoutCheck}>
+              <img src={adminIcon} alt="관리자아이콘"/>
+          </Link>) : (
+              <Link className="icon-cart" to={process.env.PUBLIC_URL + "/adminLogin"}>
+                     <img src={adminIcon} alt="관리자아이콘"/>
+             </Link>
+              )
+
+          }
       </div>
       <div className="same-style mobile-off-canvas d-block d-lg-none">
         <button

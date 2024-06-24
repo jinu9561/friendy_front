@@ -48,6 +48,7 @@ const JellyTransction = () => {
     });
   }
 
+
   useEffect(() => {
   
     axios.get("http://localhost:9000/profile/"+userSeq,

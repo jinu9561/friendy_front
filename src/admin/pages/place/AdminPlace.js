@@ -52,17 +52,36 @@ const AdminPlace = () => {
 
     useEffect(() => {
 
-        // let url = "http://localhost:9000/admin/users/profile";
-        //
-        // if (filterSortValue === 'regDate') {
-        //     url = "http://localhost:9000/admin/users/regDate";
-        // }else if(filterSortValue === 'update') {
-        //     url = "http://localhost:9000/admin/users/update";
-        // }else if(filterSortValue === 'lastLogin') {
-        //     url = "http://localhost:9000/admin/users/lastLogin";
-        // }else if(filterSortValue === 'userRate') {
-        //     url = "http://localhost:9000/admin/users/userRate";
-        // }
+        let url = "http://localhost:9000/admin/place/";
+
+        if (filterSortValue === 'regDate') {
+            url = "http://localhost:9000/admin/place/regdate";
+        }else if(filterSortValue === 'update') {
+            url = "http://localhost:9000/admin/place/update";
+        }
+
+        axios({
+            method:"GET",
+            url : url,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then((res) => {
+                setPlaces(res.data);
+            })
+            .catch((err)=>{
+                console.log(err)
+                console.log(err.response.data.title);
+            });
+
+    },[filterSortValue]);
+
+    const getStatus = (status)=>{
+        setStatus(status);
+    }
+
+    const refresh= () => {
 
         axios({
             method:"GET",
@@ -79,12 +98,21 @@ const AdminPlace = () => {
                 console.log(err.response.data.title);
             });
 
-    },[filterSortValue,status]);
-
-    const getStatus = (status)=>{
-        setStatus(status);
     }
 
+    const handleUpdate = ()=>{
+        refresh();
+    }
+
+    useEffect(() => {
+        const updateCurrentData = () => {
+            const start = offset;
+            const end = offset + pageLimit;
+            setCurrentData(places.slice(start, end));
+        };
+
+        updateCurrentData();
+    }, [offset, places]);
 
 
     return (
@@ -108,10 +136,18 @@ const AdminPlace = () => {
                         <div className="row">
                             <div className="col-lg-12">
                                 {/* 필터 종류 설정 */}
-                                <PlaceTopbarFilter getLayout={getLayout} getFilterSortParams={getFilterSortParams} productCount={places.length} sortedProductCount={currentData.length} places={places} getSortParams={getSortParams}/>
+                                <PlaceTopbarFilter
+                                    getLayout={getLayout}
+                                    getFilterSortParams={getFilterSortParams}
+                                    productCount={places.length}
+                                    sortedProductCount={currentData.length}
+                                    places={places}
+                                    getSortParams={getSortParams}
+                                    handleUpdate={handleUpdate} // Ensure handleUpdate is passed
+                                />
 
                                 {/* 현재 페이지에 데이터 뿌려주기*/}
-                                <AdminPlacesList layout={layout} places={places} getStatus={getStatus} status={status} />
+                                <AdminPlacesList layout={layout} places={places} getStatus={getStatus} status={status} handleUpdate={handleUpdate} />
 
 
                                 {/* shop product pagination */}

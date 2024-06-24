@@ -2,7 +2,6 @@ import { Fragment, useState, useEffect, useContext } from 'react';
 import { useSelector } from "react-redux";
 import Paginator from 'react-hooks-paginator';
 import { useLocation } from "react-router-dom"
-import { getSortedProducts } from '../../../helpers/product';
 import SEO from "../../../components/seo";
 import LayoutOne from '../../../layouts/LayoutOne';
 import Breadcrumb from '../../../wrappers/breadcrumb/Breadcrumb';
@@ -79,6 +78,16 @@ const AdminUser = () => {
                 }
             });
     }, [filterSortValue]);
+
+    useEffect(() => {
+        const updateCurrentData = () => {
+            const start = offset;
+            const end = offset + pageLimit;
+            setCurrentData(profileDataList.slice(start, end));
+        };
+
+        updateCurrentData();
+    }, [offset, profileDataList]);
 
 
 

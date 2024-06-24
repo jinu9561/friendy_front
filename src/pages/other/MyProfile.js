@@ -406,7 +406,7 @@ const MyProfile = () => {
                   <Accordion defaultActiveKey="0">
                     <Accordion.Item eventKey="0" className="single-my-account mb-20">
                       <Accordion.Header className="panel-heading">
-                        <span>1 .</span> 프로필{" "}
+                        <span>1 .</span> Profile{" "}
                       </Accordion.Header>
                       <Accordion.Body>
                           <div className="myaccount-info-wrapper">
@@ -452,7 +452,7 @@ const MyProfile = () => {
                               
                                 <div className="col-lg-12 col-md-12">
                                   <div className="billing-info">
-                                    <label>사진목록 추가</label>
+                                    <label>사진 목록에 추가</label>
                                     <input type="file" 
                                     name="detailImage"
                                     onChange={handleFileChange}
@@ -490,7 +490,7 @@ const MyProfile = () => {
 
                     <Accordion.Item eventKey="1" className="single-my-account mb-20">
                       <Accordion.Header className="panel-heading">
-                          <span>2 .</span> 개인정보 수정
+                          <span>2 .</span> Edit Information
                       </Accordion.Header>
                       <Accordion.Body>
                           <div className="myaccount-info-wrapper">
@@ -599,7 +599,7 @@ const MyProfile = () => {
                     
                     <Accordion.Item eventKey="2" className="single-my-account mb-20">
                       <Accordion.Header className="panel-heading">
-                          <span>3 .</span> 결제 내역
+                          <span>3 .</span> Payment
                       </Accordion.Header>
                       <Accordion.Body>
 
@@ -621,7 +621,7 @@ const MyProfile = () => {
                                 className="refund-button"
                                 onClick={() => openRefundModal(item.transactionSeq)}
                               >
-                                환불 요청
+                                Refund Request
                               </Button>
                             </div>
                           ))} 
