@@ -56,7 +56,7 @@ const MeetUpBoard = () => {
     };
 
     return (
-        <Fragment>
+        <div  style={{width:'100%' , height:'100%'}}>
             <SEO
                 titleTemplate="Shop Page"
                 description="Shop page of flone react minimalist eCommerce template."
@@ -75,7 +75,7 @@ const MeetUpBoard = () => {
                     onSaveButtonClick={handleSaveButtonClick}
                  />
             </LayoutOne>
-        </Fragment>
+        </div>
     );
 };
 
