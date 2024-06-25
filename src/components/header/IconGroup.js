@@ -8,6 +8,8 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import adminIcon from '../../assets/img/admin/admin-icon.png';
 import './../../assets/css/icon.css';
+import Notification from "../notification/Notification";
+import FriendList from "../friend/FriendList";
 
 
 
@@ -26,6 +28,7 @@ const IconGroup = ({ iconWhiteClass }) => {
 
   const [friendList, setFriendList] = useState([]); // 친구
   const [showFriendList, setShowFriendList] = useState(false); // 친구
+  const [showFriendRequestForm, setShowFriendRequestForm] = useState(false);
   const [receiverId, setReceiverId] = useState(''); // 친구 요청 ID 상태 추가
   const [message, setMessage] = useState(''); // 메시지 상태 추가
 
@@ -51,45 +54,13 @@ const IconGroup = ({ iconWhiteClass }) => {
 
   }, []);
 
-  const toggleFriendListHandler  = () => { // 친구목록 불러오기
-    setShowFriendList(!showFriendList);
-
-    if (!showFriendList) {
-      axios.get("http://localhost:9000/friend/list")
-        .then(res => {
-          setFriendList(res.data);
-        })
-        .catch(err => {
-          console.log(err);
-          alert("친구 목록이 없습니다.");
-        });
-    }
+  const toggleFriendListHandler = () => { // 친구 목록 불러오기
+      setShowFriendList(!showFriendList);
   };
 
-  const requestFriend = () => { // 친구요청
-    axios({
-      url: "http://localhost:9000/friend/request",
-      method: "post",
-      headers: {
-        Authorization: localStorage.getItem("Authorization"),
-      },
-      params: {
-        receiverId: receiverId, // receiverId를 파라미터로 전송
-      },
-    })
-    .then((res) => {
-      setMessage('친구 요청이 성공적으로 전송되었습니다.');
-    })
-    .catch((err) => {
-      console.log(err);
-      setMessage('친구 요청에 실패했습니다.');
-    });
-  }
-
-  const handleFriendRequestSubmit = (event) => {
-    event.preventDefault();
-    requestFriend();
-  }
+  const toggleFriendRequestFormHandler = () => {
+      setShowFriendRequestForm(!showFriendRequestForm);
+  };
   
   const logoutCheck = (e)=>{ 
       e.preventDefault();
@@ -116,18 +87,17 @@ const IconGroup = ({ iconWhiteClass }) => {
         localStorage.removeItem("userJelly"); 
         localStorage.removeItem("Authorization");
 
-       sessionStorage.removeItem("userId", res.data.userId); 
+       sessionStorage.removeItem("userId", res.data.userId);
        sessionStorage.removeItem("userName", res.data.userName);
-       sessionStorage.removeItem("userSeq", res.data.userSeq); 
+       sessionStorage.removeItem("userSeq", res.data.userSeq);
        sessionStorage.removeItem("Authorization", res.headers.authorization);
       // 공유된 변수를 상태를 변경하면 이 컨텍스트를 사용하는 모든 컴포넌트가 상태변경을 감지하고 업데이트 된다!!
-        logingedCon.onLoggedChange(false); 
-        logingedCon.onAdminInChange(false); 
+        logingedCon.onLoggedChange(false);
         navigator("/");
   
     }) 
-    .catch((err)=>{ 
-      console.log(err) 
+    .catch((err)=>{
+      console.log(err)
     });
 
        
@@ -186,7 +156,10 @@ const IconGroup = ({ iconWhiteClass }) => {
 
   return (
     <div className={clsx("header-right-wrap", iconWhiteClass)} >
-      <div className="same-style header-search d-none d-lg-block">
+
+        {logingedCon.isLoggedIn && <Notification />}
+
+        <div className="same-style header-search d-none d-lg-block">
         <button className="search-active" onClick={e => handleClick(e)}>
           <i className="pe-7s-search" />
         </button>
@@ -253,7 +226,7 @@ const IconGroup = ({ iconWhiteClass }) => {
                 value={receiverId}
                 onChange={(e) => setReceiverId(e.target.value)}
               />
-              <button onClick={handleFriendRequestSubmit} style={{fontSize:"15px"}}>친구요청</button>
+              <button onClick={toggleFriendRequestFormHandler} style={{fontSize:"15px"}}>친구요청</button>
             </li>
             <li>
               {message && <p>{message}</p>}
@@ -307,21 +280,13 @@ const IconGroup = ({ iconWhiteClass }) => {
         </button>
       </div>
 
-      {showFriendList && ( // 친구목록
-        <div className="offcanvas offcanvas-end show" tabIndex="-1" style={{ visibility: "visible" }}>
-          <div className="offcanvas-header">
-            <h5 className="offcanvas-title">친구 목록</h5>
-            <button type="button" className="btn-close text-reset" onClick={toggleFriendListHandler}></button>
-          </div>
-          <div className="offcanvas-body">
-            <ul>
-              {friendList.map(friend => (
-                <li key={friend.userSeq}>{friend.userName}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      )}
+        {showFriendList && ( // 친구목록 호출
+            <FriendList
+                showFriendList={showFriendList}
+                toggleFriendListHandler={toggleFriendListHandler}
+            />
+        )}
+
     </div>
   );
 };

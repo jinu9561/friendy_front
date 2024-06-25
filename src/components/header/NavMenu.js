@@ -8,9 +8,8 @@ import { useContext } from "react";
 const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
   const { t } = useTranslation();
 
+  let logingedCon = useContext(LogingedContext);
 
-  let logingedCon =useContext(LogingedContext);
-  
   return (
     <div
       className={clsx(
@@ -20,63 +19,66 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
       )}
     >
       <nav>
-      <ul>
-        {!logingedCon.isAdminIn ? (
-          // 사용자 내비게이션
-          <>
-             <li>
-            <Link to={process.env.PUBLIC_URL + "/"}>{t("Home")}</Link>
-          </li>
-          <li>
-            <Link to={process.env.PUBLIC_URL + "/blog-no-sidebar"}>
-              {t("자유 게시판")}
-            </Link>
-          </li>
-          <li>
-            <Link to={process.env.PUBLIC_URL + "/blog-no-sidebar"}>
-              {("ANONYMOUS")}
-            </Link>
-          </li>
-          <li>
-            <Link to={process.env.PUBLIC_URL + "/photo-board"}>
-              {("PHOTO")}
-            </Link>
-          </li>
-          <li>
-            <Link to={process.env.PUBLIC_URL + "/MeetUpBoard"}>
-              {("MEETUP")}
-            </Link>
-          </li>
-          <li>
-            <Link to={process.env.PUBLIC_URL + "/event"}>
-              {("EVENT")}
-            </Link>
-          </li>
-          </>
-        ) : (
-          // 관리자 내비게이션
+        <ul>
+          {!logingedCon.isAdminIn ? (
+            // 사용자 내비게이션
             <>
-                <li>
-                    <Link to={process.env.PUBLIC_URL + "/adminUser"}>회원 관리</Link>
-                </li>
-                <li>
-                    <Link to={process.env.PUBLIC_URL + "/adminPlace"}>Hot Place</Link>
-                </li>
-
-                <li>
-                    <Link to={process.env.PUBLIC_URL + "/adminEvent"}>ADMIN EVENT</Link>
-                </li>
-
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/"}>{t("Home")}</Link>
+              </li>
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/public-board"}>
+                  {t("PUBLIC BOARD")}
+                </Link>
+              </li>
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/anonymous-board"}>
+                  {"ANONYMOUS BOARD"}
+                </Link>
+              </li>
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/photo-board"}>
+                  {"PHOTO"}
+                </Link>
+              </li>
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/MeetUpBoard"}>
+                  {"MEETUP"}
+                </Link>
+              </li>
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/event"}>{"EVENT"}</Link>
+              </li>
             </>
-        )}
-      </ul>
+          ) : (
+            // 관리자 내비게이션
+            <>
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/adminUser"}>
+                  회원 관리
+                </Link>
+              </li>
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/adminPlace"}>
+                  Hot Place
+                </Link>
+              </li>
+
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/adminEvent"}>
+                  ADMIN EVENT
+                </Link>
+              </li>
+            </>
+          )}
+        </ul>
       </nav>
     </div>
   );
 };
 
 NavMenu.propTypes = {
-    menuWhiteClass: PropTypes.string,
+  menuWhiteClass: PropTypes.string,
   sidebarMenu: PropTypes.bool,
 };
 
