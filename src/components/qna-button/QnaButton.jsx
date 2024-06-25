@@ -1,12 +1,19 @@
 import React from 'react';
 import '../../assets/css/qna-button.css';
 import chatbotBtn from '../../assets/img/button/chatbotBtn.png'
+import {useQnaVisibility} from "./QnaVisibilityContext";
 
 const QnaButton = () => {
+
+    // const { isVisible } = useQnaVisibility();
 
   const handleClick = () => {
     window.open('http://pf.kakao.com/_SxkLcG/chat', '_blank')
   }
+
+    // if (!isVisible) {
+    //     return null;
+    // }
 
   return (
     <button className="qna-button" onClick={handleClick}>

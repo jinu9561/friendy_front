@@ -10,6 +10,7 @@ import adminIcon from '../../assets/img/admin/admin-icon.png';
 import './../../assets/css/icon.css';
 import Notification from "../notification/Notification";
 import FriendList from "../friend/FriendList";
+import FriendRequestForm from "../friend/FriendRequestForm";
 
 
 
@@ -218,15 +219,14 @@ const IconGroup = ({ iconWhiteClass }) => {
                   </>
                 )}
               </li>
-                {/* 친구요청 기능확인용 임시(채팅 완성되면 거기에 쓸거) */}
+
+            {/* 친구요청 기능확인용 임시(채팅 완성되면 거기에 쓸거) */}
             <li>
-              <input
-                type="text"
-                placeholder="친구 ID 입력"
-                value={receiverId}
-                onChange={(e) => setReceiverId(e.target.value)}
-              />
-              <button onClick={toggleFriendRequestFormHandler} style={{fontSize:"15px"}}>친구요청</button>
+                <FriendRequestForm
+                    receiverId={receiverId}
+                    closeForm={toggleFriendRequestFormHandler}
+                />
+
             </li>
             <li>
               {message && <p>{message}</p>}
@@ -259,7 +259,7 @@ const IconGroup = ({ iconWhiteClass }) => {
       </div>
       <div className="same-style cart-wrap d-block d-lg-none">
         <Link className="icon-cart" to={process.env.PUBLIC_URL + "/cart"}>
-          <i className="pe-7s-shopbag" />
+          <i className="pe-7s-shopbag" /> 
           <span className="count-style">
             {cartItems && cartItems.length ? cartItems.length : 0}
           </span>

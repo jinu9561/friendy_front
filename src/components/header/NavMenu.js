@@ -56,16 +56,20 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
         ) : (
           // 관리자 내비게이션
             <>
-                <li>
-                    <Link to={process.env.PUBLIC_URL + "/adminUser"}>회원 관리</Link>
-                </li>
-                <li>
-                    <Link to={process.env.PUBLIC_URL + "/adminPlace"}>Hot Place</Link>
-                </li>
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/adminUser"}>회원 관리</Link>
+              </li>
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/adminPlace"}>Hot Place</Link>
+              </li>
 
-                <li>
-                    <Link to={process.env.PUBLIC_URL + "/adminEvent"}>ADMIN EVENT</Link>
-                </li>
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/adminEvent"}>ADMIN EVENT</Link>
+              </li>
+
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/adminReport"}>신고목록</Link>
+              </li>
 
             </>
         )}
@@ -76,7 +80,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
 };
 
 NavMenu.propTypes = {
-    menuWhiteClass: PropTypes.string,
+  menuWhiteClass: PropTypes.string,
   sidebarMenu: PropTypes.bool,
 };
 

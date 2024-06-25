@@ -18,7 +18,6 @@ const FriendList = ({ showFriendList, toggleFriendListHandler }) => {
                 })
                 .catch(err => {
                     console.log(err);
-                    alert("친구 목록이 없습니다.");
                 });
         }
     }, [showFriendList]);
@@ -72,36 +71,56 @@ const FriendList = ({ showFriendList, toggleFriendListHandler }) => {
             });
     };
 
+    const Button = ({ onClick, children, style }) => (
+        <button
+            onClick={onClick}
+            style={{
+                display: 'inline-block',
+                padding: '5px 10px',
+                fontSize: '12px',
+                fontWeight: 'bold',
+                textAlign: 'center',
+                whiteSpace: 'nowrap',
+                verticalAlign: 'middle',
+                backgroundColor: '#FF6666',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '0.25rem',
+                cursor: 'pointer',
+                marginLeft: '5px',
+                ...style
+            }}
+        >
+            {children}
+        </button>
+    );
+
     return (
         showFriendList && (
-            <div className="offcanvas offcanvas-end show" tabIndex="-1" style={{ visibility: "visible" }}>
+            <div className="offcanvas offcanvas-end show" tabIndex="-1" style={{visibility: "visible"}}>
                 <div className="offcanvas-header">
                     <h5 className="offcanvas-title">친구 목록</h5>
                     <button type="button" className="btn-close text-reset" onClick={toggleFriendListHandler}></button>
                 </div>
                 <div className="offcanvas-body">
-                    <ul>
+                    <ul style={{listStyleType: 'none', padding: 0}}>
                         {friendList.map(friend => (
-                            <li key={friend.friendUserSeq}>
-                                {friend.friendName}
-                                <button
-                                    onClick={() => handleChat(friend.friendUserSeq)}
-                                    style={{ marginLeft: '15px' }}
-                                >
-                                    채팅
-                                </button>
-                                <button
-                                    onClick={() => handleDelete(friend.friendUserSeq)}
-                                    style={{ marginLeft: '5px' }}
-                                >
-                                    삭제
-                                </button>
-                                <button
-                                    onClick={() => handleBlock(friend.friendUserSeq)}
-                                    style={{ marginLeft: '5px' }}
-                                >
-                                    차단
-                                </button>
+                            <li key={friend.userSeq}
+                                style={{display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
+                                <div style={{
+                                    width: '200px',
+                                    marginRight: '15px',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    whiteSpace: 'nowrap'
+                                }}>
+                                    {friend.nickName}
+                                </div>
+                                <div>
+                                    <Button onClick={() => handleChat(friend.friendUserSeq)}>채팅</Button>
+                                    <Button onClick={() => handleDelete(friend.friendUserSeq)}>삭제</Button>
+                                    <Button onClick={() => handleBlock(friend.friendUserSeq)}>차단</Button>
+                                </div>
                             </li>
                         ))}
                     </ul>
