@@ -1,0 +1,163 @@
+.product-quickview-modal-wrapper {
+    .modal-body {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .product-large-image-wrapper {
+        position: relative;
+        margin-bottom: 20px;
+
+        .single-image {
+            position: relative;
+            img {
+                width: 100%;
+                height: auto;
+            }
+            .remove-icon {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .product-small-image-wrapper {
+        margin-top: 15px;
+
+        .single-image {
+            cursor: pointer;
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    }
+
+    .profile-container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+
+        .profile-image-container {
+            position: relative;
+
+            .round-image {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                margin-right: 30px;
+            }
+            .icon {
+                position: absolute;
+                top: 0;
+                right: -25px;
+                width: 20px;
+                height: 20px;
+                margin-right: 17px;
+            }
+        }
+        .profile-details {
+            margin-left: 10px;
+            p {
+                position: relative;
+                font-size: 16px;
+                font-weight: bold;
+                color: #ed59a0;
+            }
+        }
+    }
+
+    .product-details-price {
+        margin-top: 20px;
+
+        .mb-3 {
+            margin-bottom: 1rem;
+            .form-control {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 14px;
+            }
+            label {
+                font-size: 16px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 10px;
+                display: block;
+            }
+        }
+
+        .btn {
+            &.btn-primary {
+                background-color: #ed59a0; /* 핑크 톤 */
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                font-size: 16px;
+                font-weight: bold;
+                &:hover {
+                    background-color: #f50057; /* 핑크 톤 - 더 진한 색 */
+                }
+            }
+            &.btn-secondary {
+                background-color: #6c757d;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                font-size: 16px;
+                font-weight: bold;
+                &:hover {
+                    background-color: #5a6268;
+                }
+            }
+            &.btn-danger {
+                background-color: #dc3545;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                font-size: 16px;
+                font-weight: bold;
+                &:hover {
+                    background-color: #c82333;
+                }
+            }
+            &.mt-3 {
+                margin-top: 1rem;
+            }
+            &.mr-2 {
+                margin-right: 0.5rem;
+            }
+            &.ml-2 {
+                margin-left: 0.5rem;
+            }
+        }
+    }
+}
+
+.like-icon-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.likeIcon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-right: 10px; /* 아이콘과 숫자 사이의 간격 조정 */
+}
+
+.like-count {
+    font-size: 16px;
+    font-weight: bold;
+    color: #e0e0e0; /* 핑크 톤 */
+    background-color: #ed59a0;
+}
+
