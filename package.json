@@ -14,7 +14,6 @@
     "i18next": "^22.0.4",
     "i18next-browser-languagedetector": "^7.0.0",
     "i18next-http-backend": "^2.0.1",
-    "modal": "^1.2.0",
     "moment": "^2.30.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
@@ -38,6 +37,8 @@
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1",
+    "sockjs-client": "^1.6.1",
+    "stompjs": "^2.3.3",
     "swiper": "^8.4.4",
     "uuid": "^9.0.0",
     "yet-another-react-lightbox": "^2.2.0"
