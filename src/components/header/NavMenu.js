@@ -67,6 +67,10 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                     <Link to={process.env.PUBLIC_URL + "/adminEvent"}>ADMIN EVENT</Link>
                 </li>
 
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/adminReport"}>신고목록</Link>
+              </li>
+
             </>
         )}
       </ul>
