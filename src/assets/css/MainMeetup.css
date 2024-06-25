@@ -1,0 +1,78 @@
+.product-wrap-2 {
+    position: relative;
+    margin-bottom: 30px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.product-wrap-2:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.meetup-img {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid #eee;
+}
+
+.meetup-img img.default-img,
+.meetup-img img.hover-img {
+    width: 100%;
+    height: auto;
+    transition: all 0.3s ease;
+}
+
+.meetup-img img.hover-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.product-wrap-2:hover .meetup-img img.hover-img {
+    opacity: 1;
+}
+
+.meetup-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.product-wrap-2:hover .meetup-icon {
+    opacity: 1;
+}
+
+.meetup-icon:hover {
+    background-color: rgba(255, 182, 193, 0.8); /* Light pink background on hover */
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.meet-up {
+    padding: 20px;
+    text-align: center;
+}
+
+.meet-up h3 {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.meet-up h3 a {
+    color: #ff69b4; /* Pink text color */
+    text-decoration: none;
+}
+
+.meet-up h3 a:hover {
+    color: #ff1493; /* Darker pink on hover */
+}

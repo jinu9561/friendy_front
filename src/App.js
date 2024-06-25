@@ -60,6 +60,8 @@ const AdminLogin = lazy(()=> import('./admin/pages/other/AdminLogin'));
 const AdminUser = lazy(()=> import('./admin/pages/users/AdminUser'));
 // 관리자 장소 추천
 const AdminPlace = lazy(()=> import('./admin/pages/place/AdminPlace'));
+// 관리자 사진게시판 조회
+const AdminPhoto = lazy(()=> import('./admin/pages/photo/AdminPhotoBoard'));
 
 // 관리자 이벤트 조회
 const AdminEvent = lazy(()=> import('./admin/pages/event/AdminEvent'));
@@ -71,16 +73,24 @@ const AdminEventDetailImgInsert = lazy(()=> import('./admin/components/event/Adm
 
 const App = () => {
   //컴포넌트가 mount or update 될때 로그인 여부에 따른 상태값 변경
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const [isAdminIn, setIsAdminIn] = useState(false); 
+    const [isAdminIn, setIsAdminIn] = useState(false);
+    const [userSeq,setUserSeq] = useState('');
+    const [adminSeq,setAdminSeq] = useState('');
     
     useEffect(()=>{ 
       localStorage.getItem("userSeq")!=null ? setIsLoggedIn(true) : setIsLoggedIn(false); 
-      console.log("isLoggeedIn = ", isLoggedIn)
+      console.log("isLoggeedIn = ", isLoggedIn);
 
       sessionStorage.getItem("userId") !=null ? setIsAdminIn(true) : setIsAdminIn(false); 
-      console.log("isAdminIn = ", isAdminIn)
+      console.log("isAdminIn = ", isAdminIn);
+
+      const seq = localStorage.getItem("userSeq");
+      setUserSeq(seq);
+
+      const amdinSeq = sessionStorage.getItem("userSeq");
+        setAdminSeq(amdinSeq);
     }); 
 
     const handleLoggedChange = (isLoggedIn)=>{ 
@@ -138,7 +148,8 @@ const App = () => {
 
 
   return (
-    <LogingedContext.Provider value={ {isLoggedIn:isLoggedIn , onLoggedChange:handleLoggedChange , isAdminIn:isAdminIn, onAdminInChange:handleAdminInChange } }>
+    <LogingedContext.Provider value={ {isLoggedIn:isLoggedIn , onLoggedChange:handleLoggedChange , isAdminIn:isAdminIn, onAdminInChange:handleAdminInChange
+        ,userSeq:userSeq , adminSeq:adminSeq} }>
 
       <Router>
         <QnaButton />
@@ -282,6 +293,11 @@ const App = () => {
               <Route
                   path={process.env.PUBLIC_URL + "/adminPlace"}
                   element={<AdminPlace/>}
+              />
+              {/* 관리자 장소 추천*/}
+              <Route
+                    path={process.env.PUBLIC_URL + "/adminPhoto"}
+                    element={<AdminPhoto/>}
               />
 
               {/* 관리자 이벤트 게시판 */}

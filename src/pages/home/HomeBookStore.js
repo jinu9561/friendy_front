@@ -25,15 +25,10 @@ const HomeBookStore = () => {
                 containerClass="container"
                 responsiveClass="res-mrg-md-mt"
             />
-            {/* tab product */}
+            {/* 소모임 추천 */}
             <TabProductFour category="book" productTabClass="product-tab-pink2"/>
-            {/* call to action */}
-            {/*<CtaOne*/}
-            {/*  spaceTopClass="pt-100"*/}
-            {/*  backgroundImage="/assets/img/bg/bg-5.jpg"*/}
-            {/*/>*/}
-            {/* brand logo slider */}
-            <br/> <br/>
+            <br></br>
+            <br></br>
             <BrandLogoSliderTwo/>
             {/* 장소 추천 */}
             <PlaceRecommendSlider
@@ -42,9 +37,9 @@ const HomeBookStore = () => {
                 category="book"
                 limit={6}
             />
+            {/* brand logo slider */}
 
-            {/* blog featured */}
-            {/*<BlogFeatured spaceTopClass="pt-95" spaceBottomClass="pb-55" />*/}
+
         </LayoutTwo>
     </Fragment>
   );

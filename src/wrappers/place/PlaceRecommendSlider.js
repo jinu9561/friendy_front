@@ -5,7 +5,7 @@ import SectionTitleThree from "../../components/section-title/SectionTitleThree"
 import PlaceRecommend from "../../components/place/PlaceRecommend";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import '../../assets/css/placeRecommend.css';
+
 
 
 const settings = {

@@ -6,6 +6,7 @@ const InterestList = ({profileData}) => {
             <ul className="interest-list">
                 {profileData.interestList.map((interestDTO, index) => (
                     <li key={interestDTO.interestSeq} className="interest-item">
+                        <span className="interest-icon">⭐</span>
                         <strong>{interestDTO.interestCategory}</strong>
                     </li>
                 ))}

@@ -1,24 +1,22 @@
 import { Fragment, useEffect, useState } from "react";
 import clsx from "clsx";
-import defaultProfileImage from '../../assets/img/prof/default.jpeg';
 import DetailIcon from '../../assets/img/admin/user-detail-icon.png';
 import PlaceDetail from "./PlaceDetail";
-import axios from "axios";
+import PropTypes from "prop-types";
 
 
 
 const Place = ({
    place,
-  currency,
-  spaceBottomClass,
-    status,
-   getStatus
+                   currency,
+   spaceBottomClass,
+   status,
+   getStatus,
+                   handleUpdate
 }) => {
 
   const [modalShow, setModalShow] = useState(false);
-  const [curplace,setCurPlace] = useState({...place})
 
-  console.log(curplace);
 
 
     const getImg = (main, imgName) => {
@@ -35,20 +33,20 @@ const Place = ({
           <div className="product-img">
               <img
                 className="default-img"
-                src={getImg(true,curplace.placeMainImgName)}
+                src={getImg(true,place.placeMainImgName)}
                 alt=""
               />
-              {place.placeDetailImgList.length > 0 ? (
-                <img
-                  className="hover-img"
-                  src={getImg(false,curplace.placeDetailImgList[0].placeDetailImgName)}
-                  alt=""
-                />
+              {place.placeDetailImgList && place.placeDetailImgList.length > 0 ? (
+                  <img
+                      className="hover-img"
+                      src={getImg(false, place.placeDetailImgList[0].placeDetailImgName)}
+                      alt=""
+                      onClick={() => setModalShow(true)}
+                  />
               ) : (
-                ""
+                  ""
               )}
             <div className="product-action">
-
               <div className="pro-same-action pro-quickview">
                   <button onClick={() => setModalShow(true)} title="Quick View">
                       <img
@@ -63,23 +61,25 @@ const Place = ({
         </div>
         {/* 이미지 밑에 내용*/}
         <div className="shop-list-content">
-            <h3>{curplace.placeName}</h3>
+            <h3>{place.placeName}</h3>
         </div>
-          
-        
+
        {/*프로필 상세보기 */}
-       <PlaceDetail
-        show={modalShow}
-        onHide={()=>setModalShow(false)}
-        placeData={curplace}
-        currency={currency}
-        getImg={getImg}
-        getStatus={getStatus}
-        placeDetailImgList={curplace.placeDetailImgList}
-        status={status}
-      />
+        <PlaceDetail
+            show={modalShow}
+            onHide={()=>setModalShow(false)}
+            placeData={place}
+            currency={currency}
+            getImg={getImg}
+            getStatus={getStatus}
+            placeDetailImgList={place.placeDetailImgList}
+            status={status}
+            handleUpdate={handleUpdate} />
     </Fragment>
   );
+};
+Place.propTypes = {
+    handleUpdate: PropTypes.func,
 };
 
 
