@@ -3,8 +3,8 @@ import { useLocation, useParams } from "react-router-dom";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import BlogComment from "../../wrappers/blog/BlogComment";
-import BlogPost from "../../wrappers/blog/BlogPost";
+import BlogComment from "./BlogComment";
+import BlogPost from "./BlogPost";
 
 // 게시글 상세페이지
 const PublicDetail = () => {
@@ -23,7 +23,6 @@ const PublicDetail = () => {
 
   if (!post) return <div>Loading...</div>;
 
- 
   return (
     <Fragment>
       <SEO title={post.boardTitle} />
@@ -31,7 +30,11 @@ const PublicDetail = () => {
         <Breadcrumb
           pages={[
             { label: "Home", path: process.env.PUBLIC_URL + "/" },
-            { label: "Blog Post", path: process.env.PUBLIC_URL + pathname },
+            {
+              label: "PublicBoard",
+              path: process.env.PUBLIC_URL + pathname,
+            },
+            { label: `num : ${commBoardSeq}` },
           ]}
         />
         <div className="blog-area pt-100 pb-100">
@@ -39,8 +42,11 @@ const PublicDetail = () => {
             <div className="row justify-content-center">
               <div className="col-lg-9">
                 <div className="blog-details-wrapper ml-20">
-                  <BlogPost post={post} />
-                  <BlogComment replyList={post.replyList} />
+                  <BlogPost post={post} commBoardSeq={commBoardSeq} />
+                  <BlogComment
+                    replyList={post.replyList}
+                    commBoardSeq={commBoardSeq}
+                  />
                 </div>
               </div>
             </div>

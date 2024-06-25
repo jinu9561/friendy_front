@@ -1,11 +1,11 @@
 import { Fragment, useEffect, useState } from "react";
-import { useLocation, useNavigate  } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import BlogSidebar from "../../wrappers/blog/BlogSidebar";
 import BlogPagination from "../../wrappers/blog/BlogPagination";
-import BlogPosts from "../../wrappers/blog/BlogPosts";
+import BlogPosts from "./BlogPosts";
 import Paginator from "react-hooks-paginator"; //페이지네이터
 
 //실명 게시판
@@ -50,14 +50,20 @@ const PublicBoard = () => {
                     {/* blog posts */}
                     <BlogPosts posts={posts} pathname={pathname} />
                   </div>
-                  <div class="d-flex justify-content-end"><button
+                  <div class="d-flex justify-content-end">
+                    <button
                       type="button"
+                      style={{
+                        backgroundColor: "#ff6289",
+                        opacity: 0.8,
+                        border: "none",
+                      }}
                       className="btn btn-secondary btn-lg"
                       onClick={handleWriteClick}
                     >
                       글쓰기
-                    </button></div>
-                    
+                    </button>
+                  </div>
 
                   {/* blog pagination */}
                   <BlogPagination />

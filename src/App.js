@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import QnaButton from "./components/qna-button/QnaButton";
 import SaveForm from "./components/ui/wrappper/SaveForm";
-import WritePost from "./pages/generalBoards/WritePost";
 
 export const LogingedContext = createContext();
 
@@ -32,6 +31,10 @@ const AnonymousBoard = lazy(() =>
 const AnonymousDetail = lazy(() =>
   import("./pages/generalBoards/AnonymousDetail")
 );
+//자유, 익명게시판 글쓰기
+const WritePost = lazy(() => import("./pages/generalBoards/WritePost"));
+//자유, 익명게시판 수정
+const UpdatePost = lazy(() => import("./pages/generalBoards/UpdatePost"));
 
 // 나의 프로필
 const MyProfile = lazy(() => import("./pages/other/MyProfile"));
@@ -195,15 +198,23 @@ const App = () => {
               />
 
               {/* 자유 게시판 */}
-              
-              <Route path="/public-board" element={<PublicBoard />}/> 
-              <Route path="/public-board/write" element={<WritePost />}/> 
 
+              <Route path="/public-board" element={<PublicBoard />} />
+              <Route path="/public-board/write" element={<WritePost />} />
+              <Route
+                path="/public-board/:commBoardSeq/update"
+                element={<UpdatePost />}
+              />
 
               {/* 익명 게시판 */}
               <Route
                 path={process.env.PUBLIC_URL + "/anonymous-board"}
                 element={<AnonymousBoard />}
+              />
+              <Route path="/anonymous-board/write" element={<WritePost />} />
+              <Route
+                path="/anonymous-board/:commBoardSeq/update"
+                element={<UpdatePost />}
               />
 
               {/* 자유 게시판 상세보기*/}

@@ -1,11 +1,9 @@
 import React, { Fragment, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 
-const BlogComment = ({ replyList }) => {
+const BlogComment = ({ replyList, commBoardSeq }) => {
   const [replyContent, setReplyContent] = useState("");
   const [replies, setReplies] = useState(replyList);
-  const { commBoardSeq } = useParams();
 
   const options = {
     year: "numeric",
@@ -22,16 +20,16 @@ const BlogComment = ({ replyList }) => {
 
     const replyDTO = {
       userSeq: userSeq,
-      replyContent: replyContent
+      replyContent: replyContent,
     };
 
     try {
       const response = await axios.post(
         `http://localhost:9000/community-boards/${commBoardSeq}/replies`,
-          replyDTO
+        replyDTO
       );
-      
-       // 새 댓글을 기존 댓글 목록에 추가
+
+      // 새 댓글을 기존 댓글 목록에 추가
       setReplies([...replies, response.data]);
       setReplyContent(""); // 입력 필드를 초기화
     } catch (error) {
@@ -69,7 +67,7 @@ const BlogComment = ({ replyList }) => {
           </div>
         ))}
         <div className="blog-reply-wrapper mt-50">
-          <h4 className="blog-dec-title">post a comment</h4>
+          <h4 className="blog-dec-title">댓글을 입력하세요.</h4>
           <form className="blog-form" onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-md-12">

@@ -1,8 +1,30 @@
+import axios from "axios";
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-//상세 글보기 안에 상세글에 관한 컴포넌트
-const BlogPost = ({ post }) => {
+//상세 글보기 안에 상세글내용에 관한 컴포넌트
+const BlogPost = ({ post, commBoardSeq }) => {
+  const navigate = useNavigate();
+
+  const handleEdit = () => {
+    navigate(`/update-post/${commBoardSeq}`); // UpdatePost 페이지로 이동
+  };
+
+  const handleDelete = async () => {
+    if (window.confirm("삭제하시겠습니까?")) {
+      // 사용자에게 삭제 확인 요청
+      try {
+        await axios.delete(
+          `http://localhost:9000/community-boards/${commBoardSeq}`
+        );
+        alert("게시글이 성공적으로 삭제되었습니다.");
+        navigate("/public-board"); // 게시글 삭제 후 게시판으로 이동
+      } catch (error) {
+        alert("게시글 삭제에 실패했습니다.");
+      }
+    }
+  };
+
   const options = {
     year: "numeric",
     month: "long",
@@ -24,7 +46,7 @@ const BlogPost = ({ post }) => {
               </li>
               <li>
                 <Link to={process.env.PUBLIC_URL + "/blog-details-standard"}>
-                {post.replyList.length} <i className="fa fa-comments-o" />
+                  {post.replyList.length} <i className="fa fa-comments-o" />
                 </Link>
               </li>
             </ul>
@@ -36,27 +58,34 @@ const BlogPost = ({ post }) => {
       <div className="dec-img-wrapper">
         <div className="row">
           <div className="col-md-6">
-            <div className="dec-img mb-50">
-              <img
-                alt=""
-                src={
-                  process.env.PUBLIC_URL + "/assets/img/blog/blog-details.jpg"
-                }
-              />
-            </div>
+            <div className="dec-img mb-50"></div>
           </div>
           <div className="col-md-6">
-            <div className="dec-img mb-50">
-              <img
-                alt=""
-                src={
-                  process.env.PUBLIC_URL + "/assets/img/blog/blog-details-2.jpg"
-                }
-              />
-            </div>
+            <div className="dec-img mb-50"></div>
           </div>
         </div>
-        <p>{post.boardContent}</p>
+      </div>
+      <div className="d-flex justify-content-end">
+        <button
+          type="button"
+          className="btn btn-secondary mr-2"
+          onClick={handleEdit}
+        >
+          수정
+        </button>
+        <button
+          type="button"
+          style={{
+            backgroundColor: "#ff6289",
+            opacity: 0.8,
+            border: "none",
+            marginLeft: "3px",
+          }}
+          className="btn btn-primary"
+          onClick={handleDelete}
+        >
+          삭제
+        </button>
       </div>
       <div className="tag-share">
         <div className="dec-tag">
