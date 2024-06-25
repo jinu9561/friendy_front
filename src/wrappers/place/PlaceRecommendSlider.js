@@ -73,6 +73,7 @@ const PlaceRecommendSlider = ({
   return (
     <div className={clsx("new-product-area", spaceBottomClass, spaceTopClass)}>
       <div className="container">
+          <div id="scroll-target">
         <SectionTitleThree
           titleText="Friendy Hot Place"
           positionClass="text-center"
@@ -89,7 +90,7 @@ const PlaceRecommendSlider = ({
                 </SwiperSlide>
             ))}
           </Swiper>
-       
+          </div>
       </div>
     </div>
   );

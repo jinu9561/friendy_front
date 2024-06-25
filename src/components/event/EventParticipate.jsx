@@ -17,17 +17,24 @@ const EventParticipate = () => {
     if (stick) {
         return (
             <div className="pro-details-cart btn-hover"
-                 style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "10vh" }}
+                 style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "15vh", marginTop: "-60px" }}
             >
-            <button
-                aria-label="회원 이벤트 참가"
-                type="button"
-                className="Event Participation"
-                onClick={onClickHandler}
-                style={{ padding: "8px 30px", fontSize: "16px",  marginBottom: "60px"}}
-            >
-              Join Us
-            </button>
+            {/*<button*/}
+            {/*    aria-label="회원 이벤트 참가"*/}
+            {/*    type="button"*/}
+            {/*    className="Event Participation"*/}
+            {/*    onClick={onClickHandler}*/}
+            {/*    style={{ padding: "8px 30px", fontSize: "16px",  marginBottom: "60px"}}*/}
+            {/*>*/}
+            {/*  Join Us*/}
+            {/*</button>*/}
+                <h5>
+                    ※ 참가 희망을 원하시는 회원분들께서는 아이디와 메일 그리고 이벤트에 대한 사연을 아래의 메일로 보내주세요.
+                    <h6>
+                    Email : friendyadm@gmail.com
+                    <br/>
+                    FAQ : 010-9242-6643</h6></h5>
+
             </div>
         );
     }
