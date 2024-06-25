@@ -1,13 +1,14 @@
 import axios from "axios";
 import React, { Fragment } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 //상세 글보기 안에 상세글내용에 관한 컴포넌트
 const BlogPost = ({ post, commBoardSeq }) => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const handleEdit = () => {
-    navigate(`/update-post/${commBoardSeq}`); // UpdatePost 페이지로 이동
+    navigate(`${pathname}/update`, { state: { post } }); // 게시물 수정 페이지로 이동하면서 수정을 위해 post 데이터를 넘김
   };
 
   const handleDelete = async () => {

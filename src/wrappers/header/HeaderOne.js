@@ -64,7 +64,7 @@ const HeaderOne = ({
                 
               />
             </div>
-            <div className="col-xl-8 col-lg-8 d-none d-lg-block">
+            <div className="col-xl-8 col-lg-8 d-none d-lg-block" style={{ paddingRight: '100px' }}>
               {/* Nav menu */}
               <NavMenu />
             </div>
