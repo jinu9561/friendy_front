@@ -28,6 +28,7 @@ const MainMeetup = ({
 
   // 클릭 이벤트!!
     let logingedCon =useContext(LogingedContext);
+
     const handleRegisterClick = () => {
         if (logingedCon.isLoggedIn) {
             setModalShow(true);
@@ -40,7 +41,7 @@ const MainMeetup = ({
       <Fragment>
           <div className={clsx("product-wrap-2", spaceBottomClass, colorClass)}>
               <div className="meetup-img">
-                  <Link to={process.env.PUBLIC_URL + "/"}>
+                  <Link to="#" onClick={handleRegisterClick}>
                       <img
                           className="default-img"
                           src={getImg(true, meetUp.meetUpDetailImgName[0])}
@@ -56,13 +57,13 @@ const MainMeetup = ({
                           ""
                       )}
                   </Link>
-                  <button onClick={() => setModalShow(true)} title="Quick View">
+                  <button onClick={handleRegisterClick} title="Quick View">
                       <img src={meetupIcon} alt="Quick View" className="meetup-icon"/>
                   </button>
               </div>
               <div className="meet-up">
                   <h3>
-                      <Link to={process.env.PUBLIC_URL + "/"}>
+                      <Link to="#" onClick={handleRegisterClick}>
                           {meetUp.meetUpName}
                       </Link>
                   </h3>

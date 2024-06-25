@@ -29,7 +29,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
           </li>
           <li>
             <Link to={process.env.PUBLIC_URL + "/blog-no-sidebar"}>
-              {t("자유 게시판")}
+              {("자유 게시판")}
             </Link>
           </li>
           <li>
@@ -57,7 +57,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
           // 관리자 내비게이션
             <>
                 <li>
-                    <Link to={process.env.PUBLIC_URL + "/adminUser"}>회원 관리</Link>
+                    <Link to={process.env.PUBLIC_URL + "/adminUser"}>MemberShip</Link>
                 </li>
                 <li>
                     <Link to={process.env.PUBLIC_URL + "/adminPlace"}>Hot Place</Link>
