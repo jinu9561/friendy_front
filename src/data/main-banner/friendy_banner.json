@@ -1,17 +1,18 @@
 [
   {
     "id": 1,
-    "image": "/assets/img/main-banner/pictureBanner.png",
-    "title": "Picture",
+    "image": "/assets/img/main-banner/iStock-929516304.png",
+    "title": "PHOTO",
     "subtitle": "",
     "price": "",
     "link": "/photo-board",
-    "titleColor": "#ffffff"
+    "titleColor": "#ffffff",
+    "fontFamily": "Chivo-Medium"
   },
   {
     "id": 2,
-    "image": "/assets/img/main-banner/meetupBanner.png",
-    "title": "MeetUp",
+    "image": "/assets/img/main-banner/meetUpbanner2.png",
+    "title": "MEETUP",
     "subtitle": "",
     "price": "",
     "link": "/MeetUpBoard",
