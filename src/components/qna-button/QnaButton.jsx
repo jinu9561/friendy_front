@@ -5,15 +5,9 @@ import {useQnaVisibility} from "./QnaVisibilityContext";
 
 const QnaButton = () => {
 
-    // const { isVisible } = useQnaVisibility();
-
   const handleClick = () => {
     window.open('http://pf.kakao.com/_SxkLcG/chat', '_blank')
   }
-
-    // if (!isVisible) {
-    //     return null;
-    // }
 
   return (
     <button className="qna-button" onClick={handleClick}>

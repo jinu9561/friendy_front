@@ -6,5 +6,12 @@
     border: none;
     background: none;
     cursor: pointer;
-    z-index: 1000; /* 다른 요소들보다 위에 표시되도록 z-index 설정 */
+    z-index: 100; /* 다른 요소들보다 위에 표시되도록 z-index 설정 */
+}
+
+.friend-list {
+    position: fixed;
+    bottom: 70px; /* QnaButton 위에 위치하도록 bottom 값을 조정 */
+    right: 20px;
+    z-index: 200; /* 높은 z-index 값 */
 }
