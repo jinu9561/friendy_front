@@ -5,7 +5,7 @@ import Swiper, { SwiperSlide } from "../../components/swiper";
 import axios from "axios";
 import removeIcon from '../../assets/img/prof/remove-icon.png'
 import PropTypes from "prop-types";
-import '../../assets/css/photoDetail.css';
+import '../../assets/css/detailPink.css';
 
 function PlaceDetail({ placeData, currency, show, placeDetailImgList, getImg, onHide, getStatus, status, handleUpdate }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);

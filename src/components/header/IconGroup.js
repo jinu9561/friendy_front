@@ -92,6 +92,7 @@ const IconGroup = ({ iconWhiteClass }) => {
        sessionStorage.removeItem("Authorization", res.headers.authorization);
       // 공유된 변수를 상태를 변경하면 이 컨텍스트를 사용하는 모든 컴포넌트가 상태변경을 감지하고 업데이트 된다!!
         logingedCon.onLoggedChange(false);
+        logingedCon.onAdminInChange(false);
         navigator("/");
   
     }) 
@@ -197,13 +198,13 @@ const IconGroup = ({ iconWhiteClass }) => {
                 {logingedCon.isLoggedIn ? (
                   <Link to="#" onClick={logoutCheck} className="nav-link">로그아웃</Link>
                 ) : (
-                  <Link to={process.env.PUBLIC_URL + "/login-register"}>로그인</Link>
+                  <Link to={process.env.PUBLIC_URL + "/login-register?tab=login"}>로그인</Link>
                 )}
               </li>
               <li>
                 {!logingedCon.isLoggedIn && (
                   <>
-                    <Link to={process.env.PUBLIC_URL + "/login-register"}>회원 가입</Link>
+                    <Link to={process.env.PUBLIC_URL + "/login-register?tab=register"}>회원 가입</Link>
                     <Link to={process.env.PUBLIC_URL + "/emailVerification"}>회원 인증</Link>
                   </>
                 )}

@@ -606,10 +606,10 @@ const MyProfile = () => {
                           {profileData.purchaseHistory.map((item, index) => (
                             <div className="purchase-item" key={index}>
                               <div>
-                                  <strong>구매 젤리:</strong> {item.jellyAmount}개
+                                  <strong>구매 젤리:</strong> {parseInt(item.jellyAmount).toLocaleString()}개
                               </div>
                               <div>
-                                  <strong>구매 금액:</strong> {item.amount} 원
+                                  <strong>구매 금액:</strong> {parseInt(item.amount).toLocaleString()} 원
                               </div>
                               <div>
                                   <strong>구매 일자:</strong> {item.transactionDate}

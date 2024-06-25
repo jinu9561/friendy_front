@@ -25,7 +25,7 @@ const HomeBookStore = () => {
           containerClass="container"
           responsiveClass="res-mrg-md-mt"
         />
-        {/* tab product */}
+        {/* 소모임 추천 */}
         <TabProductFour category="book" productTabClass="product-tab-pink2" />
         {/* call to action */}
         <CtaOne
