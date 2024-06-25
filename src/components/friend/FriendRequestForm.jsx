@@ -34,19 +34,19 @@ const FriendRequestForm = () => {
   }
 
   return (
-    <div>
-      <label>
-        친구 ID:
-        <input 
-          type="text" 
-          value={receiverId} 
-          onChange={(e) => setReceiverId(e.target.value)} 
-          required 
-        />
-      </label>
-      <button onClick={handleClick}>친구 요청 보내기</button>
-      {message && <p>{message}</p>}
-    </div>
+      <div>
+        <label>
+          친구 ID:
+          <input
+              type="text"
+              value={receiverId}
+              onChange={(e) => setReceiverId(e.target.value)}
+              required
+          />
+        </label>
+        <button onClick={handleClick} style={{fontSize: "15px"}}>친구요청</button>
+        {message && <p>{message}</p>}
+      </div>
   );
 };
 

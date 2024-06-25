@@ -1,22 +1,30 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
-import PhotoGridListSingle from "./PhotoGridListSingle";
+import Photo from "./Photo";
+import "../../assets/css/photoGrid.css";
 
 const PhotoGridList = ({
   photos, // photos 배열을 props로 받습니다.
-  spaceBottomClass, // 추가할 CSS 클래스를 props로 받습니다.
+  spaceBottomClass,
+  handelUpdate,
 }) => {
   return (
-    <div className="row">
-      {photos?.map((photo) => (
-        <div className="col-xl-4 col-sm-6" key={photo.photoBoardSeq}>
-          <PhotoGridListSingle
-            spaceBottomClass={spaceBottomClass} // 추가할 CSS 클래스
-            photo={photo} // 개별 사진 데이터
-          />
-        </div>
-      ))}
-    </div>
+    <Fragment>
+      <div className="photo-grid">
+        {photos?.map((photo) => (
+          <div key={photo.photoBoardSeq} className="photo-grid-item">
+            <Photo
+              spaceBottomClass={spaceBottomClass} // 추가할 CSS 클래스
+              photo={photo} // 개별 사진 데이터
+              handelUpdate={handelUpdate}
+            />
+            <div className="photo-title">
+              <h3>{photo.photoBoardTitle}</h3>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Fragment>
   );
 };
 

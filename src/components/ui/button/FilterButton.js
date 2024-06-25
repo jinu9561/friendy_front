@@ -4,8 +4,8 @@ const FilterButton = ({ interestCategory, onClick }) => (
         style={{
             display: 'inline-block',
             width: 'auto',
-            padding: '5px 10px',
-            fontSize: '12px',
+            height: '50%',
+            fontSize: '85%',
             textAlign: 'center',
             whiteSpace: 'nowrap',
             verticalAlign: 'middle',

@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../assets/css/qna-button.css';
 import chatbotBtn from '../../assets/img/button/chatbotBtn.png'
+import {useQnaVisibility} from "./QnaVisibilityContext";
 
 const QnaButton = () => {
 

@@ -54,54 +54,57 @@ const PlaceDetail = ({ place, currency, show, onHide }) => {
     return  imgName ? "http://localhost:9000/place/detail/img?imgName=" + imgName : defaultProfileImage ;
   };
 
+  const handleRegisterClick = () => {
+    window.location.href = "/MeetUpBoard"; // 소모임 등록 페이지로 이동하는 URL
+  };
+
 
   return (
-    <Modal show={show} onHide={onCloseModal} className="product-quickview-modal-wrapper">
-    <Modal.Header closeButton></Modal.Header>
-    <div className="modal-body">
-      <div className="single-image">
-        <img
-          src={getImg(true, place.placeMainImgName)}
-          className="img-fluid"
-          alt="Product"
-        />
-      </div>
-      <br></br>
-      {"    "}
-      <div className="product-details-content quickview-content">
-        {/* 디테일 사진을 설명 위에 배치 */}
-        {place.placeDetailImgList && place.placeDetailImgList.map((placeDetail, i) => (
-          <div key={i} className="single-image" style={{ maxHeight: '300px', overflow: 'hidden' }}>
+      <Modal show={show} onHide={onCloseModal} className="product-quickview-modal-wrapper">
+        <Modal.Header closeButton></Modal.Header>
+        <div className="modal-body">
+          <div className="single-image">
             <img
-              src={getImg(false, placeDetail.placeDetailImgName)}
-              className="img-fluid"
-              alt=""
+                src={getImg(true, place.placeMainImgName)}
+                className="img-fluid"
+                alt="Product"
             />
           </div>
-        ))}
-        <br></br>
-        <div className="product-details-price">
-          <Fragment>
-            <span>
-              {currency.currencySymbol}
-            </span>{" "}
-            <span className="old">
-              {currency.currencySymbol}
-            </span>
-          </Fragment>
-          <span>{currency.currencySymbol}</span>
-        </div>
-        <div className="pro-details-list">
-          <p>{place.placeDescription}</p>
-        </div>
-        <div className="pro-details-quality">
-          <div className="pro-details-cart btn-hover">
-            <button onClick={""}> 소모임 등록하러 가기 </button>
+          <br></br>
+          {"    "}
+          <div className="product-details-content quickview-content">
+            {place.placeDetailImgList && place.placeDetailImgList.map((placeDetail, i) => (
+                <div key={i} className="single-image" style={{ maxHeight: '300px', overflow: 'hidden' }}>
+                  <img
+                      src={getImg(false, placeDetail.placeDetailImgName)}
+                      className="img-fluid"
+                      alt=""
+                  />
+                </div>
+            ))}
+            <br></br>
+            <div className="product-details-price">
+              <Fragment>
+              <span>
+                {currency.currencySymbol}
+              </span>{" "}
+                <span className="old">
+                {currency.currencySymbol}
+              </span>
+              </Fragment>
+              <span>{currency.currencySymbol}</span>
+            </div>
+            <div className="pro-details-list">
+              <p>{place.placeDescription}</p>
+            </div>
+            <div className="pro-details-quality">
+              <div className="pro-details-cart btn-hover">
+                <button onClick={handleRegisterClick}> 소모임 등록하러 가기 </button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </Modal>
+      </Modal>
   );
 }
 

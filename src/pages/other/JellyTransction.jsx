@@ -48,6 +48,7 @@ const JellyTransction = () => {
     });
   }
 
+
   useEffect(() => {
   
     axios.get("http://localhost:9000/profile/"+userSeq,
@@ -259,18 +260,18 @@ const JellyTransction = () => {
                                   value={single.value}
                                   onChange={handleCheckboxChange}
                                 />
-                                <div className="radio-card-content">
-                                  <img
-                                    src={single.iconImage}
-                                    alt="icon"
-                                    className="icon"
-                                    style={{ objectFit: 'cover' }} // Ensure aspect ratio is maintained
-                                  />
-                                  {single.label}
-                                </div>
+                                <div className="radio-card-content" style={{position: 'relative'}}>
+                                    <img
+                                        src={single.iconImage}
+                                        alt="icon"
+                                        className="icon"
+                                        style={{objectFit: 'cover', position:'relative'}} // Ensure aspect ratio is maintained
+                                    />
+                                    {single.label}
+                                  </div>
                               </label>
                             </div>
-                          ))}
+                            ))}
                         </div>
                         <div className="button-box">
                           <button type="button" onClick={handleKakaoPayment}>

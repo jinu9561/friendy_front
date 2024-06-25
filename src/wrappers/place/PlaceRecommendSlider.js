@@ -5,7 +5,7 @@ import SectionTitleThree from "../../components/section-title/SectionTitleThree"
 import PlaceRecommend from "../../components/place/PlaceRecommend";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import '../../assets/css/placeRecommend.css';
+
 
 
 const settings = {
@@ -73,6 +73,7 @@ const PlaceRecommendSlider = ({
   return (
     <div className={clsx("new-product-area", spaceBottomClass, spaceTopClass)}>
       <div className="container">
+          <div id="scroll-target">
         <SectionTitleThree
           titleText="Friendy Hot Place"
           positionClass="text-center"
@@ -89,7 +90,7 @@ const PlaceRecommendSlider = ({
                 </SwiperSlide>
             ))}
           </Swiper>
-       
+          </div>
       </div>
     </div>
   );

@@ -25,7 +25,7 @@
     },
     {
       "value": "100000",
-      "label": "100,000원 (1000 젤리)",
+      "label": "100,000원 (1,000 젤리)",
       "amount": 100000,
       "jellyAmount": 1000,
       "backgroundImage": "/assets/img/icon-img/jelly-icon/jelly-icon2.png",
@@ -34,7 +34,7 @@
     ,
     {
       "value": "150000",
-      "label": "150,000원 (1500 젤리)",
+      "label": "150,000원 (1,500 젤리)",
       "amount": 150000,
       "jellyAmount": 1500,
       "backgroundImage": "/assets/img/icon-img/jelly-icon/jelly-icon2.png",
@@ -43,7 +43,7 @@
     ,
     {
       "value": "500000",
-      "label": "500,000원 (5000 젤리)",
+      "label": "500,000원 (5,000 젤리)",
       "amount": 500000,
       "jellyAmount": 5000,
       "backgroundImage": "/assets/img/icon-img/jelly-icon/jelly-icon2.png",

@@ -42,20 +42,21 @@ const Notification = () => {
                 })
                 .catch(err => {
                     console.log(err);
-                    alert("친구 요청 목록을 불러오지 못했습니다.");
                 });
         }
     };
 
-    const handleAcceptRequest = (requestId) => {
+    const handleAcceptRequest = (requestId, receiverId) => {
         axios({
             url: `http://localhost:9000/friend/request/accept`,
             method: "post",
             headers: {
                 Authorization: localStorage.getItem("Authorization"),
+                'Content-Type': 'application/json'
             },
-            params: {
-                friendRequestSeq: requestId
+            data: {
+                friendRequestSeq: requestId,
+                receiverId: receiverId
             },
         })
             .then(res => {
@@ -74,8 +75,9 @@ const Notification = () => {
             method: "post",
             headers: {
                 Authorization: localStorage.getItem("Authorization"),
+                'Content-Type': 'application/json'
             },
-            params: {
+            data: {
                 friendRequestSeq: requestId
             },
         })
@@ -127,7 +129,7 @@ const Notification = () => {
                                 </li>
                             ))
                         ) : (
-                            <li>친구 요청이 없습니다.</li>
+                            <li></li>
                         )}
                     </ul>
                 </div>

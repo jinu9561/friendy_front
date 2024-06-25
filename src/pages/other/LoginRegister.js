@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Link, useLocation } from "react-router-dom"; 
+import {Link, useLocation, useParams} from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import SEO from "../../components/seo";
@@ -14,9 +14,11 @@ import { useContext } from "react";
 
 const LoginRegister = () => {
   let { pathname } = useLocation();
+  const { search } = useLocation();
 
   let logingedCon =useContext(LogingedContext);
   const navigator = useNavigate();
+  const [activeKey, setActiveKey] = useState('login');
 
   const [formData, setFormData] = useState({
     userId: "",
@@ -104,8 +106,19 @@ const LoginRegister = () => {
         userId :"" , 
         userPwd:""})
      });
-
   }
+
+  useEffect(() => {
+    const params = new URLSearchParams(search);
+    const tab = params.get('tab');
+
+    if (tab) {
+      setActiveKey(tab);
+      console.log(tab);
+    }
+    console.log(tab);
+  }, [search]);
+
 
 
 
@@ -324,7 +337,7 @@ const LoginRegister = () => {
             <div className="row">
               <div className="col-lg-7 col-md-12 ms-auto me-auto">
                 <div className="login-register-wrapper">
-                  <Tab.Container defaultActiveKey="login">
+                  <Tab.Container activeKey={activeKey} onSelect={setActiveKey}>
                     <Nav variant="pills" className="login-register-tab-list">
                       <Nav.Item>
                         <Nav.Link eventKey="login">
@@ -357,20 +370,24 @@ const LoginRegister = () => {
                                 onChange={handleLoginDataChange}
                               />
                               <div className="button-box">
-                                <div className="login-toggle-btn">
-                                  <input type="checkbox"
-                                  checked={rememberMe} 
-                                  onChange={handleCheckboxChange}
-                                   />
-                                  <label className="ml-10">Remember me</label>
-                                  <Link to={process.env.PUBLIC_URL + "/findPassword"}>
+                                <div className="login-toggle-btn" style={{display: 'flex'}}>
+                                  <div style={{display: 'flex', alignItems: 'center'}}>
+                                    <input type="checkbox"
+                                           checked={rememberMe}
+                                           onChange={handleCheckboxChange}
+                                    />
+                                    <label className="ml-10">Remember me</label>
+                                  </div>
+                                  <Link to={process.env.PUBLIC_URL + "/findPassword"} style={{marginLeft: 'auto'}}>
                                     Forgot Password?
                                   </Link>
                                 </div>
-                                <button type="submit">
-                                  <span>Login</span>
-                                </button>
-                              </div>
+                                <div style={{display: 'flex', marginTop: '20px'}}>
+                                  <button type="submit">
+                                    <span>Login</span>
+                                  </button>
+                                </div>
+                                </div>
                             </form>
                           </div>
                         </div>

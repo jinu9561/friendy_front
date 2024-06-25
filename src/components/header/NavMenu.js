@@ -55,7 +55,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
             <>
               <li>
                 <Link to={process.env.PUBLIC_URL + "/adminUser"}>
-                  회원 관리
+                  MemberShip
                 </Link>
               </li>
               <li>
@@ -67,6 +67,12 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
               <li>
                 <Link to={process.env.PUBLIC_URL + "/adminEvent"}>
                   ADMIN EVENT
+                </Link>
+              </li>
+
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/adminReport"}>
+                  신고목록
                 </Link>
               </li>
             </>

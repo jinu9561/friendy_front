@@ -1,0 +1,48 @@
+.event-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.eventlist-item {
+    flex: 0 0 48%; /* 두 개씩 보여주기 위해 48%로 설정 */
+    margin-bottom: 50px;
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #fcf0f0; /* 배경색 추가 */
+    box-sizing: border-box; /* 테두리가 잘리지 않도록 box-sizing 추가 */
+    padding: 50px; /* 내부 여백 추가 */
+    height: auto; /* 높이를 자동으로 설정 */
+}
+
+
+.event-image {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+
+.event-name {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    color: black;
+    font-weight: 650;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+.event-reg-date {
+    position: absolute;
+    bottom: 25px;
+    right: 10px;
+    font-size: 16px;
+    color: #98989c;
+    padding: 5px 10px;
+    border-radius: 10px;
+}

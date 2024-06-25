@@ -63,7 +63,7 @@ const Profile = ({ profileData, handledeleteImg }) => {
           {profileData.gender === "MALE" ? "남자" : "여자"}
         </p>
         <p>
-          <strong>보유 젤리 : </strong> {profileData.userJelly} 개
+          <strong>보유 젤리 : </strong> {parseInt(profileData.userJelly).toLocaleString()} 개
         </p>
         <p>
           <strong>자기소개 : </strong> {profileData.introduce}

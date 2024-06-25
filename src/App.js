@@ -4,6 +4,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import QnaButton from "./components/qna-button/QnaButton";
 import SaveForm from "./components/ui/wrappper/SaveForm";
+import Detail from "./components/ui/wrappper/MeetUpDetailPage";
+import MeetUpDetailPage from "./components/ui/wrappper/MeetUpDetailPage";
+import MeetUpUpdatePage from "./components/ui/wrappper/MeetUpUpdatePage";
+import MeetUpRequestList from "./components/ui/wrappper/MeetUpRequestList";
+import ChattingRoom from "./components/ui/wrappper/ChattingRoom";
 
 export const LogingedContext = createContext();
 
@@ -67,15 +72,30 @@ const AdminLogin = lazy(() => import("./admin/pages/other/AdminLogin"));
 const AdminUser = lazy(() => import("./admin/pages/users/AdminUser"));
 // 관리자 장소 추천
 const AdminPlace = lazy(() => import("./admin/pages/place/AdminPlace"));
+// 관리자 사진게시판 조회
+const AdminPhoto = lazy(() => import("./admin/pages/photo/AdminPhotoBoard"));
 
 // 관리자 이벤트 조회
 const AdminEvent = lazy(() => import("./admin/pages/event/AdminEvent"));
+// 관리자 이벤트 등록
+const AdminEventInsert = lazy(() =>
+  import("./admin/components/event/AdminEventInsert")
+);
+// 관리자 이벤트 세부이미지 등록
+const AdminEventDetailImgInsert = lazy(() =>
+  import("./admin/components/event/AdminEventDetailImgInsert")
+);
+
+// 관리자 신고 조회
+const AdminReport = lazy(() => import("./admin/pages/report/AdminReport"));
 
 const App = () => {
   //컴포넌트가 mount or update 될때 로그인 여부에 따른 상태값 변경
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [isAdminIn, setIsAdminIn] = useState(false);
+  const [userSeq, setUserSeq] = useState("");
+  const [adminSeq, setAdminSeq] = useState("");
 
   useEffect(() => {
     localStorage.getItem("userSeq") != null
@@ -87,6 +107,12 @@ const App = () => {
       ? setIsAdminIn(true)
       : setIsAdminIn(false);
     console.log("isAdminIn = ", isAdminIn);
+
+    const seq = localStorage.getItem("userSeq");
+    setUserSeq(seq);
+
+    const amdinSeq = sessionStorage.getItem("userSeq");
+    setAdminSeq(amdinSeq);
   });
 
   const handleLoggedChange = (isLoggedIn) => {
@@ -320,9 +346,44 @@ const App = () => {
                 element={<AdminEvent />}
               />
 
+              {/* 관리자 이벤트 등록 게시판 */}
+              <Route
+                path={process.env.PUBLIC_URL + "/adminEventInsert"}
+                element={<AdminEventInsert />}
+              />
+              {/* 관리자 이벤트 세부 이미지 등록 게시판 */}
+              <Route
+                path={process.env.PUBLIC_URL + "/adminEventDetailImgInsert"}
+                element={<AdminEventDetailImgInsert />}
+              />
+              {/* 관리자용 신고 게시판 */}
+              <Route
+                path={process.env.PUBLIC_URL + "/adminReport"}
+                element={<AdminReport />}
+              />
+
               <Route
                 path={process.env.PUBLIC_URL + "/SaveForm"}
                 element={<SaveForm />}
+              />
+
+              <Route
+                path={process.env.PUBLIC_URL + "/MeetUpDetail"}
+                element={<MeetUpDetailPage />}
+              />
+
+              <Route
+                path={process.env.PUBLIC_URL + "/MeetUpUpdate"}
+                element={<MeetUpUpdatePage />}
+              />
+              <Route
+                path={process.env.PUBLIC_URL + "/MeetUpRequestList"}
+                element={<MeetUpRequestList />}
+              />
+
+              <Route
+                path={process.env.PUBLIC_URL + "/ChattingRoom"}
+                element={<ChattingRoom />}
               />
 
               <Route path="*" element={<NotFound />} />
