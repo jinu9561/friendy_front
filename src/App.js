@@ -63,6 +63,11 @@ const AdminPlace = lazy(()=> import('./admin/pages/place/AdminPlace'));
 
 // 관리자 이벤트 조회
 const AdminEvent = lazy(()=> import('./admin/pages/event/AdminEvent'));
+// 관리자 이벤트 등록
+const AdminEventInsert = lazy(()=> import('./admin/components/event/AdminEventInsert'));
+// 관리자 이벤트 세부이미지 등록
+const AdminEventDetailImgInsert = lazy(()=> import('./admin/components/event/AdminEventDetailImgInsert'));
+
 
 // 관리자 신고 조회
 const AdminReport = lazy(()=> import('./admin/pages/report/AdminReport'));
@@ -282,12 +287,22 @@ const App = () => {
                   element={<AdminPlace/>}
               />
 
-              {/* 이벤트 게시판 */}
+              {/* 관리자 이벤트 게시판 */}
               <Route
                   path={process.env.PUBLIC_URL + "/adminEvent"}
                   element={<AdminEvent />}
               />
 
+                {/* 관리자 이벤트 등록 게시판 */}
+                <Route
+                    path={process.env.PUBLIC_URL + "/adminEventInsert"}
+                    element={<AdminEventInsert />}
+                />
+                {/* 관리자 이벤트 세부 이미지 등록 게시판 */}
+                <Route
+                    path={process.env.PUBLIC_URL + "/adminEventDetailImgInsert"}
+                    element={<AdminEventDetailImgInsert />}
+                />
               {/* 관리자용 신고 게시판 */}
               <Route
                   path={process.env.PUBLIC_URL + "/adminReport"}

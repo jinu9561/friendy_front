@@ -357,20 +357,24 @@ const LoginRegister = () => {
                                 onChange={handleLoginDataChange}
                               />
                               <div className="button-box">
-                                <div className="login-toggle-btn">
-                                  <input type="checkbox"
-                                  checked={rememberMe} 
-                                  onChange={handleCheckboxChange}
-                                   />
-                                  <label className="ml-10">Remember me</label>
-                                  <Link to={process.env.PUBLIC_URL + "/findPassword"}>
+                                <div className="login-toggle-btn" style={{display: 'flex'}}>
+                                  <div style={{display: 'flex', alignItems: 'center'}}>
+                                    <input type="checkbox"
+                                           checked={rememberMe}
+                                           onChange={handleCheckboxChange}
+                                    />
+                                    <label className="ml-10">Remember me</label>
+                                  </div>
+                                  <Link to={process.env.PUBLIC_URL + "/findPassword"} style={{marginLeft: 'auto'}}>
                                     Forgot Password?
                                   </Link>
                                 </div>
-                                <button type="submit">
-                                  <span>Login</span>
-                                </button>
-                              </div>
+                                <div style={{display: 'flex', marginTop: '20px'}}>
+                                  <button type="submit">
+                                    <span>Login</span>
+                                  </button>
+                                </div>
+                                </div>
                             </form>
                           </div>
                         </div>
