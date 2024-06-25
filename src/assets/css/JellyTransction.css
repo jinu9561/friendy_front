@@ -44,6 +44,7 @@
   height: 40px;
   margin-bottom: 10px;
   object-fit: cover; /* Add this to maintain aspect ratio */
+  transform: rotate(0deg); /* 명시적으로 회전하지 않도록 설정 */
 }
 
 .button-box {

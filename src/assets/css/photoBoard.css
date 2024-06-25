@@ -1,0 +1,47 @@
+.interest-categories {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.interest-category {
+    background-color: pink;
+    color: white;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.interest-category:hover {
+    background-color: deeppink;
+}
+
+.interest-categories {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    padding: 0; /* 불필요한 기본 패딩 제거 */
+    list-style: none; /* 기본 리스트 스타일 제거 */
+}
+
+.interest-item {
+    background-color: pink;
+    color: white;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.interest-item:hover {
+    background-color: deeppink;
+}
+
+.interest-icon {
+    margin-right: 8px;
+    font-size: 1.2em;
+    color: #fff;
+}

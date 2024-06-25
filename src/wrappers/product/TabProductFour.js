@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import SectionTitleThree from "../../components/section-title/SectionTitleThree";
-import ProductGridTwo from "./ProductGridTwo";
+import MeetUpList from "../main/MeetUpList";
 
 const TabProductFour = ({ spaceBottomClass, category, productTabClass }) => {
   return (
     <div className={clsx("product-area", spaceBottomClass)}>
       <div className="container">
         <SectionTitleThree
-          titleText="Featured Product"
+          titleText="MEETUP"
           positionClass="text-center"
         />
         <Tab.Container defaultActiveKey="bestSeller">
@@ -20,47 +20,17 @@ const TabProductFour = ({ spaceBottomClass, category, productTabClass }) => {
             className={clsx("product-tab-list pt-35 pb-60 text-center", productTabClass)}
           >
             <Nav.Item>
-              <Nav.Link eventKey="newArrival">
-                <h4>New Arrivals</h4>
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
               <Nav.Link eventKey="bestSeller">
-                <h4>Best Sellers</h4>
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="saleItems">
-                <h4>Sale Items</h4>
+                <h4>Friendy Recommend</h4>
               </Nav.Link>
             </Nav.Item>
           </Nav>
           <Tab.Content>
-            <Tab.Pane eventKey="newArrival">
-              <div className="row">
-                <ProductGridTwo
-                  category={category}
-                  type="new"
-                  limit={8}
-                  spaceBottomClass="mb-25"
-                />
-              </div>
-            </Tab.Pane>
             <Tab.Pane eventKey="bestSeller">
               <div className="row">
-                <ProductGridTwo
+                <MeetUpList
                   category={category}
                   type="bestSeller"
-                  limit={8}
-                  spaceBottomClass="mb-25"
-                />
-              </div>
-            </Tab.Pane>
-            <Tab.Pane eventKey="saleItems">
-              <div className="row">
-                <ProductGridTwo
-                  category={category}
-                  type="saleItems"
                   limit={8}
                   spaceBottomClass="mb-25"
                 />
@@ -71,9 +41,9 @@ const TabProductFour = ({ spaceBottomClass, category, productTabClass }) => {
         <div className="view-more text-center mt-20 toggle-btn6 col-12">
           <Link
             className="loadMore6"
-            to={process.env.PUBLIC_URL + "/shop-grid-standard"}
+            to={process.env.PUBLIC_URL + "/MeetUpBoard"}
           >
-            VIEW MORE PRODUCTS
+            더 많은 소모임 보러가기
           </Link>
         </div>
       </div>

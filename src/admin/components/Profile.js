@@ -60,6 +60,7 @@ const Profile = ({
                 className="default-img"
                 src={getImg(true,profileData.profileMainImgName)}
                 alt=""
+                onClick={() => setModalShow(true)}
               />
               {profileDetailList.length > 0 ? (
                 <img
@@ -88,8 +89,7 @@ const Profile = ({
         <div className="shop-list-content">
         <h3>{profileData.userName}</h3>
         </div>
-          
-        
+
       {/* 프로필 상세보기 */}
        <UserDetail
         show={modalShow}

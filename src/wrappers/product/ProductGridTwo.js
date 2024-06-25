@@ -19,6 +19,8 @@ const ProductGridTwo = ({
   const { wishlistItems } = useSelector((state) => state.wishlist);
   const { compareItems } = useSelector((state) => state.compare);
   const prods = getProducts(products, category, type, limit);
+
+
   
   return (
     <Fragment>

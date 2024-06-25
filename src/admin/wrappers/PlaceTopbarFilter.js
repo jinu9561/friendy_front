@@ -2,13 +2,14 @@ import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 import PlaceTopActionFilter from "../components/PlaceTopActionFilter";
 
-const UserTopbarFilter = ({
+const PlaceTopbarFilter = ({
   getLayout,
   getFilterSortParams,
   productCount,
   sortedProductCount,
   places,
-  getSortParams
+  getSortParams,
+  handleUpdate
 }) => {
   return (
     <Fragment>
@@ -20,12 +21,13 @@ const UserTopbarFilter = ({
         sortedProductCount={sortedProductCount}
         places={places}
         getSortParams={getSortParams}
+        handleUpdate={handleUpdate}
       />
     </Fragment>
   );
 };
 
-UserTopbarFilter.propTypes = {
+PlaceTopbarFilter.propTypes = {
   getFilterSortParams: PropTypes.func,
   getLayout: PropTypes.func,
   getSortParams: PropTypes.func,
@@ -34,4 +36,4 @@ UserTopbarFilter.propTypes = {
   sortedProductCount: PropTypes.number
 };
 
-export default UserTopbarFilter;
+export default PlaceTopbarFilter;

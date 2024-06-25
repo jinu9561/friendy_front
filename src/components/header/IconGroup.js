@@ -76,8 +76,7 @@ const IconGroup = ({ iconWhiteClass }) => {
     url : "http://localhost:9000/logout",
     data : formData
     }) 
-     .then((res)=>{ 
-        alert(res.data); 
+     .then((res)=>{
 
         localStorage.removeItem("userId"); 
         localStorage.removeItem("country"); 
@@ -94,6 +93,7 @@ const IconGroup = ({ iconWhiteClass }) => {
        sessionStorage.removeItem("Authorization", res.headers.authorization);
       // 공유된 변수를 상태를 변경하면 이 컨텍스트를 사용하는 모든 컴포넌트가 상태변경을 감지하고 업데이트 된다!!
         logingedCon.onLoggedChange(false);
+        logingedCon.onAdminInChange(false);
         navigator("/");
   
     }) 
@@ -113,8 +113,8 @@ const IconGroup = ({ iconWhiteClass }) => {
       method:"GET", 
       url : "http://localhost:9000/users/resign/"+saveData.userSeq,
       }) 
-       .then((res)=>{ 
-          alert(res.data); 
+       .then((res)=>{
+          alert(res.data);
   
           localStorage.removeItem("userId"); 
           localStorage.removeItem("userName");
@@ -149,6 +149,8 @@ const IconGroup = ({ iconWhiteClass }) => {
     );
     offcanvasMobileMenu.classList.add("active");
   };
+
+
 
 
   const { compareItems } = useSelector((state) => state.compare);
@@ -197,13 +199,13 @@ const IconGroup = ({ iconWhiteClass }) => {
                 {logingedCon.isLoggedIn ? (
                   <Link to="#" onClick={logoutCheck} className="nav-link">로그아웃</Link>
                 ) : (
-                  <Link to={process.env.PUBLIC_URL + "/login-register"}>로그인</Link>
+                  <Link to={process.env.PUBLIC_URL + "/login-register?tab=login"}>로그인</Link>
                 )}
               </li>
               <li>
                 {!logingedCon.isLoggedIn && (
                   <>
-                    <Link to={process.env.PUBLIC_URL + "/login-register"}>회원 가입</Link>
+                    <Link to={process.env.PUBLIC_URL + "/login-register?tab=register"}>회원 가입</Link>
                     <Link to={process.env.PUBLIC_URL + "/emailVerification"}>회원 인증</Link>
                   </>
                 )}
@@ -267,9 +269,15 @@ const IconGroup = ({ iconWhiteClass }) => {
       </div>
       {/* 관리자 페이지로 가기*/}
       <div className="same-style cart-wrap d-none d-lg-block">
-        <Link className="icon-cart" to={process.env.PUBLIC_URL + "/adminLogin"}>
-          <img src={adminIcon} alt="관리자아이콘"/>
-        </Link>
+          { logingedCon.isAdminIn ? ( <Link className="icon-cart" to={process.env.PUBLIC_URL + "/"} onClick={logoutCheck}>
+              <img src={adminIcon} alt="관리자아이콘"/>
+          </Link>) : (
+              <Link className="icon-cart" to={process.env.PUBLIC_URL + "/adminLogin"}>
+                     <img src={adminIcon} alt="관리자아이콘"/>
+             </Link>
+              )
+
+          }
       </div>
       <div className="same-style mobile-off-canvas d-block d-lg-none">
         <button

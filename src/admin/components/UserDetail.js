@@ -5,6 +5,7 @@ import Swiper, { SwiperSlide } from "../../components/swiper";
 import defaultProfileImage from '../../assets/img/prof/default.jpeg';
 import moment from 'moment';
 import axios from "axios";
+import '../../assets/css/detailPink.css';
 
 function UserDetail({ profileData, currency,show, onHide,profileDetailList }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -368,8 +369,6 @@ function UserDetail({ profileData, currency,show, onHide,profileDetailList }) {
             </button>
           </div>
         </div>
-
-
       </div>
       </div>
 

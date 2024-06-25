@@ -1,0 +1,57 @@
+.photo-upload-modal .modal-header {
+    border-bottom: none;
+    background-color: pink;
+}
+
+.photo-upload-modal .modal-body {
+    padding: 20px;
+    background-color: #ffe4e1; /* Light pink background */
+}
+
+.form-control {
+    margin-bottom: 15px;
+    border: 1px solid #ff69b4; /* Pink border */
+    border-radius: 5px;
+}
+
+.label-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #ff1493; /* Deep pink text */
+}
+
+.select-container {
+    margin-bottom: 15px;
+}
+
+.btn-primary {
+    background-color: #ff69b4; /* Hot pink background */
+    border-color: #ff69b4;
+    margin-right: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #ff1493; /* Deep pink background on hover */
+    border-color: #ff1493;
+}
+
+.btn-danger {
+    background-color: #db7093; /* Pale violet red background */
+    border-color: #db7093;
+    margin-right: 10px;
+}
+
+.btn-danger:hover {
+    background-color: #c71585; /* Medium violet red background on hover */
+    border-color: #c71585;
+}
+
+.image-upload-container {
+    margin-bottom: 15px;
+}
+
+.image-upload-container h4 {
+    margin-bottom: 10px;
+    color: #ff1493; /* Deep pink text */
+}

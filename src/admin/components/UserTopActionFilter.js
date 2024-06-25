@@ -18,7 +18,7 @@ const UserTopActionFilter = ({
               <option value="regDate">최근 가입자순</option>
               <option value="update">프로필 수정순</option>
               <option value="lastLogin">마지막 로그인순</option>
-              <option value="userRate">유저 평점순</option>
+              <option value="userRate">매너 온도순</option>
             </select>
           </div>
           <p>
