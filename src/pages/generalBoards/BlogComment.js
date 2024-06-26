@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import axios from "axios";
+import ICON from "../../assets/img/profile-img/남자1.png";
 
 const BlogComment = ({ replyList, commBoardSeq }) => {
   const [replyContent, setReplyContent] = useState("");
@@ -11,6 +12,7 @@ const BlogComment = ({ replyList, commBoardSeq }) => {
     day: "numeric",
     hour: "2-digit",
     minute: "2-digit",
+    hour12: true
   };
 
   const handleSubmit = async (event) => {
@@ -60,38 +62,24 @@ const BlogComment = ({ replyList, commBoardSeq }) => {
         </h4>
         {replies.map((reply, index) => (
           <div
-            className="single-comment-wrapper mt-35"
             key={index}
             style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
+              margin:"10px 0px"
             }}
           >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <div className="blog-comment-img">
-                <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    `/assets/img/blog/comment-${index + 1}.jpg`
-                  }
-                  alt=""
-                />
-              </div>
+            <div style={{ display: "flex"}}>
+            <img src={ICON} alt="" style={{width:"100px", height:"100px", marginRight:"10px"}} />
+              
               <div className="blog-comment-content">
                 <h4>{reply.nickName}</h4>
+             
                 <span>
-                  {new Date(reply.replyRegDate).toLocaleDateString(
-                    "ko-KR",
-                    options
-                  )}
+                  {new Date(reply.replyRegDate).toLocaleString("ko-KR", options)}
                 </span>
+   
                 <p>{reply.replyContent}</p>
               </div>
             </div>
