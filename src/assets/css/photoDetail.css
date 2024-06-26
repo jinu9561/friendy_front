@@ -1,11 +1,11 @@
-.product-quickview-modal-wrapper {
+.photo-quickview-modal-wrapper {
     .modal-body {
         display: flex;
         flex-direction: column;
         padding: 20px;
     }
 
-    .product-large-image-wrapper {
+    .photo-large-image-wrapper {
         position: relative;
         margin-bottom: 20px;
 
@@ -26,7 +26,7 @@
         }
     }
 
-    .product-small-image-wrapper {
+    .photo-small-image-wrapper {
         margin-top: 15px;
 
         .single-image {
@@ -38,13 +38,13 @@
         }
     }
 
-    .profile-container {
+    .photo-profile-container {
         display: flex;
         align-items: center;
         justify-content: flex-end;
         margin-bottom: 20px;
 
-        .profile-image-container {
+        .photo-profile-image-container {
             position: relative;
 
             .round-image {
@@ -73,7 +73,7 @@
         }
     }
 
-    .product-details-price {
+    .photo-details-price {
         margin-top: 20px;
 
         .mb-3 {
@@ -96,25 +96,25 @@
 
         .btn {
             &.btn-primary {
-                background-color: #ed59a0; /* 핑크 톤 */
+                background-color: #ffb3b3; /* 핑크 톤 */
                 color: white;
                 border: none;
                 padding: 10px 20px;
                 font-size: 16px;
                 font-weight: bold;
                 &:hover {
-                    background-color: #f50057; /* 핑크 톤 - 더 진한 색 */
+                    background-color: #ffb3b3; /* 핑크 톤 - 더 진한 색 */
                 }
             }
             &.btn-secondary {
-                background-color: #6c757d;
+                background-color: #ffb3b3;
                 color: white;
                 border: none;
                 padding: 10px 20px;
                 font-size: 16px;
                 font-weight: bold;
                 &:hover {
-                    background-color: #5a6268;
+                    background-color: #ffb3b3;
                 }
             }
             &.btn-danger {

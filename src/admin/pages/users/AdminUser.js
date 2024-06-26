@@ -103,7 +103,7 @@ const AdminUser = () => {
                 <Breadcrumb 
                     pages={[
                         {label: "Home", path: homPath },
-                        {label: "프로필 조희", path: process.env.PUBLIC_URL + pathname }
+                        {label: "MemberShip", path: process.env.PUBLIC_URL + pathname }
                     ]} 
                 />
 

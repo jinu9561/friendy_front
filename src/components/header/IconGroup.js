@@ -238,35 +238,7 @@ const IconGroup = ({ iconWhiteClass }) => {
         </ul>
         </div>
       </div>
-      <div className="same-style header-compare">
-        <Link to={process.env.PUBLIC_URL + "/"}>
-          <i className="pe-7s-shuffle" />
-        </Link>
-      </div>
-      <div className="same-style header-wishlist">
-        <Link to={process.env.PUBLIC_URL + "/wishlist"}>
-          <i className="pe-7s-like" />
-          <span className="count-style">
-            {wishlistItems && wishlistItems.length ? wishlistItems.length : 0}
-          </span>
-        </Link>
-      </div>
-      <div className="same-style cart-wrap d-none d-lg-block">
-        <button className="icon-cart" onClick={e => handleClick(e)}>
-          <i className="pe-7s-shopbag" />
-          <span className="count-style">
-            {cartItems && cartItems.length ? cartItems.length : 0}
-          </span>
-        </button>
-      </div>
-      <div className="same-style cart-wrap d-block d-lg-none">
-        <Link className="icon-cart" to={process.env.PUBLIC_URL + "/cart"}>
-          <i className="pe-7s-shopbag" /> 
-          <span className="count-style">
-            {cartItems && cartItems.length ? cartItems.length : 0}
-          </span>
-        </Link>
-      </div>
+
       {/* 관리자 페이지로 가기*/}
       <div className="same-style cart-wrap d-none d-lg-block">
           { logingedCon.isAdminIn ? ( <Link className="icon-cart" to={process.env.PUBLIC_URL + "/"} onClick={logoutCheck}>

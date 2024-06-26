@@ -127,7 +127,7 @@ const AdminPlace = () => {
                 <Breadcrumb 
                     pages={[
                         {label: "Home", path: homPath },
-                        {label: "추천 장소 관리", path: process.env.PUBLIC_URL + pathname }
+                        {label: "Hot Place", path: process.env.PUBLIC_URL + pathname }
                     ]} 
                 />
 
