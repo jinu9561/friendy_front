@@ -68,46 +68,50 @@ const FindEmailVerification = () => {
         titleTemplate="인증번호 재발급"
         description="해당 이메일로 인증 코드를 보냈습니다!"
       />
-      <LayoutOne headerTop="visible">
-        {/* breadcrumb */}
-        <Breadcrumb 
-          pages={[
-            {label: "Home", path: process.env.PUBLIC_URL + "/" },
-            {label: "Re-issuance", path: process.env.PUBLIC_URL + pathname }
-          ]} 
-        />
-      <div className="form-container">
-          <Form>
-            <Form.Group>
-              <Form.Control 
-                type="text" 
-                id="userId" 
-                name="userId" 
-                placeholder="ID" 
-                onChange={handleInputChange} 
-                className="input-field"
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Control 
-                type="text" 
-                id="email" 
-                name="email" 
-                placeholder="Email" 
-                onChange={handleInputChange} 
-                className="input-field"
-              />
-            </Form.Group>
-            <Button 
-              variant="primary" 
-              onClick={handleSubmit} 
-              className="submit-button"
-            >
-              코드 받기
-            </Button>
-          </Form>
-    </div>
-      </LayoutOne>
+        <LayoutOne headerTop="visible">
+            {/* breadcrumb */}
+            <Breadcrumb
+                pages={[
+                    {label: "Home", path: process.env.PUBLIC_URL + "/"},
+                    {label: "Re-issuance", path: process.env.PUBLIC_URL + pathname}
+                ]}
+            />
+            <br></br>
+            <br></br>
+            <div className="form-container">
+                <Form>
+                    <Form.Group>
+                        <Form.Control
+                            type="text"
+                            id="userId"
+                            name="userId"
+                            placeholder="ID"
+                            onChange={handleInputChange}
+                            className="input-field"
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                            type="text"
+                            id="email"
+                            name="email"
+                            placeholder="Email"
+                            onChange={handleInputChange}
+                            className="input-field"
+                        />
+                    </Form.Group>
+                    <Button
+                        variant="primary"
+                        onClick={handleSubmit}
+                        className="submit-button"
+                    >
+                        코드 받기
+                    </Button>
+                </Form>
+            </div>
+            <br></br>
+            <br></br>
+        </LayoutOne>
     </Fragment>
   );
 };

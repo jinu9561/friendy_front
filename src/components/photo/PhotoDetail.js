@@ -289,12 +289,12 @@ function PhotoDetail({ photoData,show,photoBoardDetailImgList,getImg,onHide,getS
 
 
   const handleDelete = ()=>{
-    
+
     let check  = window.confirm("등록된 게시글을 삭제하시겠습니까?");
 
     if(!check)
       return
-    
+
     axios({
       method:"DELETE",
       url : "http://localhost:9000/photo/delete/"+curPhotoData.photoBoardSeq,
@@ -318,7 +318,7 @@ function PhotoDetail({ photoData,show,photoBoardDetailImgList,getImg,onHide,getS
   const handleDeleteImage = () => {
 
     let check  = window.confirm("등록된 사진을 삭제하시겠습니까?");
-    
+
     if(!check)
       return
 
@@ -394,6 +394,8 @@ function PhotoDetail({ photoData,show,photoBoardDetailImgList,getImg,onHide,getS
       ...curPhotoData,
       photoBoardLike: updatedLikeCount,
     });
+
+    console.log(logingedCon.userSeq);
 
     const url = updatedLikeStatus
         ? `http://localhost:9000/like/${curPhotoData.photoBoardSeq}/${logingedCon.userSeq}`

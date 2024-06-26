@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   padding: 10px;
-  background-color: #ffe4e1; /* Light pink background */
+  background-color: #f9f9f9; /* Light pink background */
   border-radius: 10px; /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   max-width: 400px;
@@ -58,11 +58,11 @@
 }
 
 .profile-details strong {
-  color: #d2698e; /* Dark pink color for labels */
+  color: #ffb3b3; /* Dark pink color for labels */
 }
 
 .profile-details p span {
-  color: #ff69b4; /* Bright pink color for user data */
+  color: #ffb3b3; /* Bright pink color for user data */
 }
 
 .profile-slider {
@@ -97,16 +97,16 @@
 
 .slick-prev, .slick-next {
   font-size: 30px;
-  color: #ff69b4; /* Customize the arrow color */
+  color: #ffb3b3; /* Customize the arrow color */
 }
 
 .slick-dots li button:before {
   font-size: 10px;
-  color: #ff69b4; /* Customize the dots color */
+  color: #ffb3b3; /* Customize the dots color */
 }
 
 .slick-dots li.slick-active button:before {
-  color: #d2698e; /* Different color for active dot */
+  color: #ffb3b3; /* Different color for active dot */
 }
 
 .interest-list {
@@ -144,7 +144,7 @@
 
 .refund-button {
   margin-top: 10px;
-  background-color: #ff69b4; /* Pink button background */
+  background-color: #ffb3b3; /* Pink button background */
   color: white; /* White text color */
   border: none; /* Remove default border */
   padding: 10px 15px; /* Button padding */
@@ -153,5 +153,5 @@
 }
 
 .refund-button:hover {
-  background-color: #d2698e; /* Darker pink on hover */
+  background-color: #ffb3b3; /* Darker pink on hover */
 }
