@@ -2,7 +2,7 @@
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #ffe6f0; /* Light pink background */
+  background-color:  #fff; /* Light pink background */
   border-radius: 10px; /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   text-align: center; /* Center align text */
@@ -23,19 +23,19 @@
   padding: 10px; /* Padding inside the button */
   font-size: 1.2em; /* Font size */
   border-radius: 5px; /* Rounded corners */
-  background-color: #ff69b4; /* Primary pink color */
+  background-color:  #d5d5d5; /* Primary pink color */
   border: none; /* Remove border */
-  color: #fff; /* White text */
+  color: #1c1c1c; /* White text */
   cursor: pointer; /* Pointer cursor on hover */
   transition: background-color 0.3s ease; /* Smooth background color transition */
 }
 
 .submit-button:hover {
-  background-color: #ff1493; /* Darker pink shade on hover */
+  background-color: #ffb3b3; /* Darker pink shade on hover */
 }
 
 .submit-button:active {
-  background-color: #ff0066; /* Even darker pink shade on click */
+  background-color: #ffb3b3; /* Even darker pink shade on click */
 }
 
 .submit-button:focus {

@@ -32,7 +32,7 @@ const MeetUpList = ({
       method:"POST",
       url : "http://localhost:9000/main/meetup/",
       data: {
-        userId: userId ? userId : "",
+        userId: userId ? userId : " ",
       },
       headers: {
         "Content-Type": "application/json"

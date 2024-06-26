@@ -31,7 +31,7 @@ const MainMeetup = ({
 
     const handleRegisterClick = () => {
         if (logingedCon.isLoggedIn) {
-            setModalShow(true);
+            window.location.href = `http://localhost:3000/MainMeetUpDetail?meetUpSeq=${meetUp.meetUpSeq}&meetUpName=${meetUp.meetUpName}`;
         } else {
             alert("로그인 후 이용해주세요!");
         }

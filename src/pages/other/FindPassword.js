@@ -68,44 +68,48 @@ const FindPassword = () => {
         titleTemplate="비밀번호 변경확인"
         description="해당 이메일로 비밀번호 변경인증 코드를 보냈습니다!"
       />
-      <LayoutOne headerTop="visible">
-        {/* breadcrumb */}
-        <Breadcrumb 
-          pages={[
-            {label: "Home", path: process.env.PUBLIC_URL + "/" },
-            {label: "비밀번호 변경확인", path: process.env.PUBLIC_URL + pathname }
-          ]} 
-        />
-         <div className="form-container">
-          <Form>
-             <Form.Group>
-                <Form.Control 
-                type="text" 
-                id="email" 
-                name="email"
-                placeholder="Email" 
-                onChange={handleInputChange}
-                className="input-field"
-                />
-            </Form.Group>
-            <Form.Group>
-              <Form.Control 
-              type="text" 
-              id="userId" 
-              name="userId"
-              placeholder="ID" 
-              onChange={handleInputChange}
-              className="input-field"
-              />
-            </Form.Group>
-            <Button 
-            variant="primary" 
-            onClick={handleSubmit}
-            className="submit-button"
-            >변경코드 받기</Button>
-          </Form>
-        </div>
-      </LayoutOne>
+        <LayoutOne headerTop="visible">
+            {/* breadcrumb */}
+            <Breadcrumb
+                pages={[
+                    {label: "Home", path: process.env.PUBLIC_URL + "/"},
+                    {label: "비밀번호 변경확인", path: process.env.PUBLIC_URL + pathname}
+                ]}
+            />
+            <br></br>
+            <br></br>
+            <div className="form-container">
+                <Form>
+                    <Form.Group>
+                        <Form.Control
+                            type="text"
+                            id="email"
+                            name="email"
+                            placeholder="Email"
+                            onChange={handleInputChange}
+                            className="input-field"
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                            type="text"
+                            id="userId"
+                            name="userId"
+                            placeholder="ID"
+                            onChange={handleInputChange}
+                            className="input-field"
+                        />
+                    </Form.Group>
+                    <Button
+                        variant="primary"
+                        onClick={handleSubmit}
+                        className="submit-button"
+                    >변경코드 받기</Button>
+                </Form>
+            </div>
+            <br></br>
+            <br></br>
+        </LayoutOne>
     </Fragment>
   );
 };

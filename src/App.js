@@ -56,6 +56,8 @@ const JellyTransctiont = lazy(() => import("./pages/other/JellyTransction"));
 
 const NotFound = lazy(() => import("./pages/other/NotFound"));
 
+// 메인에서 소모임 디테일 열기
+const MainMeetUpDetail = lazy(() => import("./wrappers/main/MainMeetUpDetailPage"));
 
 // 관리자 전용
 
@@ -156,7 +158,8 @@ const App = () => {
 
 
     return (
-        <LogingedContext.Provider value={ {isLoggedIn:isLoggedIn , onLoggedChange:handleLoggedChange , isAdminIn:isAdminIn, onAdminInChange:handleAdminInChange } }>
+        <LogingedContext.Provider value={ {isLoggedIn:isLoggedIn , onLoggedChange:handleLoggedChange , isAdminIn:isAdminIn, onAdminInChange:handleAdminInChange
+            ,userSeq:userSeq , adminSeq:adminSeq} }>
 
             <Router>
                 <QnaButton />
@@ -349,6 +352,11 @@ const App = () => {
                                 element={<ChattingRoom/>}
                             />
 
+
+                            <Route
+                                path={process.env.PUBLIC_URL + "/MainMeetUpDetail"}
+                                element={<MainMeetUpDetail/>}
+                            />
 
 
                             <Route path="*" element={<NotFound/>} />

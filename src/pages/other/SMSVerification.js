@@ -118,40 +118,44 @@ const SMSVerification = () => {
         titleTemplate="본인 인증"
         description="해당 번호로 인증번호를 보냈습니다!"
       />
-      <LayoutOne headerTop="visible">
-        {/* breadcrumb */}
-        <Breadcrumb 
-          pages={[
-            {label: "Home", path: process.env.PUBLIC_URL + "/" },
-            {label: "Authentication", path: process.env.PUBLIC_URL + pathname }
-          ]} 
-        />
-         <div className="form-container">
-          <Form>
-            <Form.Group>
-              <Form.Control 
-              type="text" 
-              id="phoneNumber" 
-              name="phoneNumber" 
-              placeholder="전화번호 (-)제거 ex)01012345678" 
-              onChange={handleInputChange}
-              className="input-field"
-              />
-            </Form.Group>
-            <p>
-            <Link to="#" onClick={reissue}>
-                                    인증번호가 오지않았나요?
-            </Link>
-            </p>
-           <Button 
-           variant="primary" 
-           onClick={handleSubmit}
-           className="submit-button"
-           >인증번호 받기</Button>
-          </Form>
+        <LayoutOne headerTop="visible">
+            {/* breadcrumb */}
+            <Breadcrumb
+                pages={[
+                    {label: "Home", path: process.env.PUBLIC_URL + "/"},
+                    {label: "Authentication", path: process.env.PUBLIC_URL + pathname}
+                ]}
+            />
+            <br></br>
+            <br></br>
+            <div className="form-container">
+                <Form>
+                    <Form.Group>
+                        <Form.Control
+                            type="text"
+                            id="phoneNumber"
+                            name="phoneNumber"
+                            placeholder="전화번호 (-)제거 ex)01012345678"
+                            onChange={handleInputChange}
+                            className="input-field"
+                        />
+                    </Form.Group>
+                    <p>
+                        <Link to="#" onClick={reissue}>
+                            인증번호가 오지않았나요?
+                        </Link>
+                    </p>
+                    <Button
+                        variant="primary"
+                        onClick={handleSubmit}
+                        className="submit-button"
+                    >인증번호 받기</Button>
+                </Form>
 
-        </div>
-      </LayoutOne>
+            </div>
+            <br></br>
+            <br></br>
+        </LayoutOne>
     </Fragment>
   );
 };
