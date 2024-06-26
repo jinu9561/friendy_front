@@ -58,7 +58,7 @@ const PublicBoard = () => {
                         opacity: 0.8,
                         border: "none",
                       }}
-                      className="btn btn-secondary btn-lg"
+                      className="btn btn-secondary"
                       onClick={handleWriteClick}
                     >
                       글쓰기

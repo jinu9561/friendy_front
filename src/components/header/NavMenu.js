@@ -28,7 +28,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
               </li>
               <li>
                 <Link to={process.env.PUBLIC_URL + "/public-board"}>
-                  {t("PUBLIC BOARD")}
+                  {("PUBLIC BOARD")}
                 </Link>
               </li>
               <li>

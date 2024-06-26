@@ -9,6 +9,12 @@ import MeetUpDetailPage from "./components/ui/wrappper/MeetUpDetailPage";
 import MeetUpUpdatePage from "./components/ui/wrappper/MeetUpUpdatePage";
 import MeetUpRequestList from "./components/ui/wrappper/MeetUpRequestList";
 import ChattingRoom from "./components/ui/wrappper/ChattingRoom";
+import PublicBoard from "./pages/generalBoards/PublicBoard";
+import UpdatePost from "./pages/generalBoards/UpdatePost";
+import AnonymousBoard from "./pages/generalBoards/AnonymousBoard";
+import WritePost from "./pages/generalBoards/WritePost";
+import PublicDetail from "./pages/generalBoards/PublicDetail";
+import AnonymousDetail from "./pages/generalBoards/AnonymousDetail";
 
 export const LogingedContext = createContext();
 
@@ -207,16 +213,42 @@ const App = () => {
                                 element={<Event />}
                             />
 
-                            {/* 자유 게시판, 익명 게시판 */}
+                            {/* 자유 게시판 */}
+
+                            <Route path="/public-board" element={<PublicBoard />} />
+                            <Route path="/public-board/write" element={<WritePost />} />
                             <Route
-                                path={process.env.PUBLIC_URL + "/blog-no-sidebar"}
-                                element={<BlogNoSidebar />}
+                                path="/public-board/:commBoardSeq/update"
+                                element={<UpdatePost />}
                             />
 
-                            {/* 자유 게시판, 익명 게시판 상세보기 */}
+                            {/* 익명 게시판 */}
                             <Route
-                                path={process.env.PUBLIC_URL + "/blog-details-standard"}
-                                element={<BlogDetailsStandard />}
+                                path={process.env.PUBLIC_URL + "/anonymous-board"}
+                                element={<AnonymousBoard />}
+                            />
+                            <Route path="/anonymous-board/write" element={<WritePost />} />
+                            <Route
+                                path="/anonymous-board/:commBoardSeq/update"
+                                element={<UpdatePost />}
+                            />
+
+                            {/* 자유 게시판 상세보기*/}
+                            <Route
+                                path={process.env.PUBLIC_URL + "/public-board/:commBoardSeq"}
+                                element={<PublicDetail />}
+                            />
+
+                            {/* 익명 게시판 상세보기 */}
+                            <Route
+                                path={process.env.PUBLIC_URL + "/anonymous-board/:commBoardSeq"}
+                                element={<AnonymousDetail />}
+                            />
+
+                            {/* 사진 게시판 상세보기 */}
+                            <Route
+                                path={process.env.PUBLIC_URL + "/product-slider/:id"}
+                                element={<ProductSlider />}
                             />
 
                             {/* 사진 게시판 상세보기 */}

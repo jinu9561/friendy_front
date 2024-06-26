@@ -37,6 +37,21 @@ const BlogComment = ({ replyList, commBoardSeq }) => {
     }
   };
 
+  const handleDelete = async (replySeq) => {
+    if (window.confirm("삭제하시겠습니까?")) {
+      try {
+        await axios.delete(
+          `http://localhost:9000/community-boards/${commBoardSeq}/replies/${replySeq}`
+        );
+
+        // 댓글을 성공적으로 삭제한 후, UI에서 해당 댓글을 제거
+        setReplies(replies.filter((reply) => reply.replySeq !== replySeq));
+      } catch (error) {
+        console.error("Error deleting reply:", error);
+      }
+    }
+  };
+
   return (
     <Fragment>
       <div className="blog-comment-wrapper mt-55">
@@ -44,26 +59,58 @@ const BlogComment = ({ replyList, commBoardSeq }) => {
           comments : {replies.length.toString().padStart(2, "0")}
         </h4>
         {replies.map((reply, index) => (
-          <div className="single-comment-wrapper mt-35" key={index}>
-            <div className="blog-comment-img">
-              <img
-                src={
-                  process.env.PUBLIC_URL +
-                  `/assets/img/blog/comment-${index + 1}.jpg`
-                }
-                alt=""
-              />
+          <div
+            className="single-comment-wrapper mt-35"
+            key={index}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <div className="blog-comment-img">
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    `/assets/img/blog/comment-${index + 1}.jpg`
+                  }
+                  alt=""
+                />
+              </div>
+              <div className="blog-comment-content">
+                <h4>{reply.nickName}</h4>
+                <span>
+                  {new Date(reply.replyRegDate).toLocaleDateString(
+                    "ko-KR",
+                    options
+                  )}
+                </span>
+                <p>{reply.replyContent}</p>
+              </div>
             </div>
-            <div className="blog-comment-content">
-              <h4>{reply.nickName}</h4>
-              <span>
-                {new Date(reply.replyRegDate).toLocaleDateString(
-                  "ko-KR",
-                  options
-                )}
-              </span>
-              <p>{reply.replyContent}</p>
-            </div>
+            <button
+              type="button"
+              style={{
+                backgroundColor: "#ff6289",
+                opacity: 0.8,
+                border: "none",
+                marginLeft: "3px",
+                color: "white",
+                padding: "5px 10px",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
+              onClick={() => handleDelete(reply.replySeq)}
+            >
+              삭제
+            </button>
           </div>
         ))}
         <div className="blog-reply-wrapper mt-50">
@@ -76,6 +123,7 @@ const BlogComment = ({ replyList, commBoardSeq }) => {
                     placeholder="Message"
                     value={replyContent}
                     onChange={(e) => setReplyContent(e.target.value)}
+                    style={{ height: "100px" }}
                   />
                   <input type="submit" value="SEND MESSAGE" />
                 </div>

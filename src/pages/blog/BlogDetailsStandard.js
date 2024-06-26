@@ -4,8 +4,8 @@ import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import BlogSidebar from "../../wrappers/blog/BlogSidebar";
-import BlogComment from "../../wrappers/blog/BlogComment";
-import BlogPost from "../../wrappers/blog/BlogPost";
+import BlogPost from "../generalBoards/BlogPost";
+import BlogComment from "../generalBoards/BlogComment";
 
 const BlogDetailsStandard = () => {
   let { pathname } = useLocation();

@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import BlogSidebar from "../../wrappers/blog/BlogSidebar";
 import { Modal } from "react-bootstrap";
 
 const WritePost = () => {
