@@ -89,7 +89,7 @@ const Event = ({ location }) => {
                   products={products}
                   getSortParams={getSortParams}
                 />
-
+                <div style={{ width: '70%', height: '70%', marginLeft: '15%' }}>
                 {/* 이벤트 리스트 */}
                 <div className= "event-list-container">
                 {selectedFilter === "default" ? (
@@ -97,6 +97,8 @@ const Event = ({ location }) => {
                 ) : (
                   <EventDeadLine />
                 )}
+                </div>
+
                 </div>
 
               </div>

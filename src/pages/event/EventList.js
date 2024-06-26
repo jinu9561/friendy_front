@@ -46,16 +46,16 @@ const EventList = () => {
         <ul>
           {events.map((event) => (
             <li key={event.eventSeq} className="eventlist-item">
-            <div className="event-name" style={{fontSize: "30px"}}>
+            <div className="event-name" style={{fontSize: "200%"}}>
               {event.eventName} 
             </div>      
             { <Link to={`/event/${event.eventSeq}`}>
-            <img src={getMainImg(event.eventMainImgName)} alt="" className="event-image" style={{marginTop: "5px"}}/>
+            <img src={getMainImg(event.eventMainImgName)} alt="" className="event-image" style={{marginTop: "1%"}}/>
             </Link> }
              
             {/* <img src={getMainImg(event.eventMainImgName)} alt="" className="event-image" style={{marginTop: "5px"}}/> */}
             
-            <div className="event-reg-date" style={{marginTop: "5px"}}>{event.eventRegDate}</div>
+            <div className="event-reg-date" style={{marginTop: "1%"}}>{event.eventRegDate}</div>
             <br></br>
             <br></br>
           </li>
