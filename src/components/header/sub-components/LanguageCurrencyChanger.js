@@ -2,6 +2,9 @@ import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { setCurrency } from "../../../store/slices/currency-slice"
+import {useEffect, useState} from "react";
+import axios from "axios";
+import data from "bootstrap/js/src/dom/data";
 
 const LanguageCurrencyChanger = ({ currency }) => {
   const { i18n } = useTranslation();
@@ -10,7 +13,8 @@ const LanguageCurrencyChanger = ({ currency }) => {
     const languageCode = e.target.value;
     i18n.changeLanguage(languageCode);
   };
-
+  let userId = localStorage.getItem('userId')
+  let userSeq = localStorage.getItem('userSeq')
   const setCurrencyTrigger = e => {
     const currencyName = e.target.value;
     dispatch(setCurrency(currencyName));
@@ -74,7 +78,9 @@ const LanguageCurrencyChanger = ({ currency }) => {
         </div>
       </div>
       <div className="same-language-currency">
-        <p>Call Us 3965410</p>
+        {userSeq !== null && (
+            <p>Welcome, {userId}</p>
+        )}
       </div>
     </div>
   );
