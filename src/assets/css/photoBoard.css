@@ -15,10 +15,12 @@
 }
 
 .interest-category:hover {
-    background-color: deeppink;
+    background-color: #ffb3b3;
 }
 
 .interest-categories {
+    /**/
+    /**/
     display: flex;
     flex-wrap: wrap;
     margin-top: 20px;
