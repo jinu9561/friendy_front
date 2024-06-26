@@ -7,6 +7,50 @@ const ReportList = ({ layout, reportDataList }) => {
         setSelectedReport(report);
     };
 
+    const handleLinkClick = (url) => {
+        window.open(url, '_blank', 'noopener,noreferrer');
+    };
+
+    const getStatusText = (status) => {
+        switch (status) {
+            case 0:
+                return '처리중';
+            case 1:
+                return '처리완료';
+            default:
+                return '알 수 없음';
+        }
+    };
+
+    const getResultText = (result) => {
+        switch (result) {
+            case 0:
+                return '대기중';
+            case 1:
+                return '무혐의';
+            case 2:
+                return '3일 정지';
+            case 3:
+                return '영구 정지';
+            default:
+                return '알 수 없음';
+        }
+    };
+
+    const parseCustomDate = (dateStr) => {
+        // Assuming the date format is "YYYYMMDD" followed by irrelevant numbers
+        if (dateStr && dateStr.length > 8) {
+            const year = dateStr.substring(0, 4);
+            const month = dateStr.substring(4, 6);
+            const day = dateStr.substring(6, 8);
+            const date = new Date(`${year}-${month}-${day}`);
+            if (!isNaN(date)) {
+                return date.toLocaleDateString();  // Adjust format as needed
+            }
+        }
+        return '날짜 정보 없음';  // Fallback text for invalid or non-parseable dates
+    };
+
     const styles = {
         reportList: {
             width: '100%',
@@ -59,16 +103,12 @@ const ReportList = ({ layout, reportDataList }) => {
                     <div className="col-12">
                         <div style={styles.reportDetails}>
                             <h3>{selectedReport.reportDescription}</h3>
-                            <p>신고 URL: <a href={selectedReport.reportUrl} target="_blank"
-                                          rel="noopener noreferrer">{selectedReport.reportUrl}</a></p>
-                            <p>신고 상태: {selectedReport.reportStatus}</p>
-                            <p>신고 결과: {selectedReport.reportResult}</p>
-                            <p>신고 날짜: {new Date(selectedReport.reportRegDate).toLocaleDateString()}</p>
-                            
                             <p>
-                                <button>신고글 조회하기</button>
+                                <button onClick={() => handleLinkClick(selectedReport.reportUrl)}>신고글로 이동</button>
                             </p>
-                            {/* Add other necessary details here */}
+                            <p>신고 상태: {getStatusText(selectedReport.reportStatus)}</p>
+                            <p>신고 결과: {getResultText(selectedReport.reportResult)}</p>
+                            <p>신고 날짜: {parseCustomDate(selectedReport.reportRegDate)}</p>
                             <button onClick={() => setSelectedReport(null)}>목록으로 돌아가기</button>
                         </div>
                     </div>
@@ -90,8 +130,8 @@ const ReportList = ({ layout, reportDataList }) => {
                                     {report.reportUrl}
                                 </div>
                                 <div style={styles.reportMeta}>
-                                    <span>상태: {report.reportStatus}</span>
-                                    <span>결과: {report.reportResult}</span>
+                                    <span>상태: {getStatusText(report.reportStatus)}</span>
+                                    <span>결과: {getResultText(report.reportResult)}</span>
                                     <span>등록일: {new Date(report.reportRegDate).toLocaleDateString()}</span>
                                 </div>
                             </div>

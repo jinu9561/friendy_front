@@ -22,7 +22,7 @@ const SendReport = ({ commBoardSeq, postUserSeq, onReportSent }) => {
                 report: {
                     senderSeq: parseInt(localStorage.getItem("userSeq")), // Assuming sender's user ID is stored in localStorage
                     receiverSeq: parseInt(postUserSeq),
-                    reportUrl: `http://localhost:9000/community-boards/${commBoardSeq}`,
+                    reportUrl: `http://localhost:3000/public-board/${commBoardSeq}`,
                     reportDescription: reportReason
                 },
                 reportType: {

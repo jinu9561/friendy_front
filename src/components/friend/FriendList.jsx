@@ -77,12 +77,12 @@ const FriendList = ({ showFriendList, toggleFriendListHandler }) => {
             style={{
                 display: 'inline-block',
                 padding: '5px 10px',
-                fontSize: '12px',
+                fontSize: '13px',
                 fontWeight: 'bold',
                 textAlign: 'center',
                 whiteSpace: 'nowrap',
                 verticalAlign: 'middle',
-                backgroundColor: '#FF6666',
+                backgroundColor: '#ffb3b3',
                 color: '#fff',
                 border: 'none',
                 borderRadius: '0.25rem',
@@ -108,7 +108,7 @@ const FriendList = ({ showFriendList, toggleFriendListHandler }) => {
                             <li key={friend.userSeq}
                                 style={{display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
                                 <div style={{
-                                    width: '200px',
+                                    width: '170px',
                                     marginRight: '15px',
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis',

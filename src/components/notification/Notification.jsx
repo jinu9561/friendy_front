@@ -113,19 +113,54 @@ const Notification = () => {
                     border: '1px solid #ccc',
                     padding: '10px',
                     boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
-                    width: '400px',
+                    width: '450px',
                     maxHeight: '400px',
                     overflowY: 'auto',
                     zIndex: '1000'
                 }}>
-                    <h4>알림</h4>
+                    <h4 style={{textAlign: 'center',}}>알림</h4>
                     <ul>
                         {friendRequests.length > 0 ? (
                             friendRequests.map((request, index) => (
-                                <li key={index}>
-                                    {request.senderName}님이 친구 요청을 보냈습니다.
-                                    <button onClick={() => handleAcceptRequest(request.friendRequestSeq)} style={{ marginLeft: "15px" }}>수락</button>
-                                    <button onClick={() => handleRejectRequest(request.friendRequestSeq)} style={{ marginLeft: "15px" }}>거절</button>
+                                <li key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                                    <div style={{
+                                        flex: '1', // flex-grow를 1로 설정하여 나머지 공간을 모두 차지하게 함
+                                        marginRight: '15px',
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        whiteSpace: 'nowrap'
+                                    }}>
+                                        {request.senderName}님이 친구 요청을 보냈습니다.
+                                    </div>
+                                    <button onClick={() => handleAcceptRequest(request.friendRequestSeq)}
+                                            style={{
+                                                padding: '5px 10px',
+                                                fontSize: '13px',
+                                                fontWeight: 'bold',
+                                                textAlign: 'center',
+                                                whiteSpace: 'nowrap',
+                                                backgroundColor: '#ffb3b3',
+                                                color: '#fff',
+                                                border: 'none',
+                                                borderRadius: '0.25rem',
+                                                cursor: 'pointer',
+                                                marginRight: '10px',
+                                            }}>수락
+                                    </button>
+                                    <button onClick={() => handleRejectRequest(request.friendRequestSeq)}
+                                            style={{
+                                                padding: '5px 10px',
+                                                fontSize: '13px',
+                                                fontWeight: 'bold',
+                                                textAlign: 'center',
+                                                whiteSpace: 'nowrap',
+                                                backgroundColor: '#ffb3b3',
+                                                color: '#fff',
+                                                border: 'none',
+                                                borderRadius: '0.25rem',
+                                                cursor: 'pointer'
+                                            }}>거절
+                                    </button>
                                 </li>
                             ))
                         ) : (
