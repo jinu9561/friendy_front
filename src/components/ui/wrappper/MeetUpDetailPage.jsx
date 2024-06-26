@@ -121,7 +121,7 @@ const MeetUpDetailPage = () => {
 
     const enterChatBoard = () => {
         const chatUrl = buildChatUrl();
-        window.open(chatUrl, 'ChattingRoom', 'width=600,height=400');
+        window.open(chatUrl, 'ChattingRoom', 'width=600,height=500');
     }
 
     const formatDeadline = (deadline) => {
@@ -227,6 +227,7 @@ const MeetUpDetailPage = () => {
                             width: '80%',
                             marginTop: '2rem',
                             border: '2px solid #ffb3b3',
+                            marginBottom:'2%',
                             padding: '2%',
                             textAlign: 'left',
                             borderRadius: '8px',

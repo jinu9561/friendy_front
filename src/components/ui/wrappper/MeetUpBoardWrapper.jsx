@@ -76,6 +76,13 @@ const MeetUpBoardWrapper = ({ interestList, meetUpList, onSaveButtonClick }) => 
                         />
                     </div>
                 ))}
+                {currentItems.length % 2 !== 0 && (
+                    <div style={{width: '49%'}}>
+                    </div>
+
+                )}
+
+
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'center', margin: '1rem' }}>
