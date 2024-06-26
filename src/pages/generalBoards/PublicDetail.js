@@ -5,6 +5,7 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import BlogComment from "./BlogComment";
 import BlogPost from "./BlogPost";
+import './BlogPosts.css';
 
 // 게시글 상세페이지
 const PublicDetail = () => {
@@ -34,7 +35,7 @@ const PublicDetail = () => {
               label: "PublicBoard",
               path: process.env.PUBLIC_URL + pathname,
             },
-            { label: `num : ${commBoardSeq}` },
+            { label: `${commBoardSeq}` },
           ]}
         />
         <div className="blog-area pt-100 pb-100">

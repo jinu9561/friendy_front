@@ -7,7 +7,7 @@ import BlogSidebar from "../../wrappers/blog/BlogSidebar";
 import BlogPagination from "../../wrappers/blog/BlogPagination";
 import BlogPosts from "./BlogPosts";
 import Paginator from "react-hooks-paginator"; //페이지네이터
-
+import "./BlogPosts.css";
 //실명 게시판
 const PublicBoard = () => {
   let { pathname } = useLocation();

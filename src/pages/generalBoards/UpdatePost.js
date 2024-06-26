@@ -4,7 +4,7 @@ import axios from "axios";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { Modal } from "react-bootstrap";
-
+import './BlogPosts.css';
 const UpdatePost = () => {
   const location = useLocation();
   const { post } = location.state;
