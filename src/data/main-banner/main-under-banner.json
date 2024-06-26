@@ -1,11 +1,11 @@
 [
   {
     "id": 1,
-    "titleImage": "/assets/img/icon-img/letter/community.png",
+    "titleImage": "/assets/img/icon-img/letter/public.png",
     "title": "Find your friends, will be happpy",
     "iconImage": "/assets/img/icon-img/support-5.png",
     "backgroundColor": "#ff9191",
-    "link" : "/blog-no-sidebar"
+    "link" : "/public-board"
   },
   {
     "id": 2,
@@ -13,7 +13,7 @@
     "title": "Have a hobby, getting healthy",
     "iconImage": "/assets/img/icon-img/support-6.png",
     "backgroundColor": "#ffbde1",
-    "link" : "/blog-no-sidebar"
+    "link" : "/anonymous-board"
   },
   {
     "id": 3,

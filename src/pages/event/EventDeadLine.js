@@ -40,13 +40,13 @@ const EventDeadLine = () => {
         <ul>
           {events.map((event) => (
             <li key={event.eventSeq} className="eventlist-item">
-            <div className="event-name" style={{fontSize: "30px"}}>
+            <div className="event-name" style={{fontSize: "200%"}}>
               {event.eventName} 
             </div>      
             <Link to={`/event/${event.eventSeq}`}>
-            <img src={getMainImg(event.eventMainImgName)} alt="" className="event-image" style={{marginTop: "5px"}}/>
+            <img src={getMainImg(event.eventMainImgName)} alt="" className="event-image" style={{marginTop: "1%"}}/>
             </Link>
-            <div className="event-reg-date">{event.eventDeadLine}</div>
+            <div className="event-reg-date" style={{marginTop: "1%"}}>{event.eventDeadLine}</div>
             <br></br>
             <br></br>
           </li>

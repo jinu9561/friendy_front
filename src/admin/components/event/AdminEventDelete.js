@@ -19,7 +19,7 @@ const AdminEventDelete = ({ eventSeq, onDeleteSuccess }) => {
     };
 
     return (
-        <button onClick={handleDelete} className="delete-button">
+        <button onClick={handleDelete} className="delete-button" style={{ border: '0px solid black' }}>
             삭제
         </button>
     );

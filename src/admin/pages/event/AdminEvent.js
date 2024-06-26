@@ -106,16 +106,18 @@ const AdminEvent = ({ location }) => {
                       products={products}
                       getSortParams={getSortParams}
                   />
+
+                  <div style={{ width: '70%', height: '70%'}}>
                   {/*등록하기*/}
                   <div className="pro-details-cart btn-hover">
                     <Link to="/adminEventInsert">
-                      <button type="button" style={{ border: '0.5px solid black' }}>등록하기</button>
+                      <button type="button" style={{ border: '0px solid black' }}>등록하기</button>
                     </Link>
                   </div>
                   <br/>
                   <div className="pro-details-cart btn-hover">
                   <Link to="/adminEventDetailImgInsert">
-                    <button type="button" style={{ border: '0.5px solid black' }}>세부이미지등록하기</button>
+                    <button type="button" style={{ border: '0px solid black' }}>세부이미지등록하기</button>
                   </Link>
                   </div>
                   {/*수정하기*/}
@@ -126,7 +128,7 @@ const AdminEvent = ({ location }) => {
                   {/*)}*/}
 
                   {/*삭제하기*/}
-                  <div className="pro-details-cart btn-hover" style={{ marginTop: '20px' }}>
+                  <div className="pro-details-cart btn-hover" style={{ marginTop: '20px', marginBottom: '10px' }}>
                   {selectedEventSeq && (
                       <AdminEventDelete
                           eventSeq={selectedEventSeq}
@@ -135,13 +137,15 @@ const AdminEvent = ({ location }) => {
                   )}
                   </div>
                   {/* 이벤트 리스트 */}
-                  <div className= "event-list-container">
+                  <div className= "event-list-container" style={{ marginLeft: '35%' }}>
                     {selectedFilter === "default" ? (
                         <AdminEventList onEventSelect={handleEventSelection} />
                     ) : (
                         <AdminEventDeadLine onEventSelect={handleEventSelection} />
                     )}
                   </div>
+
+                </div>
 
                 </div>
               </div>
