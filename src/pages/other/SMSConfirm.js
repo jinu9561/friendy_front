@@ -79,51 +79,56 @@ const SMSConfirm = () => {
 
 
   return (
-    <Fragment>
-      <SEO
-        titleTemplate="본인 인증"
-        description="해당 번호의 인증번호로 인증을 완료하세요!"
-      />
-      <LayoutOne headerTop="visible">
-        {/* breadcrumb */}
-        <Breadcrumb 
-          pages={[
-            {label: "Home", path: process.env.PUBLIC_URL + "/" },
-            {label: "Authentication", path: process.env.PUBLIC_URL + pathname }
-          ]} 
-        />
-         <div className="form-container">
-          <Form>
-            <Form.Group>
-              <Form.Control 
-              type="text" 
-              id="userId" 
-              name="userId" 
-              placeholder="ID" 
-              onChange={handleInputChange}
-              className="input-field"
+      <Fragment>
+          <SEO
+              titleTemplate="본인 인증"
+              description="해당 번호의 인증번호로 인증을 완료하세요!"
+          />
+          <LayoutOne headerTop="visible">
+              {/* breadcrumb */}
+              <Breadcrumb
+                  pages={[
+                      {label: "Home", path: process.env.PUBLIC_URL + "/"},
+                      {label: "Authentication", path: process.env.PUBLIC_URL + pathname}
+                  ]}
               />
-            </Form.Group>
-            <Form.Group>
-              <Form.Control 
-              type="text" 
-              id="smsToken" 
-              name="smsToken" 
-              placeholder="문자 인증번호" 
-              onChange={handleInputChange}
-              className="input-field"
-              />
-            </Form.Group>
-           <Button 
-           variant="primary" 
-           onClick={handleSubmit}
-           className="submit-button"
-           >인증하기</Button>
-          </Form>
+              <br></br>
+              <br></br>
+              <div className="form-container">
+                  <Form>
+                      <Form.Group>
+                          <Form.Control
+                              type="text"
+                              id="userId"
+                              name="userId"
+                              placeholder="ID"
+                              onChange={handleInputChange}
+                              className="input-field"
+                          />
+                      </Form.Group>
+                      <Form.Group>
+                          <Form.Control
+                              type="text"
+                              id="smsToken"
+                              name="smsToken"
+                              placeholder="문자 인증번호"
+                              onChange={handleInputChange}
+                              className="input-field"
+                          />
+                      </Form.Group>
+                      <Button
+                          variant="primary"
+                          onClick={handleSubmit}
+                          className="submit-button"
+                      >인증하기</Button>
+                  </Form>
 
-        </div>
-      </LayoutOne>
-    </Fragment>
+              </div>
+              <br></br>
+              <br></br>
+          </LayoutOne>
+
+      </Fragment>
   );
 };
 

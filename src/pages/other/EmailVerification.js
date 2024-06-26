@@ -72,56 +72,60 @@ const EmailVerification = () => {
 
 
   return (
-    <Fragment>
-      <SEO
-        titleTemplate="이메일 인증"
-        description="해당 이메일로 인증번호를 보냈습니다!"
-      />
-      <LayoutOne headerTop="visible">
-        {/* breadcrumb */}
-        <Breadcrumb 
-          pages={[
-            {label: "Home", path: process.env.PUBLIC_URL + "/" },
-            {label: "Create Account", path: process.env.PUBLIC_URL + pathname }
-          ]} 
-        />
-         <div className="form-container">
-          <Form>
-            <Form.Group>
-              <Form.Control 
-              type="text" 
-              id="userId" 
-              name="userId" 
-              placeholder="ID" 
-              onChange={handleInputChange}
-              className="input-field"
+      <Fragment>
+          <SEO
+              titleTemplate="이메일 인증"
+              description="해당 이메일로 인증번호를 보냈습니다!"
+          />
+          <LayoutOne headerTop="visible">
+              {/* breadcrumb */}
+              <Breadcrumb
+                  pages={[
+                      {label: "Home", path: process.env.PUBLIC_URL + "/"},
+                      {label: "Create Account", path: process.env.PUBLIC_URL + pathname}
+                  ]}
               />
-            </Form.Group>
-            <Form.Group>
-              <Form.Control 
-              type="text" 
-              id="emailToken" 
-              name="emailToken" 
-              placeholder="이메일 인증 번호" 
-              onChange={handleInputChange}
-              className="input-field"
-              />
-            </Form.Group>
-            <p>
-            <Link to={process.env.PUBLIC_URL+"/findEmailVerification"}>
-                                    인증번호가 오지않았나요?
-            </Link>
-            </p>
-           <Button 
-           variant="primary" 
-           onClick={handleSubmit}
-           className="submit-button"
-           >등록하기</Button>
-          </Form>
+              <br></br>
+              <br></br>
+              <div className="form-container">
+                  <Form>
+                      <Form.Group>
+                          <Form.Control
+                              type="text"
+                              id="userId"
+                              name="userId"
+                              placeholder="ID"
+                              onChange={handleInputChange}
+                              className="input-field"
+                          />
+                      </Form.Group>
+                      <Form.Group>
+                          <Form.Control
+                              type="text"
+                              id="emailToken"
+                              name="emailToken"
+                              placeholder="이메일 인증 번호"
+                              onChange={handleInputChange}
+                              className="input-field"
+                          />
+                      </Form.Group>
+                      <p>
+                          <Link to={process.env.PUBLIC_URL + "/findEmailVerification"}>
+                              인증번호가 오지않았나요?
+                          </Link>
+                      </p>
+                      <Button
+                          variant="primary"
+                          onClick={handleSubmit}
+                          className="submit-button"
+                      >등록하기</Button>
+                  </Form>
 
-        </div>
-      </LayoutOne>
-    </Fragment>
+              </div>
+              <br></br>
+              <br></br>
+          </LayoutOne>
+      </Fragment>
   );
 };
 

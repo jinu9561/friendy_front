@@ -67,71 +67,76 @@ const PasswordAlter = () => {
   };
 
   return (
-    <Fragment>
-      <SEO
-        titleTemplate="비밀번호 변경"
-        description="비밀번호 변경페이지 입니다."
-      />
-      <LayoutOne headerTop="visible">
-        {/* breadcrumb */}
-        <Breadcrumb 
-          pages={[
-            {label: "Home", path: process.env.PUBLIC_URL + "/" },
-            {label: "비밀번호 변경", path: process.env.PUBLIC_URL + pathname }
-          ]} 
-        />
-         <div className="form-container">
-          <Form> 
-            <Form.Group>
-              <Form.Control 
-              type="text" 
-              id="userId" 
-              name="userId" 
-              placeholder="ID" 
-              onChange={handleInputChange}
-              className="input-field"
+      <Fragment>
+          <SEO
+              titleTemplate="비밀번호 변경"
+              description="비밀번호 변경페이지 입니다."
+          />
+          <LayoutOne headerTop="visible">
+              {/* breadcrumb */}
+              <Breadcrumb
+                  pages={[
+                      {label: "Home", path: process.env.PUBLIC_URL + "/"},
+                      {label: "비밀번호 변경", path: process.env.PUBLIC_URL + pathname}
+                  ]}
               />
-            </Form.Group>
-            <Form.Group>
-              <Form.Control 
-              type="text" 
-              id="emailToken" 
-              name="emailToken" 
-              placeholder="인증 번호" 
-              onChange={handleInputChange}
-              className="input-field"
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Control 
-              type="password" 
-              id="userPwd" 
-              name="userPwd" 
-              placeholder="New Password" 
-              onChange={handleInputChange}
-              className="input-field"
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Control 
-              type="password" 
-              id="userPwdCheck" 
-              name="userPwdCheck" 
-              placeholder="Password Check" 
-              onChange={handleInputChange}
-              className="input-field"
-              />
-            </Form.Group>
-            <Button 
-            variant="primary" 
-            onClick={handleSubmit}
-            className="submit-button"
-            >비밀번호 변경
-            </Button> 
-          </Form>
-        </div>
-      </LayoutOne>
-    </Fragment>
+              <br></br>
+              <br></br>
+              <div className="form-container">
+                  <Form>
+                      <Form.Group>
+                          <Form.Control
+                              type="text"
+                              id="userId"
+                              name="userId"
+                              placeholder="ID"
+                              onChange={handleInputChange}
+                              className="input-field"
+                          />
+                      </Form.Group>
+                      <Form.Group>
+                          <Form.Control
+                              type="text"
+                              id="emailToken"
+                              name="emailToken"
+                              placeholder="인증 번호"
+                              onChange={handleInputChange}
+                              className="input-field"
+                          />
+                      </Form.Group>
+                      <Form.Group>
+                          <Form.Control
+                              type="password"
+                              id="userPwd"
+                              name="userPwd"
+                              placeholder="New Password"
+                              onChange={handleInputChange}
+                              className="input-field"
+                          />
+                      </Form.Group>
+                      <Form.Group>
+                          <Form.Control
+                              type="password"
+                              id="userPwdCheck"
+                              name="userPwdCheck"
+                              placeholder="Password Check"
+                              onChange={handleInputChange}
+                              className="input-field"
+                          />
+                      </Form.Group>
+                      <Button
+                          variant="primary"
+                          onClick={handleSubmit}
+                          className="submit-button"
+                      >비밀번호 변경
+                      </Button>
+                  </Form>
+              </div>
+              <br></br>
+              <br></br>
+          </LayoutOne>
+
+      </Fragment>
   );
 };
 
