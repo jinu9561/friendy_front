@@ -1,12 +1,14 @@
 import axios from "axios";
-import React from "react";
+import React, {useState} from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import ICON from '../../assets/img/profile-img/여자1.png'
+import SendReport from "../../components/report/SendReport";
 
 // 상세 글보기 안에 상세글 내용에 관한 컴포넌트
 const BlogPost = ({ post, commBoardSeq }) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const [showReportModal, setShowReportModal] = useState(false);
 
   const handleEdit = () => {
     navigate(`${pathname}/update`, { state: { post } });
@@ -50,6 +52,14 @@ const BlogPost = ({ post, commBoardSeq }) => {
                 </div>
                 <div className="blog-comment-content">
                   <h4>{post.nickName}</h4>
+                  <button onClick={() => setShowReportModal(true)}>신고</button>
+                  {showReportModal && (
+                      <SendReport
+                          commBoardSeq={commBoardSeq}
+                          postUserSeq={post.userSeq}
+                          onReportSent={() => setShowReportModal(false)}
+                      />
+                  )}
                   <span>
                     {new Date(post.boardRegDate).toLocaleDateString("ko-KR", options)}
                   </span>
