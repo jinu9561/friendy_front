@@ -4,6 +4,17 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import QnaButton from "./components/qna-button/QnaButton";
 import SaveForm from "./components/ui/wrappper/SaveForm";
+import Detail from "./components/ui/wrappper/MeetUpDetailPage";
+import MeetUpDetailPage from "./components/ui/wrappper/MeetUpDetailPage";
+import MeetUpUpdatePage from "./components/ui/wrappper/MeetUpUpdatePage";
+import MeetUpRequestList from "./components/ui/wrappper/MeetUpRequestList";
+import ChattingRoom from "./components/ui/wrappper/ChattingRoom";
+import PublicBoard from "./pages/generalBoards/PublicBoard";
+import UpdatePost from "./pages/generalBoards/UpdatePost";
+import AnonymousBoard from "./pages/generalBoards/AnonymousBoard";
+import WritePost from "./pages/generalBoards/WritePost";
+import PublicDetail from "./pages/generalBoards/PublicDetail";
+import AnonymousDetail from "./pages/generalBoards/AnonymousDetail";
 
 export const LogingedContext = createContext();
 
@@ -22,19 +33,7 @@ const EventDetail = lazy(() => import("./pages/event/EventDetail"));
 const ProductSticky = lazy(() => import("./pages/shop-product/ProductSticky"));
 const ProductSlider = lazy(() => import("./pages/shop-product/ProductSlider"));
 
-// 자유게시판 , 익명게시판 , + 상세보기
-const PublicBoard = lazy(() => import("./pages/generalBoards/PublicBoard"));
-const PublicDetail = lazy(() => import("./pages/generalBoards/PublicDetail"));
-const AnonymousBoard = lazy(() =>
-  import("./pages/generalBoards/AnonymousBoard")
-);
-const AnonymousDetail = lazy(() =>
-  import("./pages/generalBoards/AnonymousDetail")
-);
-//자유, 익명게시판 글쓰기
-const WritePost = lazy(() => import("./pages/generalBoards/WritePost"));
-//자유, 익명게시판 수정
-const UpdatePost = lazy(() => import("./pages/generalBoards/UpdatePost"));
+ 
 
 // 나의 프로필
 const MyProfile = lazy(() => import("./pages/other/MyProfile"));
@@ -197,37 +196,43 @@ const App = () => {
                 element={<Event />}
               />
 
-              {/* 자유 게시판 */}
+                            {/* 자유 게시판 */}
 
-              <Route path="/public-board" element={<PublicBoard />} />
-              <Route path="/public-board/write" element={<WritePost />} />
-              <Route
-                path="/public-board/:commBoardSeq/update"
-                element={<UpdatePost />}
-              />
+                            <Route path="/public-board" element={<PublicBoard />} />
+                            <Route path="/public-board/write" element={<WritePost />} />
+                            <Route
+                                path="/public-board/:commBoardSeq/update"
+                                element={<UpdatePost />}
+                            />
 
-              {/* 익명 게시판 */}
-              <Route
-                path={process.env.PUBLIC_URL + "/anonymous-board"}
-                element={<AnonymousBoard />}
-              />
-              <Route path="/anonymous-board/write" element={<WritePost />} />
-              <Route
-                path="/anonymous-board/:commBoardSeq/update"
-                element={<UpdatePost />}
-              />
+                            {/* 익명 게시판 */}
+                            <Route
+                                path={process.env.PUBLIC_URL + "/anonymous-board"}
+                                element={<AnonymousBoard />}
+                            />
+                            <Route path="/anonymous-board/write" element={<WritePost />} />
+                            <Route
+                                path="/anonymous-board/:commBoardSeq/update"
+                                element={<UpdatePost />}
+                            />
 
-              {/* 자유 게시판 상세보기*/}
-              <Route
-                path={process.env.PUBLIC_URL + "/public-board/:commBoardSeq"}
-                element={<PublicDetail />}
-              />
+                            {/* 자유 게시판 상세보기*/}
+                            <Route
+                                path={process.env.PUBLIC_URL + "/public-board/:commBoardSeq"}
+                                element={<PublicDetail />}
+                            />
 
-              {/* 익명 게시판 상세보기 */}
-              <Route
-                path={process.env.PUBLIC_URL + "/anonymous-board/:commBoardSeq"}
-                element={<AnonymousDetail />}
-              />
+                            {/* 익명 게시판 상세보기 */}
+                            <Route
+                                path={process.env.PUBLIC_URL + "/anonymous-board/:commBoardSeq"}
+                                element={<AnonymousDetail />}
+                            />
+
+                            {/* 사진 게시판 상세보기 */}
+                            <Route
+                                path={process.env.PUBLIC_URL + "/product-slider/:id"}
+                                element={<ProductSlider />}
+                            />
 
               {/* 사진 게시판 상세보기 */}
               <Route

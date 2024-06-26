@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import ICON from "../../assets/img/profile-img/여자1.png";
+import ICON from '../../assets/img/profile-img/여자1.png'
 
 // 상세 글보기 안에 상세글 내용에 관한 컴포넌트
 const BlogPost = ({ post, commBoardSeq }) => {
@@ -15,9 +15,7 @@ const BlogPost = ({ post, commBoardSeq }) => {
   const handleDelete = async () => {
     if (window.confirm("삭제하시겠습니까?")) {
       try {
-        await axios.delete(
-          `http://localhost:9000/community-boards/${commBoardSeq}`
-        );
+        await axios.delete(`http://localhost:9000/community-boards/${commBoardSeq}`);
         alert("게시글이 성공적으로 삭제되었습니다.");
         navigate("/public-board");
       } catch (error) {
@@ -103,12 +101,7 @@ const BlogPost = ({ post, commBoardSeq }) => {
         </button>
         <button
           type="button"
-          style={{
-            backgroundColor: "#ff6289",
-            opacity: 0.8,
-            border: "none",
-            marginLeft: "3px",
-          }}
+          style={{ backgroundColor: "#ff6289", opacity: 0.8, border: "none", marginLeft: "3px" }}
           className="btn btn-primary"
           onClick={handleDelete}
         >
