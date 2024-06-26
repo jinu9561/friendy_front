@@ -336,7 +336,11 @@ const App = () => {
                                 path={process.env.PUBLIC_URL + "/adminPlace"}
                                 element={<AdminPlace/>}
                             />
-
+                            {/* 관리자 사진게시판 조회*/}
+                            <Route
+                                path={process.env.PUBLIC_URL + "/adminPhoto"}
+                                element={<AdminPhoto/>}
+                            />
                             {/* 이벤트 게시판 */}
                             <Route
                                 path={process.env.PUBLIC_URL + "/adminEvent"}

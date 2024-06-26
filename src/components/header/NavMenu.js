@@ -52,30 +52,35 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
             </>
           ) : (
             // 관리자 내비게이션
-            <>
-              <li>
-                <Link to={process.env.PUBLIC_URL + "/adminUser"}>
-                  MemberShip
-                </Link>
-              </li>
-              <li>
-                <Link to={process.env.PUBLIC_URL + "/adminPlace"}>
-                  Hot Place
-                </Link>
-              </li>
+              <>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/adminUser"}>
+                    MemberShip
+                  </Link>
+                </li>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/adminPlace"}>
+                    Hot Place
+                  </Link>
+                </li>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/adminPhoto"}>
+                    Photo
+                  </Link>
+                </li>
 
-              <li>
-                <Link to={process.env.PUBLIC_URL + "/adminEvent"}>
-                  ADMIN EVENT
-                </Link>
-              </li>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/adminEvent"}>
+                    ADMIN EVENT
+                  </Link>
+                </li>
 
-              <li>
-                <Link to={process.env.PUBLIC_URL + "/adminReport"}>
-                  신고목록
-                </Link>
-              </li>
-            </>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/adminReport"}>
+                    신고목록
+                  </Link>
+                </li>
+              </>
           )}
         </ul>
       </nav>
