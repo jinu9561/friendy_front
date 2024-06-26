@@ -24,7 +24,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
             // 사용자 내비게이션
             <>
               <li>
-                <Link to={process.env.PUBLIC_URL + "/"}>{t("Home")}</Link>
+                <Link to={process.env.PUBLIC_URL + "/"}>{("Home")}</Link>
               </li>
               <li>
                 <Link to={process.env.PUBLIC_URL + "/public-board"}>
