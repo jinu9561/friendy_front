@@ -26,17 +26,19 @@ const UpdatePost = () => {
       boardPwd: post.boardPwd,
     };
 
-    try {
-      await axios.put(
-        `http://localhost:9000/community-boards/${post.commBoardSeq}`,
-        communityBoardDTO
-      );
-      setModalMessage("게시물이 성공적으로 수정되었습니다!");
-      setShowModal(true);
-      navigate(-1); // 수정 후 이전 페이지로 이동
-    } catch (error) {
-      setModalMessage("게시물 수정에 실패하였습니다. 다시 시도해주세요.");
-      setShowModal(true);
+    if (window.confirm("수정 완료 하시겠습니까?")){
+      try {
+        await axios.put(
+          `http://localhost:9000/community-boards/${post.commBoardSeq}`,
+          communityBoardDTO
+        );
+        setModalMessage("게시물이 성공적으로 수정되었습니다!");
+        setShowModal(true);
+        navigate(-1); // 수정 후 이전 페이지로 이동
+      } catch (error) {
+        setModalMessage("게시물 수정에 실패하였습니다. 다시 시도해주세요.");
+        setShowModal(true);
+      }
     }
   };
 
