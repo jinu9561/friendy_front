@@ -28,7 +28,7 @@ const WritePost = () => {
       boardLike: 3,
       boardPwd: 1234,
     };
-
+    if (window.confirm("제출 완료 하시겠습니까?"))
     try {
       const response = await axios.post(
         `http://localhost:9000/community-boards`,
