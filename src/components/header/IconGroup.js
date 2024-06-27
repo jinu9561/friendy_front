@@ -77,7 +77,7 @@ const IconGroup = ({ iconWhiteClass }) => {
     data : formData
     }) 
      .then((res)=>{
-
+//
         localStorage.removeItem("userId"); 
         localStorage.removeItem("country"); 
         localStorage.removeItem("gender"); 
