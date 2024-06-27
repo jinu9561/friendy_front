@@ -496,6 +496,23 @@ function PhotoDetail({ photoData,show,photoBoardDetailImgList,getImg,onHide,getS
             <div className="col-md-7 col-sm-12 col-xs-12">
               <div className="photo-profile-container">
                 <div className="photo-profile-image-container">
+                  <button style={{
+                    display: 'inline-block',
+                    padding: '4px 13px',
+                    fontSize: '14px',
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    whiteSpace: 'nowrap',
+                    verticalAlign: 'middle',
+                    backgroundColor: '#dbdbdb',
+                    color: '#8c8c8c',
+                    border: 'none',
+                    borderRadius: '0.4rem',
+                    cursor: 'pointer',
+                    marginRight: '20px'
+                  }}>
+                    신고
+                  </button>
                   <img
                       src={getProfileImg(profileData.profileMainImgName, profileData.profileMainApprove)}
                       alt="Profile"
@@ -506,13 +523,13 @@ function PhotoDetail({ photoData,show,photoBoardDetailImgList,getImg,onHide,getS
                           src={Approve}
                           alt="Phone Verified"
                           className="icon"
-                          style={{ left: -7 }}
+                          style={{left: -7}}
                       />
                   )}
                   {profileData.country === "KOREAN" ? (
-                      <img src={Korean} alt="Korean" className="icon" />
+                      <img src={Korean} alt="Korean" className="icon"/>
                   ) : (
-                      <img src={Nations} alt="Foreigner" className="icon" />
+                      <img src={Nations} alt="Foreigner" className="icon"/>
                   )}
                 </div>
                 <div className="profile-details">
@@ -601,7 +618,8 @@ function PhotoDetail({ photoData,show,photoBoardDetailImgList,getImg,onHide,getS
                   ) : (
                       <Fragment>
                         <div className="mb-3">
-                          <label>{curPhotoData.photoBoardTitle}</label>
+                          <label>{curPhotoData.photoBoardTitle}
+                          </label>
                         </div>
                         <hr></hr>
                         <PhotoInterestList photoData={curPhotoData}/>

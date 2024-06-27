@@ -36,15 +36,42 @@ const FriendRequestForm = () => {
   return (
       <div>
         <label>
-          친구 ID:
+          <br/>
           <input
               type="text"
               value={receiverId}
               onChange={(e) => setReceiverId(e.target.value)}
               required
+              placeholder="닉네임으로 친구요청"
+              style={{
+                color: '#999',
+                backgroundColor: '#f3f7fb',
+                height: '35px',
+                width: '260px',
+                fontSize: '14px',
+              }}
           />
         </label>
-        <button onClick={handleClick} style={{fontSize: "15px"}}>친구요청</button>
+        <button
+            onClick={handleClick}
+            style={{
+              display: 'inline-block',
+              padding: '5px 10px',
+              fontSize: '13px',
+              fontWeight: 'bold',
+              textAlign: 'center',
+              whiteSpace: 'nowrap',
+              verticalAlign: 'middle',
+              backgroundColor: '#ffb3b3',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '0.25rem',
+              cursor: 'pointer',
+              marginLeft: '5px',
+            }}
+        >
+          친구요청
+        </button>
         {message && <p>{message}</p>}
       </div>
   );

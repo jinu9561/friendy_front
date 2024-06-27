@@ -1,9 +1,29 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import FriendRequestForm from "./FriendRequestForm";
+import defaultProfileImage from '../../assets/img/prof/default.jpeg';
 
 const FriendList = ({ showFriendList, toggleFriendListHandler }) => {
     const [friendList, setFriendList] = useState([]);
-
+    const [showFriendRequestForm, setShowFriendRequestForm] = useState(false);
+    const [receiverId, setReceiverId] = useState(''); // 친구 요청 ID 상태 추가
+    const [profileData, setProfileData] = useState({
+        userName:"",
+        nickName:"",
+        country:"",
+        gender:"",
+        userJelly:"",
+        introduce:"",
+        profileMainImgName:"",
+        profileMainApprove:"",
+        profileDetailImgList:[],
+        interestList:[],
+        address:"",
+        phone:"",
+        email:"",
+        userState:"",
+        purchaseHistory:[]
+    })
     useEffect(() => {
         if (showFriendList) {
             axios({
@@ -14,13 +34,28 @@ const FriendList = ({ showFriendList, toggleFriendListHandler }) => {
                 }
             })
                 .then(res => {
-                    setFriendList(res.data);
+                    const friendsWithImages = res.data.map(friend => ({
+                        ...friend,
+                        profileImage: `http://localhost:9000/profile/image/${friend.userSeq}`
+                    }));
+                    setFriendList(friendsWithImages);
                 })
                 .catch(err => {
                     console.log(err);
                 });
         }
     }, [showFriendList]);
+
+    const getProfileImg = (imgName, profileMainApprove) => {
+        if (profileMainApprove === "APPROVED") {
+            return "http://localhost:9000/profile/main/img?imgName=" + imgName;
+        }
+        return defaultProfileImage;
+    };
+
+    const toggleFriendRequestFormHandler = () => {
+        setShowFriendRequestForm(!showFriendRequestForm);
+    };
 
     const handleChat = (friendUserSeq) => {
         // Implement chat functionality here
@@ -77,12 +112,12 @@ const FriendList = ({ showFriendList, toggleFriendListHandler }) => {
             style={{
                 display: 'inline-block',
                 padding: '5px 10px',
-                fontSize: '12px',
+                fontSize: '13px',
                 fontWeight: 'bold',
                 textAlign: 'center',
                 whiteSpace: 'nowrap',
                 verticalAlign: 'middle',
-                backgroundColor: '#FF6666',
+                backgroundColor: '#ffb3b3',
                 color: '#fff',
                 border: 'none',
                 borderRadius: '0.25rem',
@@ -99,7 +134,10 @@ const FriendList = ({ showFriendList, toggleFriendListHandler }) => {
         showFriendList && (
             <div className="offcanvas offcanvas-end show" tabIndex="-1" style={{visibility: "visible"}}>
                 <div className="offcanvas-header">
-                    <h5 className="offcanvas-title">친구 목록</h5>
+                    <FriendRequestForm
+                        receiverId={receiverId}
+                        closeForm={toggleFriendRequestFormHandler}
+                        />
                     <button type="button" className="btn-close text-reset" onClick={toggleFriendListHandler}></button>
                 </div>
                 <div className="offcanvas-body">
@@ -108,12 +146,24 @@ const FriendList = ({ showFriendList, toggleFriendListHandler }) => {
                             <li key={friend.userSeq}
                                 style={{display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
                                 <div style={{
-                                    width: '200px',
+                                    width: '170px',
                                     marginRight: '15px',
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis',
                                     whiteSpace: 'nowrap'
                                 }}>
+                                    <img
+                                        src={getProfileImg(profileData.profileMainImgName, profileData.profileMainApprove)}
+                                        alt="Profile"
+                                        className="round-image"
+                                        style={{
+                                            width: '40px',
+                                            height: '40px',
+                                            marginRight: '10px',
+                                            borderRadius: '0.5rem',
+
+                                        }}
+                                    />
                                     {friend.nickName}
                                 </div>
                                 <div>

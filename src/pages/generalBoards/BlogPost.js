@@ -1,12 +1,16 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ICON from "../../assets/img/profile-img/여자1.png";
 import "./BlogPosts.css";
+import SendReport from "../../components/report/SendReport";
+
 // 상세 글보기 안에 상세글 내용에 관한 컴포넌트
 const BlogPost = ({ post, commBoardSeq }) => {
   const navigate = useNavigate();
   const location = useLocation(); // useLocation 훅을 사용하여 location 객체를 가져옴
+  const { pathname } = useLocation();
+  const [showReportModal, setShowReportModal] = useState(false); //신고버튼에서 사용
 
   const handleEdit = () => {
     navigate(`${location.pathname}/update`, { state: { post } });
@@ -44,8 +48,8 @@ const BlogPost = ({ post, commBoardSeq }) => {
     <>
       <div className="blog-details-top">
         <div className="blog-details-content">
-          
-          <h1>{post.boardTitle}</h1> 
+
+          <h1>{post.boardTitle}</h1>
           <span style={{float:"right"}}>{post.replyList.length} <i className="fa fa-comments-o" /></span>
           <div>
           <span style={{ marginRight: "15px" }}>
@@ -53,7 +57,7 @@ const BlogPost = ({ post, commBoardSeq }) => {
           </span>
           <span>조회 수 : {post.commBoardCount}</span>
           </div>
-         
+
           <p style={{ marginTop: "10px" }}>{post.boardContent}</p>
         </div>
       </div>
@@ -72,6 +76,31 @@ const BlogPost = ({ post, commBoardSeq }) => {
                 style={{ display: "flex", alignItems: "center" }}
               >
                 <h4 style={{ marginRight: "10px" }}>{nickName}</h4>
+                  {/*신고버튼*/}
+                  <button onClick={() => setShowReportModal(true)}
+                          style={{
+                              display: 'inline-block',
+                              padding: '8px 15px',
+                              fontSize: '16px',
+                              fontWeight: 'bold',
+                              textAlign: 'center',
+                              whiteSpace: 'nowrap',
+                              verticalAlign: 'middle',
+                              backgroundColor: '#e0e0e0',
+                              color: '#858585',
+                              border: 'none',
+                              borderRadius: '0.3rem',
+                              cursor: 'pointer',
+                          }}>
+                      신고
+                  </button>
+                  {showReportModal && (
+                      <SendReport
+                          commBoardSeq={commBoardSeq}
+                          postUserSeq={post.userSeq}
+                          onReportSent={() => setShowReportModal(false)}
+                      />
+                  )}
                 {!isAnonymousBoard && ( // 익명 게시판이 아닐 때만 이미지 렌더링
                   <div className="blog-comment-img">
                     <img src={profileImg} alt="profileImage" style={{ width: "60px" }} />

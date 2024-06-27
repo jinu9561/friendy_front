@@ -31,11 +31,6 @@ const AdminReport = () => {
         setLayout(layout);
     }
 
-    const getSortParams = (sortType, sortValue) => {
-        setSortType(sortType);
-        setSortValue(sortValue);
-    }
-
     const getFilterSortParams = (sortType, sortValue) => {
         setFilterSortType(sortType);
         setFilterSortValue(sortValue);
@@ -91,7 +86,7 @@ const AdminReport = () => {
                 <Breadcrumb
                     pages={[
                         {label: "Home", path: homPath },
-                        {label: "신고 관리", path: process.env.PUBLIC_URL + pathname }
+                        {label: "ADMIN REPORT", path: process.env.PUBLIC_URL + pathname }
                     ]}
                 />
 

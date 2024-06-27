@@ -19,11 +19,13 @@ const MeetUpDetail = ({ meetUpName , meetUpDesc , meetUpSeq}) => {
             marginLeft:'15%',
             display: 'flex',
             justifyContent: 'flex-end',
+            backgrundColor: 'transparent',
             width : '85%',
             height: '20%'
         }}>
             <button
                 style={{
+
                     marginRight: '15%',
                     display: 'inline-block',
                     width: '30%',
