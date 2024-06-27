@@ -5,9 +5,11 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import BlogComment from "./BlogComment";
 import BlogPost from "./BlogPost";
+import './BlogPosts.css';
 
 // 게시글 상세페이지
 const AnonymousDetail = () => {
+  
   const { pathname } = useLocation();
   const { commBoardSeq } = useParams();
   const [post, setPost] = useState(null);
@@ -34,16 +36,17 @@ const AnonymousDetail = () => {
               label: "AnonymousBoard",
               path: process.env.PUBLIC_URL + pathname,
             },
-            { label: `num : ${commBoardSeq}` },
+            { label: `${commBoardSeq}` },
           ]}
         />
+    
         <div className="blog-area pt-100 pb-100">
           <div className="container">
             <div className="row justify-content-center">
               <div className="col-lg-9">
                 <div className="blog-details-wrapper ml-20">
                   <BlogPost post={post} />
-                  <BlogComment replyList={post.replyList} />
+                  <BlogComment replyList={post.replyList} commBoardSeq={commBoardSeq} />
                 </div>
               </div>
             </div>

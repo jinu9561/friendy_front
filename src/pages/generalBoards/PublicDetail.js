@@ -5,14 +5,16 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import BlogComment from "./BlogComment";
 import BlogPost from "./BlogPost";
+import './BlogPosts.css';
 
 // 게시글 상세페이지
 const PublicDetail = () => {
   const { pathname } = useLocation();
   const { commBoardSeq } = useParams();
   const [post, setPost] = useState(null);
-
+  
   useEffect(() => {
+    console.log(commBoardSeq);
     fetch(`http://localhost:9000/community-boards/${commBoardSeq}`)
       .then((response) => response.json())
       .then((data) => {
@@ -22,7 +24,7 @@ const PublicDetail = () => {
   }, [commBoardSeq]);
 
   if (!post) return <div>Loading...</div>;
-
+  
   return (
     <Fragment>
       <SEO title={post.boardTitle} />
@@ -34,7 +36,7 @@ const PublicDetail = () => {
               label: "PublicBoard",
               path: process.env.PUBLIC_URL + pathname,
             },
-            { label: `num : ${commBoardSeq}` },
+            { label: `${commBoardSeq}` },
           ]}
         />
         <div className="blog-area pt-100 pb-100">
