@@ -290,12 +290,12 @@ function AdminPhotoDetail({ photoData,show,photoBoardDetailImgList,getImg,onHide
 
 
   return (
-      <Modal show={show} onHide={onCloseModal} className="product-quickview-modal-wrapper">
+      <Modal show={show} onHide={onCloseModal} className="photo-quickview-modal-wrapper">
         <Modal.Header closeButton />
         <div className="modal-body">
           <div className="row">
             <div className="col-md-5 col-sm-12 col-xs-12">
-              <div className="product-large-image-wrapper">
+              <div className="photo-large-image-wrapper">
                 <Swiper options={gallerySwiperParams}>
                   <SwiperSlide key={curPhotoData.photoBoardSeq}>
                     {mainImage && (
@@ -317,7 +317,7 @@ function AdminPhotoDetail({ photoData,show,photoBoardDetailImgList,getImg,onHide
                   </SwiperSlide>
                 </Swiper>
               </div>
-              <div className="product-small-image-wrapper mt-15">
+              <div className="photo-small-image-wrapper mt-15">
                 <Swiper options={thumbnailSwiperParams}>
                   {curPhtoDetailList.length > 0 &&
                       curPhtoDetailList.map((img, i) => (
@@ -344,8 +344,8 @@ function AdminPhotoDetail({ photoData,show,photoBoardDetailImgList,getImg,onHide
               </div>
             </div>
             <div className="col-md-7 col-sm-12 col-xs-12">
-              <div className="profile-container">
-                <div className="profile-image-container">
+              <div className="photo-profile-container">
+                <div className="photo-profile-image-container">
                   <img
                       src={getProfileImg(profileData.profileMainImgName, profileData.profileMainApprove)}
                       alt="Profile"
@@ -369,7 +369,7 @@ function AdminPhotoDetail({ photoData,show,photoBoardDetailImgList,getImg,onHide
                   <p>{profileData.nickName}</p>
                 </div>
               </div>
-              <div className="product-details-price">
+              <div className="photo-details-price">
                 <Fragment>
                       <Fragment>
                         <div className="mb-3">
