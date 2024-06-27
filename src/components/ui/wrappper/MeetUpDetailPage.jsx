@@ -32,6 +32,8 @@ const MeetUpDetailPage = () => {
             .then((result) => {
                 console.log(result.data);
                 setMeetUp(result.data);
+                console.log(result.data.userSeq);
+
             })
             .catch((err) => {
                 let errMessage = err.response.data.type + "\n";
@@ -118,12 +120,16 @@ const MeetUpDetailPage = () => {
 
     const buildChatUrl = () => {
         const baseUrl = `${process.env.PUBLIC_URL}/ChattingRoom`;
-        return `${baseUrl}?userSeq=${localUserSeq}&roomId=${meetUp.roomId}&&chattingRoomSeq=${meetUp.chattingRoomSeq}`;
+
+        console.log(meetUp.userSeq);
+        // return `${baseUrl}?userSeq=${localUserSeq}&roomId=${meetUp.roomId}&&chattingRoomSeq=${meetUp.chattingRoomSeq}`;
+        return `${baseUrl}?userSeq=${localUserSeq}&?roomMasterSeq=${meetUp.userSeq}&roomId=${meetUp.roomId}&chattingRoomSeq=${meetUp.chattingRoomSeq}`;
+
     }
 
     const enterChatBoard = () => {
         const chatUrl = buildChatUrl();
-        window.open(chatUrl, 'ChattingRoom', 'width=600,height=400');
+        window.open(chatUrl, 'ChattingRoom', 'width=600,height=700');
     }
 
     const formatDeadline = (deadline) => {
@@ -166,7 +172,7 @@ const MeetUpDetailPage = () => {
                         <div
                             style={{
                                 width: '80%',
-                                fontSize: '300%',
+                                fontSize: '150%',
                                 marginTop: '2rem',
                                 textAlign: 'center',
                                 border: '4px solid #ffb3b3',
@@ -229,13 +235,14 @@ const MeetUpDetailPage = () => {
                             width: '80%',
                             marginTop: '2rem',
                             border: '2px solid #ffb3b3',
+                            marginBottom:'2%',
                             padding: '2%',
                             textAlign: 'left',
                             borderRadius: '8px',
                             marginLeft: "10%",
                             fontSize: "90%",
                         }}>
-
+                            <div> 주최자 : {meetUp.userName}</div>
                             <div> 모집일 : {formatDeadline(meetUp.meetUpDeadLine)} 까지</div>
                             <div> 모집 인원 : {meetUp.nowEntry} /{meetUp.meetUpMaxEntry} 명</div>
 
@@ -334,14 +341,14 @@ const MeetUpDetailPage = () => {
 
                         )}
 
-                        <div>
+                        <div >
                             {meetUp.userSeq == localUserSeq || meetUp.meetUpPeopleList && JSON.parse(meetUp.meetUpPeopleList).map((person, index) => {
-                                const userId = localStorage.getItem("userName")
+                                const userId = localStorage.getItem("userId")
                                 ;
                                 const isCurrentUser = person === userId;
                                 console.log(userId + "||" + person)
                                 return (
-                                    <div key={index}>
+                                    <div key={index}  style={{margin:'5%'}}>
                                         {isCurrentUser && (
                                             <button
                                                 style={{
@@ -351,6 +358,7 @@ const MeetUpDetailPage = () => {
                                                     padding: '0.5rem 1rem',
                                                     margin: '3%',
                                                     borderRadius: '4px',
+                                                    marginRight:'5%',
                                                     cursor: 'pointer',
                                                 }} onClick={enterChatBoard}>채팅방 입장하기</button>
                                         )}

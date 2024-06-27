@@ -58,9 +58,7 @@ const PostRow = ({
                 </div>
                 <MeetUpDetail
                     meetUpSeq={meetUpSeq}
-                    meetUpName={meetUpName}
-
-                />
+                    meetUpName={meetUpName}/>
             </div>
         </div>
     );
