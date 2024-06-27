@@ -1,19 +1,34 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const BlogSidebar = () => {
+const BlogSidebar = ({ onSearch }) => {
+  const [keyword, setKeyword] = useState('');
+
+  // 검색 버튼 클릭 핸들러
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    onSearch(keyword);
+  };
   return (
-    <div className="sidebar-style">
+   <div className="sidebar-style">
       <div className="sidebar-widget">
-        <h4 className="pro-sidebar-title">Search </h4>
+        <h4 className="pro-sidebar-title">Search</h4>
         <div className="pro-sidebar-search mb-55 mt-25">
-          <form className="pro-sidebar-search-form" action="#">
-            <input type="text" placeholder="Search here..." />
-            <button>
+          <form className="pro-sidebar-search-form" onSubmit={handleSearch}>
+            <input
+              type="text"
+              placeholder="Search here..."
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+            />
+            <button type="submit">
               <i className="pe-7s-search" />
             </button>
           </form>
         </div>
       </div>
+      
+    
 
       <div className="sidebar-widget mt-50">
         <h4 className="pro-sidebar-title">Tag </h4>

@@ -1,17 +1,21 @@
 import React, { Fragment, useState } from "react";
 import axios from "axios";
+import ICON from "../../assets/img/profile-img/남자1.png";
+import { useLocation } from "react-router-dom";
 
 const BlogComment = ({ replyList, commBoardSeq }) => {
   const [replyContent, setReplyContent] = useState("");
   const [replies, setReplies] = useState(replyList);
-
+  const location = useLocation(); // useLocation 훅을 사용하여 location 객체를 가져옴
   const options = {
     year: "numeric",
     month: "long",
     day: "numeric",
     hour: "2-digit",
-    minute: "2-digit",
+    minute: "2-digit"
   };
+
+  const isAnonymousBoard = location.pathname.includes("/anonymous-board");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -58,61 +62,55 @@ const BlogComment = ({ replyList, commBoardSeq }) => {
         <h4 className="blog-dec-title">
           comments : {replies.length.toString().padStart(2, "0")}
         </h4>
-        {replies.map((reply, index) => (
-          <div
-            className="single-comment-wrapper mt-35"
-            key={index}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
+        {replies.map((reply, index) => {
+          const nickName = isAnonymousBoard ? "익명" : reply.nickName;
+          const profileImg = isAnonymousBoard ? "" : ICON;
+
+          return (
             <div
+              key={index}
               style={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
+                margin: "10px 0px",
               }}
             >
-              <div className="blog-comment-img">
-                <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    `/assets/img/blog/comment-${index + 1}.jpg`
-                  }
-                  alt=""
-                />
+              <div style={{ display: "flex" }}>
+                {profileImg && (
+                  <img
+                    src={profileImg}
+                    alt="profileImage"
+                    style={{ width: "100px", height: "100px", marginRight: "10px" }}
+                  />
+                )}
+                <div className="blog-comment-content">
+                  <h4>{nickName}</h4>
+                  <span>
+                    {new Date(reply.replyRegDate).toLocaleString("ko-KR", options)}
+                  </span>
+                  <p>{reply.replyContent}</p>
+                </div>
               </div>
-              <div className="blog-comment-content">
-                <h4>{reply.nickName}</h4>
-                <span>
-                  {new Date(reply.replyRegDate).toLocaleDateString(
-                    "ko-KR",
-                    options
-                  )}
-                </span>
-                <p>{reply.replyContent}</p>
-              </div>
+              <button
+                type="button"
+                style={{
+                  backgroundColor: "#ff6289",
+                  opacity: 0.8,
+                  border: "none",
+                  marginLeft: "3px",
+                  color: "white",
+                  padding: "5px 10px",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                }}
+                onClick={() => handleDelete(reply.replySeq)}
+              >
+                삭제
+              </button>
             </div>
-            <button
-              type="button"
-              style={{
-                backgroundColor: "#ff6289",
-                opacity: 0.8,
-                border: "none",
-                marginLeft: "3px",
-                color: "white",
-                padding: "5px 10px",
-                borderRadius: "5px",
-                cursor: "pointer",
-              }}
-              onClick={() => handleDelete(reply.replySeq)}
-            >
-              삭제
-            </button>
-          </div>
-        ))}
+          );
+        })}
         <div className="blog-reply-wrapper mt-50">
           <h4 className="blog-dec-title">댓글을 입력하세요.</h4>
           <form className="blog-form" onSubmit={handleSubmit}>

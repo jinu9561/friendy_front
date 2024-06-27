@@ -4,7 +4,7 @@ import axios from "axios";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { Modal } from "react-bootstrap";
-
+import './BlogPosts.css';
 const WritePost = () => {
   const location = useLocation();
   const [title, setTitle] = useState("");
@@ -28,7 +28,7 @@ const WritePost = () => {
       boardLike: 3,
       boardPwd: 1234,
     };
-
+    if (window.confirm("제출 완료 하시겠습니까?"))
     try {
       const response = await axios.post(
         `http://localhost:9000/community-boards`,

@@ -1,21 +1,29 @@
 import axios from "axios";
-import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import ICON from '../../assets/img/profile-img/여자1.png'
-
+import React, { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import ICON from "../../assets/img/profile-img/여자1.png";
+import "./BlogPosts.css";
 // 상세 글보기 안에 상세글 내용에 관한 컴포넌트
 const BlogPost = ({ post, commBoardSeq }) => {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const location = useLocation(); // useLocation 훅을 사용하여 location 객체를 가져옴
 
   const handleEdit = () => {
-    navigate(`${pathname}/update`, { state: { post } });
+    navigate(`${location.pathname}/update`, { state: { post } });
   };
+
+  // location.pathname을 사용하여 경로를 올바르게 확인
+  const isAnonymousBoard = location.pathname.includes("/anonymous-board");
+
+  const nickName = isAnonymousBoard ? "익명" : post.nickName;
+  const profileImg = isAnonymousBoard ? "" : ICON;
 
   const handleDelete = async () => {
     if (window.confirm("삭제하시겠습니까?")) {
       try {
-        await axios.delete(`http://localhost:9000/community-boards/${commBoardSeq}`);
+        await axios.delete(
+          `http://localhost:9000/community-boards/${commBoardSeq}`
+        );
         alert("게시글이 성공적으로 삭제되었습니다.");
         navigate("/public-board");
       } catch (error) {
@@ -36,34 +44,17 @@ const BlogPost = ({ post, commBoardSeq }) => {
     <>
       <div className="blog-details-top">
         <div className="blog-details-content">
-          <div className="blog-meta-2">
-            
-            <ul>
-              <li>
-                
-                <div className="blog-comment-img">
-                  <img
-                    src={ICON}
-                    alt=""
-                    style={{width : "100px"}}
-                  />
-                </div>
-                <div className="blog-comment-content">
-                  <h4>{post.nickName}</h4>
-                  <span>
-                    {new Date(post.boardRegDate).toLocaleDateString("ko-KR", options)}
-                  </span>
-                </div>
-              </li>
-              <li>
-                <Link to={process.env.PUBLIC_URL + "/blog-details-standard"}>
-                  {post.replyList.length} <i className="fa fa-comments-o" />
-                </Link>
-              </li>
-            </ul>
+          
+          <h1>{post.boardTitle}</h1> 
+          <span style={{float:"right"}}>{post.replyList.length} <i className="fa fa-comments-o" /></span>
+          <div>
+          <span style={{ marginRight: "15px" }}>
+            {new Date(post.boardRegDate).toLocaleDateString("ko-KR", options)}
+          </span>
+          <span>조회 수 : {post.commBoardCount}</span>
           </div>
-          <h3>{post.boardTitle}</h3>
-          <p>{post.boardContent}</p>
+         
+          <p style={{ marginTop: "10px" }}>{post.boardContent}</p>
         </div>
       </div>
       <div className="dec-img-wrapper">
@@ -72,33 +63,52 @@ const BlogPost = ({ post, commBoardSeq }) => {
             <div className="dec-img mb-50"></div>
           </div>
           <div className="col-md-6">
-            <div className="dec-img mb-50"></div>
+            <div
+              className="blog-meta-2"
+              style={{ display: "flex", justifyContent: "flex-end" }}
+            >
+              <div
+                className="blog-comment-content"
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                <h4 style={{ marginRight: "10px" }}>{nickName}</h4>
+                {!isAnonymousBoard && ( // 익명 게시판이 아닐 때만 이미지 렌더링
+                  <div className="blog-comment-img">
+                    <img src={profileImg} alt="profileImage" style={{ width: "60px" }} />
+                  </div>
+                )}
+              </div>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                marginTop: "10px",
+              }}
+            >
+              <button
+                type="button"
+                className="btn btn-secondary mr-2"
+                onClick={handleEdit}
+              >
+                수정
+              </button>
+              <button
+                type="button"
+                style={{
+                  backgroundColor: "#ff6289",
+                  opacity: 0.8,
+                  border: "none",
+                  marginLeft: "3px",
+                }}
+                className="btn btn-primary"
+                onClick={handleDelete}
+              >
+                삭제
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="d-flex justify-content-end">
-        <button type="button" className="btn btn-secondary mr-2" onClick={handleEdit}>
-          수정
-        </button>
-        <button
-          type="button"
-          style={{ backgroundColor: "#ff6289", opacity: 0.8, border: "none", marginLeft: "3px" }}
-          className="btn btn-primary"
-          onClick={handleDelete}
-        >
-          삭제
-        </button>
-      </div>
-      <div className="tag-share">
-        {/* 태그 추가 필요 */}
-      </div>
-      <div className="next-previous-post">
-        <Link to={process.env.PUBLIC_URL + "/blog-details-standard"}>
-          <i className="fa fa-angle-left" /> prev post
-        </Link>
-        <Link to={process.env.PUBLIC_URL + "/blog-details-standard"}>
-          next post <i className="fa fa-angle-right" />
-        </Link>
       </div>
     </>
   );
