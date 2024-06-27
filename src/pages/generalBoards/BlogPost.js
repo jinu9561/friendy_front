@@ -8,7 +8,7 @@ import SendReport from "../../components/report/SendReport";
 const BlogPost = ({ post, commBoardSeq }) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const [showReportModal, setShowReportModal] = useState(false);
+  const [showReportModal, setShowReportModal] = useState(false); //신고버튼에서 사용
 
   const handleEdit = () => {
     navigate(`${pathname}/update`, { state: { post } });
@@ -52,7 +52,25 @@ const BlogPost = ({ post, commBoardSeq }) => {
                 </div>
                 <div className="blog-comment-content">
                   <h4>{post.nickName}</h4>
-                  <button onClick={() => setShowReportModal(true)}>신고</button>
+                  
+                  {/*신고버튼*/}
+                  <button onClick={() => setShowReportModal(true)}
+                          style={{
+                            display: 'inline-block',
+                            padding: '8px 15px',
+                            fontSize: '16px',
+                            fontWeight: 'bold',
+                            textAlign: 'center',
+                            whiteSpace: 'nowrap',
+                            verticalAlign: 'middle',
+                            backgroundColor: '#e0e0e0',
+                            color: '#858585',
+                            border: 'none',
+                            borderRadius: '0.3rem',
+                            cursor: 'pointer',
+                          }}>
+                    신고
+                  </button>
                   {showReportModal && (
                       <SendReport
                           commBoardSeq={commBoardSeq}
@@ -60,6 +78,7 @@ const BlogPost = ({ post, commBoardSeq }) => {
                           onReportSent={() => setShowReportModal(false)}
                       />
                   )}
+                  
                   <span>
                     {new Date(post.boardRegDate).toLocaleDateString("ko-KR", options)}
                   </span>

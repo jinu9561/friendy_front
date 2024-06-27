@@ -4,6 +4,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import SEO from "../../seo";
 import Breadcrumb from "../../../wrappers/breadcrumb/Breadcrumb";
 import axios from "axios";
+import SendReportMeetUp from "../../report/SendReportMeetUp";
 
 const MeetUpDetailPage = () => {
     const location = useLocation();
@@ -17,6 +18,7 @@ const MeetUpDetailPage = () => {
     const [updatePassword, setUpdatePassword] = useState('');
     const [showRequestConfirmation, setShowRequestConfirmation] = useState(false);
     const [requestText, setRequestText] = useState('');
+    const [showReportModal, setShowReportModal] = useState(false); //신고버튼에서 사용
 
     let localUserSeq = localStorage.getItem("userSeq");
 
@@ -236,6 +238,34 @@ const MeetUpDetailPage = () => {
 
                             <div> 모집일 : {formatDeadline(meetUp.meetUpDeadLine)} 까지</div>
                             <div> 모집 인원 : {meetUp.nowEntry} /{meetUp.meetUpMaxEntry} 명</div>
+
+                            {/*신고버튼*/}
+                            <button onClick={() => setShowReportModal(true)}
+                                    style={{
+                                        display: 'inline-block',
+                                        padding: '8px 15px',
+                                        fontSize: '16px',
+                                        fontWeight: 'bold',
+                                        textAlign: 'center',
+                                        whiteSpace: 'nowrap',
+                                        verticalAlign: 'middle',
+                                        backgroundColor: '#e0e0e0',
+                                        color: '#858585',
+                                        border: 'none',
+                                        borderRadius: '0.3rem',
+                                        cursor: 'pointer',
+                                    }}>
+                                신고
+                            </button>
+                            {showReportModal && (
+                                <SendReportMeetUp
+                                    meetUpSeq={meetUpSeq}
+                                    meetUpName={meetUpName}
+                                    postUserSeq={meetUp.userSeq}
+                                    onReportSent={() => setShowReportModal(false)}
+                                />
+                            )}
+
                         </div>
                         {localUserSeq == meetUp.userSeq && (
                             <div>

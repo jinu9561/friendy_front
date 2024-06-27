@@ -77,7 +77,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
 
                 <li>
                   <Link to={process.env.PUBLIC_URL + "/adminReport"}>
-                    신고목록
+                    ADMIN REPORT
                   </Link>
                 </li>
               </>

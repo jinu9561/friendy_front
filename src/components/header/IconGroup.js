@@ -29,8 +29,6 @@ const IconGroup = ({ iconWhiteClass }) => {
 
   const [friendList, setFriendList] = useState([]); // 친구
   const [showFriendList, setShowFriendList] = useState(false); // 친구
-  const [showFriendRequestForm, setShowFriendRequestForm] = useState(false);
-  const [receiverId, setReceiverId] = useState(''); // 친구 요청 ID 상태 추가
   const [message, setMessage] = useState(''); // 메시지 상태 추가
 
   useEffect(() => {
@@ -59,9 +57,6 @@ const IconGroup = ({ iconWhiteClass }) => {
       setShowFriendList(!showFriendList);
   };
 
-  const toggleFriendRequestFormHandler = () => {
-      setShowFriendRequestForm(!showFriendRequestForm);
-  };
   
   const logoutCheck = (e)=>{ 
       e.preventDefault();
@@ -214,7 +209,7 @@ const IconGroup = ({ iconWhiteClass }) => {
                 {logingedCon.isLoggedIn && (
                   <>
                     <Link to={process.env.PUBLIC_URL + "/my-profile"}>프로필</Link>
-                    <Link to="#" onClick={toggleFriendListHandler }>친구 목록</Link>
+                    <Link to="#" onClick={toggleFriendListHandler }>친구</Link>
                     <Link to={process.env.PUBLIC_URL + "/smsVerification"}>본인 인증</Link>
                     <Link to={process.env.PUBLIC_URL + "/jellyTransction"}>젤리 구매</Link>
                     <Link to="#" onClick={resign}>회원 탈퇴</Link>
@@ -222,14 +217,6 @@ const IconGroup = ({ iconWhiteClass }) => {
                 )}
               </li>
 
-            {/* 친구요청 기능확인용 임시(채팅 완성되면 거기에 쓸거) */}
-            <li>
-                <FriendRequestForm
-                    receiverId={receiverId}
-                    closeForm={toggleFriendRequestFormHandler}
-                />
-
-            </li>
             <li>
               {message && <p>{message}</p>}
             </li>
