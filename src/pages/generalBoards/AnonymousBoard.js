@@ -72,6 +72,19 @@ const AnonymousBoard = () => {
             },
           ]}
         />
+        
+            <div
+              className="lock-icon"
+              style={{
+                marginTop: "10px",
+                fontSize: "25px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "45px", // 필요에 따라 높이 조정
+                backgroundColor : "#cc99ff"
+              }}
+            >🔐</div>
         <div className="blog-area pt-100 pb-100">
           <div className="container">
             <div className="row">

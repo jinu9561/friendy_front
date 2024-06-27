@@ -39,13 +39,14 @@ const AnonymousDetail = () => {
             { label: `${commBoardSeq}` },
           ]}
         />
+    
         <div className="blog-area pt-100 pb-100">
           <div className="container">
             <div className="row justify-content-center">
               <div className="col-lg-9">
                 <div className="blog-details-wrapper ml-20">
                   <BlogPost post={post} />
-                  <BlogComment replyList={post.replyList} />
+                  <BlogComment replyList={post.replyList} commBoardSeq={commBoardSeq} />
                 </div>
               </div>
             </div>

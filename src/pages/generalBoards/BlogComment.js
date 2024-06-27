@@ -12,8 +12,7 @@ const BlogComment = ({ replyList, commBoardSeq }) => {
     month: "long",
     day: "numeric",
     hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
+    minute: "2-digit"
   };
 
   const isAnonymousBoard = location.pathname.includes("/anonymous-board");

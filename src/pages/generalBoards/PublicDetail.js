@@ -12,8 +12,9 @@ const PublicDetail = () => {
   const { pathname } = useLocation();
   const { commBoardSeq } = useParams();
   const [post, setPost] = useState(null);
-
+  
   useEffect(() => {
+    console.log(commBoardSeq);
     fetch(`http://localhost:9000/community-boards/${commBoardSeq}`)
       .then((response) => response.json())
       .then((data) => {
@@ -23,7 +24,7 @@ const PublicDetail = () => {
   }, [commBoardSeq]);
 
   if (!post) return <div>Loading...</div>;
-
+  
   return (
     <Fragment>
       <SEO title={post.boardTitle} />
