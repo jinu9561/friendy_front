@@ -21,7 +21,7 @@
 
 <br/>
 
-## [🔗 백엔드 GitHub 저장소](https://github.com/jinu9561/friendy)
+## [🔗 프론트엔드 GitHub 저장소](https://github.com/jinu9561/friendy_front)
 
 <br/>
 
@@ -55,12 +55,18 @@
 
 ---
 
+### ⛏️ 백엔드 기술 스택 ⛏️
+
+| 카테고리              | 기술                                                                                                           |
+|---------------------|----------------------------------------------------------------------------------------------------------------|
+| **언어 및 프레임워크** | ![Java](https://img.shields.io/badge/Java-17-orange?style=for-the-badge&logo=Java&logoColor=white) <br/> ![Spring Data JPA](https://img.shields.io/badge/Spring%20Data%20JPA-3.3.0.RELEASE-green?style=for-the-badge&logo=Spring&logoColor=white)<br/> ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.0.RELEASE-green?style=for-the-badge&logo=Spring&logoColor=white)<br/> ![Spring Security](https://img.shields.io/badge/Spring%20Security-3.3.0.RELEASE-green?style=for-the-badge&logo=Spring&logoColor=white)<br/> ![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101)<br/> |
+| **데이터베이스**        | ![Oracle](https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white)<br/>      |
+
 ### ⛏️ 프론트엔드 기술 스택 ⛏️
 
 | 카테고리                 | 기술                                                                                                                                                                                                                                                                                     |
 |---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **언어 및 프레임워크** | ![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black) <br/> ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)<br/> ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)<br/> ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)<br/> |
-
 
 ### ⛏️ 개발 환경 ⛏️
 
@@ -117,11 +123,7 @@
 
 ### 관리자 기능
 
-
-
 ### 사용자 기능
-
-
 
 ---
 
