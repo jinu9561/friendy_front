@@ -1,10 +1,11 @@
 <p align="center">
   <br>
   
-  ![젤리 수정2](https://github.com/jinu9561/friendy_front/assets/82188917/895f47fa-4a19-401d-81d5-e28aa2f1e772)
+  <img src="https://github.com/jinu9561/friendy_front/assets/82188917/895f47fa-4a19-401d-81d5-e28aa2f1e772" width="200">
   
   <br>
 </p>
+
 
 
 
