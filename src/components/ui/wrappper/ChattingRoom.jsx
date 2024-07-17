@@ -26,8 +26,6 @@ const ChattingRoom = () => {
 
     let userId = localStorage.getItem('userId');
     let localSeq = localStorage.getItem('userSeq');
-
-    // Function to fetch notices
     const fetchNotices = () => {
         axios
             .get('http://localhost:9000/chatting/allNotice', {
@@ -42,8 +40,6 @@ const ChattingRoom = () => {
                 alert(error);
             });
     };
-
-    // Fetch chat history on component mount
     useEffect(() => {
         axios
             .get(`http://localhost:9000/chatting/joinRoom/${chattingRoomSeq}`)
@@ -151,7 +147,7 @@ const ChattingRoom = () => {
                 alert('공지 사항 등록 완료');
                 setNoticeText('');
                 setShowInput(false); // 입력 필드 초기화 및 입력창 숨김
-                fetchNotices(); // Fetch the updated notices
+                fetchNotices();
             })
             .catch((error) => {
                 alert('내용을 입력해 주세요');
