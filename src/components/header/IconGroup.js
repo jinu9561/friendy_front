@@ -211,6 +211,7 @@ const IconGroup = ({ iconWhiteClass }) => {
                     <Link to={process.env.PUBLIC_URL + "/my-profile"}>프로필</Link>
                     <Link to="#" onClick={toggleFriendListHandler }>친구</Link>
                     <Link to={process.env.PUBLIC_URL + "/smsVerification"}>본인 인증</Link>
+                    <Link to={process.env.PUBLIC_URL + "/myMeetUpPage"}>소모임 관리</Link>
                     <Link to={process.env.PUBLIC_URL + "/jellyTransction"}>젤리 구매</Link>
                     <Link to="#" onClick={resign}>회원 탈퇴</Link>
                   </>

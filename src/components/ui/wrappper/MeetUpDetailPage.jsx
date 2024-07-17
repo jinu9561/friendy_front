@@ -23,6 +23,7 @@ const MeetUpDetailPage = () => {
     let localUserSeq = localStorage.getItem("userSeq");
 
     useEffect(() => {
+            console.log("+++++++++++++"+meetUpSeq)
         axios
             .get("http://localhost:9000/partyBoard/meetUpSeq", {
                 params: {
@@ -122,7 +123,6 @@ const MeetUpDetailPage = () => {
         const baseUrl = `${process.env.PUBLIC_URL}/ChattingRoom`;
 
         console.log(meetUp.userSeq);
-        // return `${baseUrl}?userSeq=${localUserSeq}&roomId=${meetUp.roomId}&&chattingRoomSeq=${meetUp.chattingRoomSeq}`;
         return `${baseUrl}?userSeq=${localUserSeq}&?roomMasterSeq=${meetUp.userSeq}&roomId=${meetUp.roomId}&chattingRoomSeq=${meetUp.chattingRoomSeq}`;
 
     }
@@ -235,7 +235,7 @@ const MeetUpDetailPage = () => {
                             width: '80%',
                             marginTop: '2rem',
                             border: '2px solid #ffb3b3',
-                            marginBottom:'2%',
+                            marginBottom: '2%',
                             padding: '2%',
                             textAlign: 'left',
                             borderRadius: '8px',
@@ -341,48 +341,27 @@ const MeetUpDetailPage = () => {
 
                         )}
 
-                        <div >
-                            {meetUp.userSeq == localUserSeq || meetUp.meetUpPeopleList && JSON.parse(meetUp.meetUpPeopleList).map((person, index) => {
-                                const userId = localStorage.getItem("userId")
-                                ;
-                                const isCurrentUser = person === userId;
-                                console.log(userId + "||" + person)
-                                return (
-                                    <div key={index}  style={{margin:'5%'}}>
-                                        {isCurrentUser && (
-                                            <button
-                                                style={{
-                                                    backgroundColor: '#ffb3b3',
-                                                    color: 'white',
-                                                    border: 'none',
-                                                    padding: '0.5rem 1rem',
-                                                    margin: '3%',
-                                                    borderRadius: '4px',
-                                                    marginRight:'5%',
-                                                    cursor: 'pointer',
-                                                }} onClick={enterChatBoard}>채팅방 입장하기</button>
-                                        )}
-                                    </div>
-                                );
-                            })}
+                        <div>
+                            {meetUp && (meetUp.userSeq == localUserSeq || (meetUp.meetUpPeopleList && meetUp.meetUpPeopleList.includes(Number(localUserSeq)))) && (
+                                <div style={{margin: '5%'}}>
+                                    <button
+                                        style={{
+                                            backgroundColor: '#ffb3b3',
+                                            color: 'white',
+                                            border: 'none',
+                                            padding: '0.5rem 1rem',
+                                            margin: '3%',
+                                            borderRadius: '4px',
+                                            marginRight: '5%',
+                                            cursor: 'pointer',
+                                        }}
+                                        onClick={enterChatBoard}
+                                    >
+                                        채팅방 입장하기
+                                    </button>
+                                </div>
+                            )}
                         </div>
-
-                        {meetUp.userSeq == localUserSeq && (
-                            <div>
-                                <button
-                                    style={{
-                                        backgroundColor: '#ffb3b3',
-                                        color: 'white',
-                                        border: 'none',
-                                        padding: '0.5rem 1rem',
-                                        margin: '3%',
-                                        borderRadius: '4px',
-                                        cursor: 'pointer',
-                                    }} onClick={enterChatBoard}>채팅방 입장하기
-                                </button>
-                            </div>
-
-                        )}
 
 
                         {localUserSeq !== null && localUserSeq != meetUp.userSeq && meetUp.meetUpStatus === 1 &&

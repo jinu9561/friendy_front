@@ -1,4 +1,4 @@
-import { Suspense, createContext, lazy, useEffect, useState } from "react";
+import { Suspense, createContext, lazy,useEffect, useState } from "react";
 import ScrollToTop from "./helpers/scroll-top";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
@@ -15,6 +15,7 @@ import AnonymousBoard from "./pages/generalBoards/AnonymousBoard";
 import WritePost from "./pages/generalBoards/WritePost";
 import PublicDetail from "./pages/generalBoards/PublicDetail";
 import AnonymousDetail from "./pages/generalBoards/AnonymousDetail";
+import MyMeetUpPage from "./components/ui/wrappper/myMeetUpPage";
 
 export const LogingedContext = createContext();
 
@@ -95,19 +96,19 @@ const App = () => {
     const [userSeq,setUserSeq] = useState('');
     const [adminSeq,setAdminSeq] = useState('');
 
-    useEffect(()=>{ 
-      localStorage.getItem("userSeq")!=null ? setIsLoggedIn(true) : setIsLoggedIn(false); 
-      console.log("isLoggeedIn = ", isLoggedIn);
+    useEffect(()=>{
+        localStorage.getItem("userSeq")!=null ? setIsLoggedIn(true) : setIsLoggedIn(false);
+        console.log("isLoggeedIn = ", isLoggedIn);
 
-      sessionStorage.getItem("userId") !=null ? setIsAdminIn(true) : setIsAdminIn(false); 
-      console.log("isAdminIn = ", isAdminIn);
+        sessionStorage.getItem("userId") !=null ? setIsAdminIn(true) : setIsAdminIn(false);
+        console.log("isAdminIn = ", isAdminIn);
 
-      const seq = localStorage.getItem("userSeq");
-      setUserSeq(seq);
+        const seq = localStorage.getItem("userSeq");
+        setUserSeq(seq);
 
-      const amdinSeq = sessionStorage.getItem("userSeq");
+        const amdinSeq = sessionStorage.getItem("userSeq");
         setAdminSeq(amdinSeq);
-    }); 
+    });
 
     const handleLoggedChange = (isLoggedIn)=>{
         setIsLoggedIn(isLoggedIn);
@@ -115,31 +116,6 @@ const App = () => {
     const handleAdminInChange = (isAdminIn)=>{
         setIsAdminIn(isAdminIn);
     }
-
-    // 로그인 성공 시 addJelly 함수 호출
-    const handleLoginSuccess = async () => {
-        try {
-            const userSeq = localStorage.getItem("userSeq");
-            const token = localStorage.getItem("Authorization");
-
-            console.log(`Calling addJelly with userSeq: ${userSeq}`);
-            console.log(`userSeq: ${userSeq}, token: ${token}`);
-
-            const response = await axios.post(`http://localhost:9000/jelly/add/${userSeq}`, {
-                jellyAmount: 2, // 예시로 젤리 2개 추가
-                amount: 0,
-                transactionType: "ADD" // 트랜잭션 타입
-            }, {
-                headers: {
-                    Authorization: token.startsWith("Bearer ") ? token : `Bearer ${token}`
-                }
-            });
-
-            console.log("Jelly added successfully", response.data);
-        } catch (err) {
-            console.error("Failed to add jelly:", err);
-        }
-    };
 
     useEffect(() => {
         // Axios 인터셉터 설정
@@ -193,7 +169,7 @@ const App = () => {
             ,userSeq:userSeq , adminSeq:adminSeq} }>
 
             <Router>
-                <QnaButton />
+                <QnaButton/>
                 <ScrollToTop>
                     {" "}
                     {/* url이 변동이 있을때 페이지를 맨위로 스크롤 하는 기능 */}
@@ -225,6 +201,14 @@ const App = () => {
                                 path={process.env.PUBLIC_URL + "/photo-board"}
                                 element={<PhotoBoard />}
                             />
+
+                            <Route
+                                path={process.env.PUBLIC_URL + "/myMeetUpPage"}
+                                element={<MyMeetUpPage />}
+                            />
+
+
+
 
                             {/*사진 게시판 데모 */}
                             <Route
@@ -382,11 +366,11 @@ const App = () => {
                                 path={process.env.PUBLIC_URL + "/adminEventDetailImgInsert"}
                                 element={<AdminEventDetailImgInsert />}
                             />
-                          {/* 관리자용 신고 게시판 */}
-                          <Route
-                              path={process.env.PUBLIC_URL + "/adminReport"}
-                              element={<AdminReport />}
-                          />
+                            {/* 관리자용 신고 게시판 */}
+                            <Route
+                                path={process.env.PUBLIC_URL + "/adminReport"}
+                                element={<AdminReport />}
+                            />
 
                             <Route
                                 path={process.env.PUBLIC_URL + "/SaveForm"}
@@ -417,11 +401,6 @@ const App = () => {
                             <Route
                                 path={process.env.PUBLIC_URL + "/MainMeetUpDetail"}
                                 element={<MainMeetUpDetail/>}
-                            />
-
-                            <Route
-                                path={process.env.PUBLIC_URL + "/login-register"}
-                                element={<LoginRegister onLoginSuccess={handleLoginSuccess} />}
                             />
 
 

@@ -2,8 +2,6 @@ import React from 'react';
 import MeetUpDetail from "../button/MeetUpDetail";
 
 const PostRow = ({
-
-
                      meetUpName,
                      meetUpSeq,
                      interest,
@@ -15,7 +13,7 @@ const PostRow = ({
         return date.toLocaleString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
     };
     return (
-        <div style={{ position: 'relative', width: '70%', height:'90%', display: 'inline-block', margin: '10%' }}>
+        <div style={{ position: 'relative', width: '90%', height:'90%', display: 'inline-block', margin: '2%' }}>
             <img
                 src={`${process.env.PUBLIC_URL}/assets/img/meetUpBoard/1bcbec75802170a9bb9620bb91e261a62.png`}
                 alt="Background"
@@ -32,7 +30,7 @@ const PostRow = ({
                 height: '100%' // 박스 크기를 100%로 설정
             }}>
                 <h3 style={{ marginTop: '16%', fontSize: '80%', textAlign: 'center', fontFamily: 'Noto Sans KR, sans-serif' , width:'100%' , height:'5%' }}>{meetUpName}</h3>
-                <div style={{ display: 'flex', alignItems: 'center', marginLeft: '12%', fontSize: '80%', width:'100%', height:'5%' }}>
+                <div style={{ display: 'flex', textAlign: 'center', alignItems: 'center', marginLeft: '5%', fontSize: '80%', width:'100%', height:'5%' }}>
                     <span >관심사: </span>
                     <span style={{ marginLeft: '1%', backgroundColor: 'rgba(255, 255, 255, 0.7)',
                         // padding: '2px 8px',
@@ -40,7 +38,9 @@ const PostRow = ({
                     <span style={{textAlign:"right",marginLeft:"5%"}}> 모집 종료일:  {formatDeadline(meetUpDeadLine)}</span>
                 </div>
                 <hr style={{ marginLeft: '5%', width: '90%', marginTop: '2%' }} />
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50%', width:'100%',  }}>
+
+
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60%', width:'100%',  }}>
                     {meetUpBoardDetailImgNameList.slice(0, 1).map((imgName, index) => (
                         <img
                             key={index}
@@ -56,6 +56,7 @@ const PostRow = ({
                         />
                     ))}
                 </div>
+
                 <MeetUpDetail
                     meetUpSeq={meetUpSeq}
                     meetUpName={meetUpName}/>
