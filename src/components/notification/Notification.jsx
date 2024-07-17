@@ -74,10 +74,10 @@ const Notification = () => {
         })
             .then(res => {
                 setFriendRequests(friendRequests.filter(request => request.friendRequestSeq !== requestId));
-                alert("Friend request accepted.");
+                alert("친구요청이 허락되었습니다!");
             })
             .catch(err => {
-                console.error("Failed to accept friend request:", err);
+                console.error("친구 요청에 실패 했습니다:", err);
             });
     };
 
@@ -130,12 +130,12 @@ const Notification = () => {
                         ))}
                         {friendRequests.map((request, index) => (
                             <li key={index}>
-                                {`${request.senderName} sent you a friend request.`}
+                                {`${request.senderName}님이 친구요청을 보냈습니다.`}
                                 <button onClick={() => handleAcceptRequest(request.friendRequestSeq)}
-                                        style={buttonStyle}>Accept
+                                        style={buttonStyle}>수락
                                 </button>
                                 <button onClick={() => handleRejectRequest(request.friendRequestSeq)}
-                                        style={buttonStyle}>Reject
+                                        style={buttonStyle}>거절
                                 </button>
                             </li>
                         ))}

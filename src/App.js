@@ -116,6 +116,31 @@ const App = () => {
         setIsAdminIn(isAdminIn);
     }
 
+    // 로그인 성공 시 addJelly 함수 호출
+    const handleLoginSuccess = async () => {
+        try {
+            const userSeq = localStorage.getItem("userSeq");
+            const token = localStorage.getItem("Authorization");
+
+            console.log(`Calling addJelly with userSeq: ${userSeq}`);
+            console.log(`userSeq: ${userSeq}, token: ${token}`);
+
+            const response = await axios.post(`http://localhost:9000/jelly/add/${userSeq}`, {
+                jellyAmount: 2, // 예시로 젤리 2개 추가
+                amount: 0,
+                transactionType: "ADD" // 트랜잭션 타입
+            }, {
+                headers: {
+                    Authorization: token.startsWith("Bearer ") ? token : `Bearer ${token}`
+                }
+            });
+
+            console.log("Jelly added successfully", response.data);
+        } catch (err) {
+            console.error("Failed to add jelly:", err);
+        }
+    };
+
     useEffect(() => {
         // Axios 인터셉터 설정
         const interceptor = axios.interceptors.response.use(
@@ -392,6 +417,11 @@ const App = () => {
                             <Route
                                 path={process.env.PUBLIC_URL + "/MainMeetUpDetail"}
                                 element={<MainMeetUpDetail/>}
+                            />
+
+                            <Route
+                                path={process.env.PUBLIC_URL + "/login-register"}
+                                element={<LoginRegister onLoginSuccess={handleLoginSuccess} />}
                             />
 
 
