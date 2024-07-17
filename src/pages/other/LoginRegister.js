@@ -98,6 +98,9 @@ const LoginRegister = () => {
        }
        logingedCon.onLoggedChange(true);
 
+        console.log(`Calling addJelly with userSeq: ${res.data.userSeq}`);
+        addJelly(res.data.userSeq); // 젤리 추가 로직 호출
+
        navigator("/");
      }) 
       .catch((err)=>{ 
@@ -107,6 +110,52 @@ const LoginRegister = () => {
         userPwd:""})
      });
   }
+
+  // const addJelly = async (userSeq) => {
+  //   try {
+  //     const token = localStorage.getItem("Authorization");
+  //     console.log(`Calling addJelly with userSeq: ${userSeq}`);
+  //     console.log(`userSeq: ${userSeq}, token: ${token}`);
+  //     const response = await axios.post(`http://localhost:9000/jelly/add/${userSeq}`, {
+  //       jellyAmount: "2", // 예시로 젤리 2개 추가
+  //       amount: "0",
+  //       transactionType: "ADD" // 트랜잭션 타입
+  //     }, {
+  //       headers: {
+  //         Authorization: token.startsWith("Bearer ") ? token : `Bearer ${token}`,
+  //         'Content-Type': 'application/json'
+  //       }
+  //     });
+  //     alert(response.data);
+  //   } catch (error) {
+  //     console.error("Error adding jelly:", error);
+  //   }
+  // };
+
+  const addJelly = async (userSeq) => {
+    try {
+      const token = localStorage.getItem("Authorization");
+      console.log(`Calling addJelly with userSeq: ${userSeq}`);
+      console.log(`userSeq: ${userSeq}, token: ${token}`);
+      const response = await axios.post(`http://localhost:9000/jelly/add/${userSeq}`, {
+        jellyAmount: "2", // 예시로 젤리 2개 추가
+        amount: "0",
+        transactionType: "ADD" // 트랜잭션 타입
+      }, {
+        headers: {
+          Authorization: token.startsWith("Bearer ") ? token : `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.data=="") {
+        alert(response.data);  // 서버로부터 받은 메시지 표시
+      }
+
+    } catch (error) {
+      console.error("젤리 획득 실패:", error);
+    }
+  };
 
   useEffect(() => {
     const params = new URLSearchParams(search);
