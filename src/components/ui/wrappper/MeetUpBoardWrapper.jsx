@@ -12,8 +12,7 @@ const MeetUpBoardWrapper = ({ interestList, meetUpList, onSaveButtonClick }) => 
         if (selectedCategory === "전체") {
             setFilteredMeetUpList(meetUpList);
         } else {
-            setFilteredMeetUpList(meetUpList.filter(meetUp => meetUp.interestCate
-                === selectedCategory));
+            setFilteredMeetUpList(meetUpList.filter(meetUp => meetUp.interestCate === selectedCategory));
         }
         setCurrentPage(1); // Reset to the first page whenever the category changes
     }, [selectedCategory, meetUpList]);
@@ -41,7 +40,7 @@ const MeetUpBoardWrapper = ({ interestList, meetUpList, onSaveButtonClick }) => 
             height: '100%',
             margin: '0 auto'
         }}>
-            {/*필터 버튼 aaawsd*/}
+            {/*필터 버튼*/}
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', width:'100%' , height:'50%'} }>
                 <FilterButton interestCategory="전체" onClick={() => handleFilterButtonClick("전체")}></FilterButton>
                 {interestList.map((interest) => (
@@ -57,14 +56,15 @@ const MeetUpBoardWrapper = ({ interestList, meetUpList, onSaveButtonClick }) => 
                 display: 'flex',
                 flexWrap: 'wrap',
                 justifyContent: 'center',
-                gap: '1rem'
+                gap: '1rem',
+                width: '100%'
             }}>
                 {currentItems.map((meetUp) => (
                     <div key={meetUp.meetUpSeq} style={{
                         flex: '1 1 calc(50% - 1rem)',
                         boxSizing: 'border-box',
                         display: 'flex',
-                        justifyContent: 'center' // 중앙 정렬로 변경
+                        justifyContent: 'center'
                     }}>
                         <PostRow
                             meetUpName={meetUp.meetUpName}
@@ -77,11 +77,13 @@ const MeetUpBoardWrapper = ({ interestList, meetUpList, onSaveButtonClick }) => 
                     </div>
                 ))}
                 {currentItems.length % 2 !== 0 && (
-                    <div style={{width: '49%'}}>
-                    </div>
-
+                    <div style={{
+                        flex: '1 1 calc(50% - 1rem)',
+                        boxSizing: 'border-box',
+                        display: 'flex',
+                        justifyContent: 'center'
+                    }}></div>
                 )}
-
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'center', margin: '1rem' }}>

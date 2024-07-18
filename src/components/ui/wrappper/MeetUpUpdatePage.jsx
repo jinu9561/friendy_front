@@ -73,12 +73,14 @@ const MeetUpUpdatePage = () => {
                 },
             })
             .then((response) => {
-                alert("폼이 성공적으로 제출되었습니다!");
+                alert("정상적으로 수정되었습니다");
                 console.log(response.data);
                 // 성공 시 MeetUpBoard 페이지로 이동
                 navigate('/MeetUpBoard');
             })
             .catch((error) => {
+
+                //여기에 에러 내용 뽑으면 될거같음. 
                 console.error("폼 제출 중 오류가 발생했습니다!", error);
             });
     };
