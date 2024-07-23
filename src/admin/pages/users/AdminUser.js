@@ -47,7 +47,6 @@ const AdminUser = () => {
     }
 
 
-    //user profile 데이터 받아 오기
     useEffect(() => {
 
         let url = "http://localhost:9000/admin/users/profile";

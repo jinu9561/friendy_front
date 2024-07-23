@@ -66,7 +66,7 @@ const MeetUpDetailPage = () => {
                 navigate('/MeetUpBoard');
             })
             .catch((error) => {
-                alert('Error deleting MeetUp. Please check the password and try again.');
+                alert('삭제에 실패했습니다 다시 시도해주세요.');
             });
         setShowDeleteConfirmation(false);
         setDeletePassword('');

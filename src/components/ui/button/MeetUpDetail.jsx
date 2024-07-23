@@ -15,8 +15,8 @@ const MeetUpDetail = ({ meetUpName , meetUpDesc , meetUpSeq}) => {
 
     return (
         <div style={{
-            marginTop:'6%',
-            marginLeft:'15%',
+            marginTop:'5%',
+            marginLeft:'17%',
             display: 'flex',
             justifyContent: 'flex-end',
             backgrundColor: 'transparent',
@@ -25,7 +25,6 @@ const MeetUpDetail = ({ meetUpName , meetUpDesc , meetUpSeq}) => {
         }}>
             <button
                 style={{
-
                     marginRight: '15%',
                     display: 'inline-block',
                     width: '30%',
@@ -37,7 +36,7 @@ const MeetUpDetail = ({ meetUpName , meetUpDesc , meetUpSeq}) => {
                     backgroundColor: '#ffb3b3',
                     color: '#fff',
                     border: 'none',
-                    borderRadius: '0.25rem',
+                    borderRadius: '6%',
                     cursor: 'pointer',
                 }}
                 onClick={handleDetailClick}

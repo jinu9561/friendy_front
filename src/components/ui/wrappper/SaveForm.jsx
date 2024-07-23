@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import axios from "axios";
 import Breadcrumb from "../../../wrappers/breadcrumb/Breadcrumb";
-import { useLocation , useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import SEO from "../../seo";
 
 const SaveForm = () => {
@@ -16,6 +16,7 @@ const SaveForm = () => {
     const [files, setFiles] = useState([]);
     const [meetUpDateTime, setMeetUpDateTime] = useState('');
     const [password, setPassword] = useState('');
+    const [meetUpPlace, setMeetUpPlace] = useState('');  // 새로운 상태 변수 추가
     let { pathname } = useLocation();
     const navigate = useNavigate();
 
@@ -38,8 +39,10 @@ const SaveForm = () => {
     }, []);
 
     const handleFileChange = (e) => {
-        setFiles(Array.from(e.target.files));
-    }
+        const selectedFiles = Array.from(e.target.files);
+        setFiles(selectedFiles);
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData();
@@ -49,15 +52,15 @@ const SaveForm = () => {
         formData.append("meetUpName", meetUpNameInput.current.value);
         formData.append("userName", userName);
         formData.append("meetUpDesc", e.target.meetUpDesc.value);
-        formData.append("interestSeq", e.target.interestCategory.value); // 키값(interestSeq)을 추가
+        formData.append("interestSeq", e.target.interestCategory.value);
         formData.append("meetUpMaxEntry", maxParticipants);
         formData.append("meetUpDeadLine", meetUpDateTime);
         formData.append("meetUpPwd", password);
+        formData.append("meetUpPlace",meetUpPlace);
         files.map((file) => {
             formData.append("file", file);
         });
         console.log(Array.from(formData));
-
 
         axios
             .post("http://localhost:9000/partyBoard/create", formData, {
@@ -75,6 +78,7 @@ const SaveForm = () => {
                 console.error("폼 제출 중 오류가 발생했습니다!", error);
             });
     };
+
     useEffect(() => {
         meetUpNameInput.current.focus();
         meetUpNameInput.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -186,7 +190,7 @@ const SaveForm = () => {
                             </Col>
                         </Row>
                         <Row>
-                            <Col>
+                            <Col xs={6}>
                                 <Form.Label htmlFor="meetUpDateTime">날짜와 시간 선택</Form.Label>
                                 <Form.Control
                                     type="datetime-local"
@@ -199,19 +203,37 @@ const SaveForm = () => {
                                     }}
                                 />
                             </Col>
+                            <Col xs={6}>
+                                <Form.Label htmlFor="password">비밀번호</Form.Label>
+                                <Form.Control
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    placeholder="비밀번호는 숫자만 입력해주세요"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    style={{
+                                        border: '2px solid #ffb3b3',
+                                    }}
+                                />
+                            </Col>
                         </Row>
-                        <Form.Label htmlFor="password">비밀번호</Form.Label>
-                        <Form.Control
-                            type="password"
-                            id="password"
-                            name="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            style={{
-                                border: '2px solid #ffb3b3',
-                                marginBottom: '1rem',
-                            }}
-                        />
+                        <Row>
+                            <Col>
+                                <Form.Label htmlFor="location">장소</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    id="meetUpPlace"
+                                    name="meetUpPlace"
+                                    value={meetUpPlace}
+                                    onChange={(e) => setMeetUpPlace(e.target.value)}
+                                    style={{
+                                        border: '2px solid #ffb3b3',
+                                        marginBottom: '1rem',
+                                    }}
+                                />
+                            </Col>
+                        </Row>
                         <Form.Label htmlFor="file">파일 첨부</Form.Label>
                         <form
                             style={{
@@ -224,6 +246,27 @@ const SaveForm = () => {
                             }}>
                             <input type="file" id="file" onChange={handleFileChange} multiple="multiple"></input>
                         </form>
+                        {files.length > 0 && (
+                            <div style={{ marginTop: '1rem' }}>
+                                <h5>업로드된 사진:</h5>
+                                <h6> 업로드 된 사진은 소모임 제목 밑에 출력됩니다.</h6>
+                                <ul>
+                                    {files.map((file, index) => (
+                                        <li key={index}>
+                                            {file.type.startsWith('image/') ? (
+                                                <img
+                                                    src={URL.createObjectURL(file)}
+                                                    alt={file.name}
+                                                    style={{ maxWidth: '100px', marginRight: '10px' }}
+                                                />
+                                            ) : (
+                                                file.name
+                                            )}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
 
                         <button
                             type="submit"

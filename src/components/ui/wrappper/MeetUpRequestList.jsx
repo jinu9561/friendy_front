@@ -4,21 +4,25 @@ import SEO from "../../seo";
 import LayoutOne from '../../../layouts/LayoutOne';
 import Breadcrumb from "../../../wrappers/breadcrumb/Breadcrumb";
 import axios from "axios";
+import defaultProfileImage from "../../../assets/img/prof/default.jpeg";
 
 const MeetUpRequestList = () => {
     const location = useLocation();
     const { meetUpSeq } = location.state;
     const [requestList, setRequestList] = useState([]);
-    const [modalVisible, setModalVisible] = useState(false);
     const [selectedProfile, setSelectedProfile] = useState(null);
-    let { pathname } = useLocation();
     const [userList, setUserList] = useState([]);
+    let { pathname } = useLocation();
     const [userDetailModalVisible, setUserDetailModalVisible] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [refuseModalVisible, setRefuseModalVisible] = useState(false);
+    const [selectedRequestSeq, setSelectedRequestSeq] = useState(null); // New state
     const [selectedUserProfile, setSelectedUserProfile] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 5; // Number of items per page
+    const itemsPerPage = 5;
     const [userCurrentPage, setUserCurrentPage] = useState(1);
-    const userItemsPerPage = 5; // Number of items per page for user list
+    const userItemsPerPage = 5;
+    const [refusalReason, setRefusalReason] = useState(''); // New state for refusal reason
 
     useEffect(() => {
         fetchUserList();
@@ -59,12 +63,25 @@ const MeetUpRequestList = () => {
                 const profile = response.data;
                 const request = requestList.find(req => req.userSeq === userSeq);
                 setSelectedProfile({ ...profile, requestText: request.requestText });
+                console.log("profile" + request)
                 setModalVisible(true);
             })
             .catch(err => {
                 alert(handleErrorMessage(err));
             });
     };
+
+    const refuseHandler = (userSeq) => {
+        setSelectedRequestSeq(userSeq);
+        setRefusalReason('');
+        setRefuseModalVisible(true);
+    }
+
+    const refuseModalClose = () => {
+        setRefuseModalVisible(false);
+        setSelectedRequestSeq(null); // Clear the selected request seq
+        setRefusalReason(''); // Clear the refusal reason
+    }
 
     const handleUserDetailClick = (user) => {
         setSelectedUserProfile(user);
@@ -81,14 +98,14 @@ const MeetUpRequestList = () => {
         setSelectedUserProfile(null);
     };
 
-    const handlerConfirm = (requestStatus, userSeq) => {
+    const handlerConfirm = (requestStatus, userSeq, refuseReason) => {
         axios.put('http://localhost:9000/partyBoard/request/changestatus', {
             meetUpRequestStatus: requestStatus,
             meetUpSeq: meetUpSeq,
-            userSeq: userSeq
+            userSeq: userSeq,
+            refuseReason: refuseReason
         })
             .then(response => {
-                // Update the requestList state with the new status
                 setRequestList(prevList =>
                     prevList.map(request =>
                         request.userSeq === userSeq
@@ -96,7 +113,6 @@ const MeetUpRequestList = () => {
                             : request
                     )
                 );
-                // Fetch the updated user list
                 fetchUserList();
 
                 if (requestStatus === 1) {
@@ -197,8 +213,9 @@ const MeetUpRequestList = () => {
                         { label: "MeetUpRequestManage", path: process.env.PUBLIC_URL + pathname }
                     ]}
                 />
-                <div style={{ display: 'flex' }}>
-                    <div className="meetup-request-list-container" style={{ flex: 6, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                <div style={{display: 'flex'}}>
+                    <div className="meetup-request-list-container"
+                         style={{flex: 6, display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
                         <div className="meetup-request-list">
                             {currentItems.map((request, index) => (
                                 <div key={request.userSeq || index} className="request-card">
@@ -211,6 +228,9 @@ const MeetUpRequestList = () => {
                                                     request.meetUpRequestStatus === 2 ? '거절됨' :
                                                         '알 수 없음'}
                                         </p>
+                                        {request.meetUpRequestStatus === 2 && (
+                                            <p><strong>거절 사유: </strong> {request.refuseReason} </p>
+                                        )}
                                         <button
                                             style={{
                                                 backgroundColor: '#ffb3b3',
@@ -222,13 +242,12 @@ const MeetUpRequestList = () => {
                                                 marginTop: '0.5rem'
                                             }}
                                             onClick={() => handleDetailClick(request.userSeq)}
-                                            className="detail-button"
-                                        >
+                                            className="detail-button">
                                             신청 상세보기
                                         </button>
                                     </div>
-                                    {request.meetUpRequestStatus === 0 ? (
-                                        <Fragment>
+                                    {request.meetUpRequestStatus === 0 && (
+                                        <>
                                             <button
                                                 style={{
                                                     backgroundColor: '#28a745',
@@ -239,8 +258,7 @@ const MeetUpRequestList = () => {
                                                     cursor: 'pointer',
                                                     marginRight: '0.5rem'
                                                 }}
-                                                onClick={() => handlerConfirm(1, request.userSeq)}
-                                            >
+                                                onClick={() => handlerConfirm(1, request.userSeq)}>
                                                 수락하기
                                             </button>
                                             <button
@@ -252,13 +270,24 @@ const MeetUpRequestList = () => {
                                                     borderRadius: '4px',
                                                     cursor: 'pointer'
                                                 }}
-                                                onClick={() => handlerConfirm(2, request.userSeq)}
-                                            >
-                                                거절하기
+                                                onClick={() => refuseHandler(request.userSeq)}>
+                                                신청 거절하기
                                             </button>
-                                        </Fragment>
-                                    ) : (
-                                        <p>{request.meetUpRequestStatus === 1 ? '수락됨' : '거절됨'}</p>
+                                        </>
+                                    )}
+                                    {request.meetUpRequestStatus === 1 && (
+                                        <button
+                                            style={{
+                                                backgroundColor: '#dc3545',
+                                                color: 'white',
+                                                border: 'none',
+                                                padding: '0.5rem 1rem',
+                                                borderRadius: '4px',
+                                                cursor: 'pointer'
+                                            }}
+                                            onClick={() => handlerConfirm(2, request.userSeq)}>
+                                            거절하기
+                                        </button>
                                     )}
                                 </div>
                             ))}
@@ -266,16 +295,17 @@ const MeetUpRequestList = () => {
 
                         <div className="pagination">
                             {Array.from({length: totalPages}, (_, index) => (
-                                <button style={{margin: '1%'}}
-                                        key={index}
-                                        onClick={() => paginate(index + 1)}
-                                        className={`page-number ${currentPage === index + 1 ? 'active' : ''}`}
-                                >
+                                <button
+                                    style={{margin: '1%'}}
+                                    key={index}
+                                    onClick={() => paginate(index + 1)}
+                                    className={`page-number ${currentPage === index + 1 ? 'active' : ''}`}>
                                     {index + 1}
                                 </button>
                             ))}
                         </div>
                     </div>
+
                     <div className="inviteList" style={{flex: 4}}>
                         <div style={
                             {
@@ -283,7 +313,8 @@ const MeetUpRequestList = () => {
                                 marginTop: '1%',
                                 marginRight: '20%',
                                 backgroundColor: '#ffb3b3',
-                                borderRadius: '5px'
+                                borderRadius: '5px',
+                                fontFamily: "Chivo-Medium"
                             }}>
                             모임 참여자 명단
                         </div>
@@ -298,8 +329,8 @@ const MeetUpRequestList = () => {
                                 marginBottom: "3%"
                             }}
                                  key={user.userSeq || index}>
-                                <p style={{marginRight: '5%'}}>{userIndexOfFirstItem + index + 1}</p>
-                                <p>{user.nickName}</p>
+                                <div style={{marginRight: '5%'}}>{userIndexOfFirstItem + index + 1}. 참여자 닉네임
+                                    : {user.nickName}</div>
                                 <button
                                     style={{
                                         backgroundColor: '#007bff',
@@ -310,20 +341,18 @@ const MeetUpRequestList = () => {
                                         cursor: 'pointer',
                                         marginTop: '0.5rem'
                                     }}
-                                    onClick={() => handleUserDetailClick(user)}
-                                >
-                                    상세보기
+                                    onClick={() => handleUserDetailClick(user)}>
+                                    신청자 상세보기
                                 </button>
                             </div>
                         ))}
 
                         <div className="pagination">
-                            {Array.from({ length: userTotalPages }, (_, index) => (
-                                <button style={{ margin: '1%' }}
+                            {Array.from({length: userTotalPages}, (_, index) => (
+                                <button style={{margin: '1%'}}
                                         key={index}
                                         onClick={() => userPaginate(index + 1)}
-                                        className={`page-number ${userCurrentPage === index + 1 ? 'active' : ''}`}
-                                >
+                                        className={`page-number ${userCurrentPage === index + 1 ? 'active' : ''}`}>
                                     {index + 1}
                                 </button>
                             ))}
@@ -331,24 +360,65 @@ const MeetUpRequestList = () => {
                     </div>
                 </div>
 
+                {refuseModalVisible && (
+                    <div className="modal">
+                        <div className="modal-content">
+                            <span className="close" onClick={refuseModalClose}>&times;</span>
+
+                            <p>거절 사유를 입력해 주세요</p>
+                            <input
+                                type="text"
+                                value={refusalReason}
+                                onChange={(e) => setRefusalReason(e.target.value)}
+                                placeholder="거절 사유를 입력하세요"
+                            />
+                            <button onClick={() => {
+                                if (selectedRequestSeq) {
+                                    handlerConfirm(2, selectedRequestSeq, refusalReason);
+                                    refuseModalClose();
+                                }
+                            }}>
+                                확인
+                            </button>
+                        </div>
+                    </div>
+                )}
+
                 {modalVisible && (
                     <div className="modal">
                         <div className="modal-content">
                             {selectedProfile && (
                                 <div className="profile-details">
                                     <span className="close" onClick={closeModal}>&times;</span>
-                                    <p><strong>Nickname:</strong> {selectedProfile.nickName}</p>
-                                    <p><strong>Email:</strong> {selectedProfile.email}</p>
-                                    <p><strong>Country:</strong> {selectedProfile.country}</p>
-                                    <p><strong>Gender:</strong> {selectedProfile.gender}</p>
-                                    <p><strong>Phone:</strong> {selectedProfile.phone}</p>
-                                    <p> 자기 소개 </p>
-                                    <input
-                                        type="text"
+                                    <div style={{display: 'flex'}}>
+                                        <div style={{flex: 1, padding: '10px'}}>
+                                            <p><strong>신청자 닉네임 :</strong> {selectedProfile.nickName}</p>
+                                            <p><strong>이메일 :</strong> {selectedProfile.email}</p>
+                                            <p><strong>국적 :</strong> {selectedProfile.country}</p>
+                                            <p><strong>성별 :</strong> {selectedProfile.gender}</p>
+                                            <p><strong>핸드폰 번호 :</strong> {selectedProfile.phone}</p>
+                                        </div>
+                                        <div style={{flex: 1, padding: '10px', textAlign: 'center'}}>
+                                            <img
+                                                style={{
+                                                    width: '80%',
+                                                    height: 'auto',
+                                                    borderRadius: '5%',
+                                                    border: '5% solid black'
+                                                }}
+                                                src={selectedProfile.imgName ? `http://localhost:9000/partyBoard/seqimg?meetUpDetailImg=${selectedProfile.imgName}` : defaultProfileImage}
+                                                alt="Profile"
+                                            />
+                                        </div>
+                                    </div>
+                                    <p><strong>자기 소개</strong></p>
+                                    <textarea
                                         style={{
                                             width: '100%',
+                                            height: '100px',
                                             border: '2px solid #ffb3b3',
                                             borderRadius: '8px',
+                                            resize: 'none'
                                         }}
                                         readOnly
                                         defaultValue={selectedProfile.requestText}
@@ -365,12 +435,11 @@ const MeetUpRequestList = () => {
                             {selectedUserProfile && (
                                 <div className="profile-details">
                                     <span className="close" onClick={closeUserDetailModal}>&times;</span>
-                                    <p><strong>Nickname:</strong> {selectedUserProfile.nickName}</p>
-                                    <p><strong>Email:</strong> {selectedUserProfile.email}</p>
-                                    <p><strong>Country:</strong> {selectedUserProfile.country}</p>
-                                    <p><strong>Gender:</strong> {selectedUserProfile.gender}</p>
-                                    <p><strong>Phone:</strong> {selectedUserProfile.phone}</p>
-
+                                    <p><strong>참가자 닉네임 :</strong> {selectedUserProfile.nickName}</p>
+                                    <p><strong>이메일 :</strong> {selectedUserProfile.email}</p>
+                                    <p><strong>국적 :</strong> {selectedUserProfile.country}</p>
+                                    <p><strong>성별 :</strong> {selectedUserProfile.gender}</p>
+                                    <p><strong>번호 :</strong> {selectedUserProfile.phone}</p>
                                 </div>
                             )}
                         </div>

@@ -20,7 +20,7 @@ const MyMeetUpPage = () => {
 
     const handleDelete = (meetUpSeq) => {
         console.log(`Deleting meetup with seq: ${meetUpSeq}`);
-        // Add axios request to delete the meetup
+
     };
 
     const indexOfLastMasterItem = currentMasterPage * itemsPerPage;
@@ -155,6 +155,12 @@ const MyMeetUpPage = () => {
         backgroundColor: '#ff4d4d'
     };
 
+    const handleCheckRequests = (meetUpSeq) => {
+        navigate(process.env.PUBLIC_URL + '/MeetUpRequestList', {
+            state: {meetUpSeq: meetUpSeq}
+        });
+    };
+
     return (
         <Fragment>
             <SEO
@@ -170,16 +176,16 @@ const MyMeetUpPage = () => {
                 />
 
                 <div className="meetup-sections"
-                     style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '20px' }}>
+                     style={{display: 'flex', justifyContent: 'space-around', marginBottom: '20px'}}>
                     <div className="meetup-section"
-                         style={{ flex: 1, padding: '20px', border: '1px solid #ccc', marginRight: '10px' }}>
-                        <h2 style={{ textAlign: 'center' }}>내가 주최한 소모임</h2>
+                         style={{flex: 1, padding: '20px', border: '1px solid #ccc', marginRight: '10px'}}>
+                        <h2 style={{textAlign: 'center'}}>내가 주최한 소모임</h2>
                         {currentMasterItems.map((meetup, index) => (
                             <div key={index} className="meetup-item" style={cardStyle}>
                                 <h3>{meetup.meetUpName}</h3>
-                                <p>소모임 생성일 : {meetup.meetUpRegDate}</p>
-                                <p>소모임 참여인원 : {meetup.nowEntry} / {meetup.meetUpMaxEntry}</p>
-                                <p>소모임 만료일 : {meetup.meetUpDeadLine}</p>
+                                <p><strong>소모임 생성일 : </strong> {meetup.meetUpRegDate}</p>
+                                <p><strong>소모임 참여인원 : </strong>{meetup.nowEntry} / {meetup.meetUpMaxEntry}</p>
+                                <p><strong>소모임 만료일 :</strong> {meetup.meetUpDeadLine}</p>
                                 <button
                                     style={buttonStyle}
                                     onClick={() => navigateToMeetUpDetail(meetup.meetUpSeq)}
@@ -192,10 +198,21 @@ const MyMeetUpPage = () => {
                                 >
                                     채팅방 입장하기
                                 </button>
+                                <button style={{
+                                    backgroundColor: '#ffb3b3',
+                                    color: 'white',
+                                    border: 'none',
+                                    padding: '0.5rem 1rem',
+                                    borderRadius: '4px',
+                                    cursor: 'pointer',
+                                    margin: '1%'
+
+                                }} onClick={() => handleCheckRequests(meetup.meetUpSeq)}>신청서 확인하기
+                                </button>
                             </div>
                         ))}
                         <div className="pagination">
-                            {Array.from({ length: Math.ceil(masterList.length / itemsPerPage) }, (_, i) => i + 1).map((pageNumber) => (
+                            {Array.from({length: Math.ceil(masterList.length / itemsPerPage)}, (_, i) => i + 1).map((pageNumber) => (
                                 <button
                                     style={buttonStyle}
                                     key={pageNumber}
@@ -209,14 +226,16 @@ const MyMeetUpPage = () => {
                     </div>
 
                     <div className="meetup-section"
-                         style={{ flex: 1, padding: '20px', border: '1px solid #ccc', marginRight: '10px' }}>
-                        <h2 style={{ textAlign: 'center' }}>내가 참여하고 있는 소모임</h2>
+                         style={{flex: 1, padding: '20px', border: '1px solid #ccc', marginRight: '10px'}}>
+                        <h2 style={{textAlign: 'center'}}>내가 참여하고 있는 소모임</h2>
                         {currentInviteItems.map((invite, index) => (
                             <div key={index} className="meetup-item" style={cardStyle}>
                                 <h3>{invite.meetUpName}</h3>
-                                <p>소모임 생성일 : {invite.meetUpRegDate}</p>
-                                <p>소모임 참여인원 : {invite.nowEntry} / {invite.meetUpMaxEntry}</p>
-                                <p>소모임 만료일 : {invite.meetUpDeadLine}</p>
+                                <p><strong> 소모임 주최자 : </strong> {invite.nickName} </p>
+                                <p><strong> 소모임 참여인원 :</strong>{invite.nowEntry} / {invite.meetUpMaxEntry}</p>
+                                <p><strong> 소모임 만료일 :</strong> {invite.meetUpDeadLine}</p>
+                                <p><strong> 소모임 주최장소 :</strong> {invite.meetUpPlace}</p>
+
                                 <button
                                     style={buttonStyle}
                                     onClick={() => navigateToMeetUpDetail(invite.meetUpSeq)}
@@ -232,7 +251,7 @@ const MyMeetUpPage = () => {
                             </div>
                         ))}
                         <div className="pagination">
-                            {Array.from({ length: Math.ceil(inviteList.length / itemsPerPage) }, (_, i) => i + 1).map((pageNumber) => (
+                        {Array.from({length: Math.ceil(inviteList.length / itemsPerPage)}, (_, i) => i + 1).map((pageNumber) => (
                                 <button
                                     style={buttonStyle}
                                     key={pageNumber}
@@ -245,18 +264,22 @@ const MyMeetUpPage = () => {
                         </div>
                     </div>
 
-                    <div className="meetup-section" style={{ flex: 1, padding: '20px', border: '1px solid #ccc' }}>
-                        <h2 style={{ textAlign: 'center' }}>신청한 소모임</h2>
+                    <div className="meetup-section" style={{flex: 1, padding: '20px', border: '1px solid #ccc'}}>
+                        <h2 style={{textAlign: 'center'}}>신청한 소모임</h2>
                         {currentApplyItems.map((apply, index) => (
                             <div key={index} className="meetup-item" style={cardStyle}>
                                 <h3>{apply.meetUpName}</h3>
-                                <p>소모임 신청일 : {formatDate(apply.meetUpRequestDate)}</p>
+                                <p><strong>소모임 신청일 : </strong> {formatDate(apply.meetUpRequestDate)}</p>
                                 <p>신청 상태:
                                     {apply.meetUpRequestStatus === 0 ? '심사중' :
                                         apply.meetUpRequestStatus === 1 ? '수락됨' :
                                             apply.meetUpRequestStatus === 2 ? '거절됨' :
                                                 '알 수 없음'}
                                 </p>
+                                {apply.meetUpRequestStatus === 2 && (
+                                    <p><strong>거절 사유: </strong> {apply.refuseReason} </p>
+                                )}
+
                                 <button
                                     style={buttonStyle}
                                     onClick={() => navigateToMeetUpDetail(apply.meetUpSeq)}

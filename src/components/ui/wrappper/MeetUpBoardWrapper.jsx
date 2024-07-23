@@ -1,21 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import FilterButton from "../button/FilterButton";
-import PostRow from "../row/PostRow";
+import FilterButton from '../button/FilterButton';
+import PostRow from '../row/PostRow';
+import axios from "axios";
 
-const MeetUpBoardWrapper = ({ interestList, meetUpList, onSaveButtonClick }) => {
+const MeetUpBoardWrapper = ({ interestList, meetUpListDesc, meetUpListAsc, onSaveButtonClick }) => {
     const [selectedCategory, setSelectedCategory] = useState("전체");
-    const [filteredMeetUpList, setFilteredMeetUpList] = useState(meetUpList);
+    const [filteredMeetUpList, setFilteredMeetUpList] = useState(meetUpListDesc);
+    const [searchMeetUp, setSearchMeetUp] = useState(null);
+    const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
+    const [isDescOrder, setIsDescOrder] = useState(true);
     const itemsPerPage = 6;
 
     useEffect(() => {
+        let listToFilter = isDescOrder ? meetUpListDesc : meetUpListAsc;
         if (selectedCategory === "전체") {
-            setFilteredMeetUpList(meetUpList);
+            setFilteredMeetUpList(listToFilter);
         } else {
-            setFilteredMeetUpList(meetUpList.filter(meetUp => meetUp.interestCate === selectedCategory));
+            setFilteredMeetUpList(listToFilter.filter(meetUp => meetUp.interestCate === selectedCategory));
         }
-        setCurrentPage(1); // Reset to the first page whenever the category changes
-    }, [selectedCategory, meetUpList]);
+        setCurrentPage(1);
+    }, [selectedCategory, isDescOrder, meetUpListDesc, meetUpListAsc]);
+
+    const searchMeetUpByName = () => {
+        axios
+            .get("http://localhost:9000/partyBoard/search/meetUpName", {
+                params: { meetUpName: searchTerm }
+            })
+            .then((result) => {
+                setSearchMeetUp(result.data);
+                console.log(result.data + "+++++++");
+            })
+            .catch((err) => {
+                let errMessage = err.response.data.type + "\n";
+                errMessage += err.response.data.title + "\n";
+                errMessage += err.response.data.detail + "\n";
+                errMessage += err.response.data.status + "\n";
+                errMessage += err.response.data.instance + "\n";
+                errMessage += err.response.data.timestamp;
+                alert(errMessage);
+            });
+    };
+
 
     const handleFilterButtonClick = (category) => {
         setSelectedCategory(category);
@@ -25,10 +51,18 @@ const MeetUpBoardWrapper = ({ interestList, meetUpList, onSaveButtonClick }) => 
         setCurrentPage(pageNumber);
     };
 
+    const handleOrderChange = (isDesc) => {
+        setIsDescOrder(isDesc);
+    };
+
+    const handleSearchInputChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = filteredMeetUpList.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = Math.ceil(filteredMeetUpList.length / itemsPerPage);
+    const currentItems = (searchMeetUp ? searchMeetUp : filteredMeetUpList).slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil((searchMeetUp ? searchMeetUp : filteredMeetUpList).length / itemsPerPage);
     let seq = localStorage.getItem('userSeq');
 
     return (
@@ -40,18 +74,87 @@ const MeetUpBoardWrapper = ({ interestList, meetUpList, onSaveButtonClick }) => 
             height: '100%',
             margin: '0 auto'
         }}>
-            {/*필터 버튼*/}
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', width:'100%' , height:'50%'} }>
-                <FilterButton interestCategory="전체" onClick={() => handleFilterButtonClick("전체")}></FilterButton>
+            <div style={{
+                margin: '1%',
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                width: '100%',
+                height: '50%'
+            }}>
+                <FilterButton
+                    interestCategory="전체"
+                    onClick={() => handleFilterButtonClick("전체")}
+                    isActive={selectedCategory === "전체"}
+                />
                 {interestList.map((interest) => (
                     <FilterButton
                         key={interest.interestSeq}
                         interestCategory={interest.interestCategory}
                         onClick={() => handleFilterButtonClick(interest.interestCategory)}
+                        isActive={selectedCategory === interest.interestCategory}
                     />
                 ))}
             </div>
+            <div style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                width: '100%',
+                margin: '0.1%'
+            }} className={'meetUpBoardSearch'}>
+                <input
+                    style={{ width: '30%' }}
+                    type={"text"}
+                    placeholder={"제목으로 검색"}
+                    value={searchTerm}
+                    onChange={handleSearchInputChange}
+                />
+                <button style={{
+                    display: 'inline-block',
+                    whiteSpace: 'nowrap',
+                    backgroundColor: '#ffb3b3',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '0.25rem',
+                    cursor: 'pointer',
+                    margin: '0.25rem'
+                }}
+                        onClick={searchMeetUpByName}
+                >검색</button>
+            </div>
 
+            <div style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                width: '100%',
+                margin: '0.1%'
+            }} className={'meetUpBoardFilter'}>
+
+                <button onClick={() => handleOrderChange(true)} style={{
+                    display: 'inline-block',
+                    whiteSpace: 'nowrap',
+                    backgroundColor: isDescOrder ?   '#ccc' : '#ffb3b3',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '0.25rem',
+                    cursor: 'pointer',
+                    margin: '0.25rem'
+                }}>
+                    최신순
+                </button>
+                <button onClick={() => handleOrderChange(false)} style={{
+                    display: 'inline-block',
+                    whiteSpace: 'nowrap',
+                    backgroundColor: !isDescOrder ? '#ccc' : '#ffb3b3',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '0.25rem',
+                    cursor: 'pointer',
+                    margin: '0.25rem'
+                }}>
+                    오래된순
+                </button>
+            </div>
             <div style={{
                 display: 'flex',
                 flexWrap: 'wrap',
@@ -95,7 +198,7 @@ const MeetUpBoardWrapper = ({ interestList, meetUpList, onSaveButtonClick }) => 
                                 border: 'none',
                                 borderRadius: '5px',
                                 cursor: 'pointer',
-                                margin: '10%'
+                                margin: '0.5rem'
                             }}>
                         {index + 1}
                     </button>
