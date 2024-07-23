@@ -119,7 +119,7 @@ const BlogPost = ({ post, commBoardSeq }) => {
                     <h1>{post.boardTitle}</h1>
                     <span style={{ float: "right", fontSize: "1.3em" }}>
                         {post.replyList.length} <i className="fa fa-comments-o" style={{ fontSize: "1.3em" }} />&nbsp;
-                        {likes} <i className="fa fa-thumbs-up" style={{ fontSize: "1.3em" }} />
+                        {likes-3} <i className="fa fa-thumbs-up" style={{ fontSize: "1.3em" }} />
                     </span>
                     <div>
                         <span style={{ marginRight: "15px" }}>
