@@ -31,8 +31,7 @@ const AdminPhotoBoard = () => {
   let logingedCon =useContext(LogingedContext);
 
   useEffect(() => {
-      //게시글 가져오기
-    axios
+      axios
       .get("http://localhost:9000/photo/")
       .then((response) => {
         console.log(response.data)
@@ -43,7 +42,6 @@ const AdminPhotoBoard = () => {
         console.error("Error fetching photos:", error);
       });
 
-     // 관심사 카테고리 가져오기
       axios.get("http://localhost:9000/interest/")
           .then((res) => {
               setInterestCategory(res.data);
@@ -82,7 +80,6 @@ const AdminPhotoBoard = () => {
     }
 
   useEffect(() => {
-     // 정렬할때 쓰는거
       let url = "http://localhost:9000/admin/photo/";
 
       if (filterSortValue === 'regDate') {

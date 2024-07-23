@@ -8,7 +8,8 @@ import SEO from "../../components/seo";
 
 const MeetUpBoard = () => {
     const [interestList, setInterestList] = useState([]);
-    const [meetUpList, setMeetUpList] = useState([]);
+    const [meetUpListAsc, setMeetUpListAsc] = useState([]);
+    const [meetUpListDesc, setMeetUpListDesc] = useState([]);
     const navigate = useNavigate();
     let { pathname } = useLocation();
 
@@ -31,12 +32,14 @@ const MeetUpBoard = () => {
     }, []);
 
 
+        //오래된순
     useEffect(() => {
         axios
-            .get("http://localhost:9000/partyBoard/selectAll")
+            .get("http://localhost:9000/partyBoard/selectAllAsc")
             .then((result) => {
-                console.log(result.data);
-                setMeetUpList(result.data);
+                setMeetUpListAsc(result.data);
+                console.log(result.data+"+++++++")
+
             })
             .catch((err) => {
                 let errMessage = err.response.data.type + "\n";
@@ -48,6 +51,29 @@ const MeetUpBoard = () => {
                 alert(errMessage);
             });
     }, []);
+
+    //최신순
+    useEffect(() => {
+        axios
+            .get("http://localhost:9000/partyBoard/selectAllDesc")
+            .then((result) => {
+                setMeetUpListDesc(result.data);
+                console.log(result.data+"======")
+            })
+            .catch((err) => {
+                let errMessage = err.response.data.type + "\n";
+                errMessage += err.response.data.title + "\n";
+                errMessage += err.response.data.detail + "\n";
+                errMessage += err.response.data.status + "\n";
+                errMessage += err.response.data.instance + "\n";
+                errMessage += err.response.data.timestamp;
+                alert(errMessage);
+            });
+    }, []);
+
+
+
+
 
 
 
@@ -66,12 +92,13 @@ const MeetUpBoard = () => {
                 <Breadcrumb
                     pages={[
                         {label: "Home", path: process.env.PUBLIC_URL + "/" },
-                        {label: "Shop", path: process.env.PUBLIC_URL + pathname }
+                        {label: "MeetUpBoard", path: process.env.PUBLIC_URL + pathname }
                     ]}
                 />
                 <MeetUpBoardWrapper
                     interestList={interestList}
-                    meetUpList={meetUpList}
+                    meetUpListAsc={meetUpListAsc}
+                    meetUpListDesc={meetUpListDesc}
                     onSaveButtonClick={handleSaveButtonClick}
                  />
             </LayoutOne>

@@ -1,5 +1,6 @@
 import React from 'react';
 import MeetUpDetail from "../button/MeetUpDetail";
+import NoImg from '../../../assets/img/meetup/no_img.jpg';
 
 const PostRow = ({
                      meetUpName,
@@ -12,55 +13,80 @@ const PostRow = ({
         const date = new Date(deadline);
         return date.toLocaleString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
     };
+
+    const getImageSrc = () => {
+        if (meetUpBoardDetailImgNameList.length === 0) {
+            return NoImg;
+        }
+
+        const imgName = meetUpBoardDetailImgNameList[0];
+        return imgName ? `http://localhost:9000/partyBoard/seqimg?meetUpDetailImg=${imgName}` : NoImg;
+    };
+
     return (
-        <div style={{ position: 'relative', width: '90%', height:'90%', display: 'inline-block', margin: '2%' }}>
-            <img
-                src={`${process.env.PUBLIC_URL}/assets/img/meetUpBoard/1bcbec75802170a9bb9620bb91e261a62.png`}
-                alt="Background"
-                style={{ display: 'block', width: '100%', border: '2px solid', borderRadius: '3%' }}
-            />
-            <div style={{
-                position: 'absolute',
-                top: '0',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                color: 'black',
-                backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                width: '100%',
-                height: '100%' // 박스 크기를 100%로 설정
+        <div style={{
+            width: '90%',
+            maxWidth: '600px',
+            height: 'auto',
+            margin: '2%',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            borderRadius: '10px',
+            overflow: 'hidden',
+            boxSizing: 'border-box'
+        }}>
+            <h3 style={{
+                marginTop: '5%',
+                fontSize: '1.5em',
+                textAlign: 'center',
+                fontFamily: 'Noto Sans KR, sans-serif',
+                color: '#333'
             }}>
-                <h3 style={{ marginTop: '16%', fontSize: '80%', textAlign: 'center', fontFamily: 'Noto Sans KR, sans-serif' , width:'100%' , height:'5%' }}>{meetUpName}</h3>
-                <div style={{ display: 'flex', textAlign: 'center', alignItems: 'center', marginLeft: '5%', fontSize: '80%', width:'100%', height:'5%' }}>
-                    <span >관심사: </span>
-                    <span style={{ marginLeft: '1%', backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                        // padding: '2px 8px',
-                        borderRadius: '10px' }}>{interest}</span>
-                    <span style={{textAlign:"right",marginLeft:"5%"}}> 모집 종료일:  {formatDeadline(meetUpDeadLine)}</span>
+                {meetUpName}
+            </h3>
+            <div style={{
+                fontFamily: "Chivo-Medium",
+                display: 'flex',
+                justifyContent: 'space-around',
+                alignItems: 'center',
+                margin: '2% 0',
+                fontSize: '1em',
+                color: '#555'
+            }}>
+                <div>
+                    <span style={{ fontWeight: 'bold' }}>관심사: </span>
+                    <span style={{ backgroundColor: '#f0f0f0', borderRadius: '10px', padding: '0.2em 0.5em' }}>{interest}</span>
                 </div>
-                <hr style={{ marginLeft: '5%', width: '90%', marginTop: '2%' }} />
-
-
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60%', width:'100%',  }}>
-                    {meetUpBoardDetailImgNameList.slice(0, 1).map((imgName, index) => (
-                        <img
-                            key={index}
-                            src={"http://localhost:9000/partyBoard/seqimg?meetUpDetailImg=" + imgName}
-                            alt={`Image ${index}`}
-                            style={{
-                                width: '92%',
-                                height: '92%',
-                                objectFit: 'cover',
-                                border: '2px solid',
-                                borderRadius: '10px'
-                            }}
-                        />
-                    ))}
+                <div>
+                    <span style={{ fontWeight: 'bold' }}>모집 종료일: </span>
+                    {formatDeadline(meetUpDeadLine)}
                 </div>
-
-                <MeetUpDetail
-                    meetUpSeq={meetUpSeq}
-                    meetUpName={meetUpName}/>
             </div>
+            <hr style={{ margin: '2% 0', border: 'none', borderBottom: '1px solid #ccc' }} />
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '60%',
+                overflow: 'hidden',
+                border: '2px solid #ddd',
+                borderRadius: '5%',
+                margin:'1%'
+            }}>
+                <img
+                    src={getImageSrc()}
+                    alt="MeetUp"
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+                    }}
+                />
+            </div>
+            <MeetUpDetail
+                meetUpSeq={meetUpSeq}
+                meetUpName={meetUpName}
+            />
         </div>
     );
 };

@@ -1,4 +1,6 @@
-const FilterButton = ({ interestCategory, onClick }) => (
+import React from 'react';
+
+const FilterButton = ({ interestCategory, onClick, isActive }) => (
     <button
         onClick={onClick}
         style={{
@@ -9,12 +11,12 @@ const FilterButton = ({ interestCategory, onClick }) => (
             textAlign: 'center',
             whiteSpace: 'nowrap',
             verticalAlign: 'middle',
-            backgroundColor: '#ffb3b3',
+            backgroundColor: isActive ? 'darkgray' : '#ffb3b3',
             color: '#fff',
             border: 'none',
             borderRadius: '0.25rem',
             cursor: 'pointer',
-            margin: 2
+            margin: '2px'
         }}
     >
         {interestCategory}

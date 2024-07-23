@@ -250,7 +250,7 @@ function UserDetail({ profileData, currency,show, onHide,profileDetailList }) {
                   <button
                       type="button"
                       className="btn btn-success"
-                      onClick={() => handleUserStateChange('NOMAL')}
+                      onClick={() => handleUserStateChange('NORMAL')}
                   >
                     정상
                   </button>
