@@ -98,29 +98,127 @@ const MeetUpRequestList = () => {
         setSelectedUserProfile(null);
     };
 
-    const handlerConfirm = (requestStatus, userSeq, refuseReason) => {
-        axios.put('http://localhost:9000/partyBoard/request/changestatus', {
-            meetUpRequestStatus: requestStatus,
-            meetUpSeq: meetUpSeq,
-            userSeq: userSeq,
-            refuseReason: refuseReason
-        })
-            .then(response => {
-                setRequestList(prevList =>
-                    prevList.map(request =>
-                        request.userSeq === userSeq
-                            ? { ...request, meetUpRequestStatus: requestStatus }
-                            : request
-                    )
+    const handlerConfirm = async (requestStatus, userSeq, refuseReason) => {
+        try {
+            await axios.put('http://localhost:9000/partyBoard/request/changestatus', {
+                meetUpRequestStatus: requestStatus,
+                meetUpSeq: meetUpSeq,
+                userSeq: userSeq,
+                refuseReason: refuseReason
+            });
+
+            setRequestList(prevList => {
+                const updatedList = prevList.map(request =>
+                    request.userSeq === userSeq
+                        ? { ...request, meetUpRequestStatus: requestStatus }
+                        : request
                 );
-                fetchUserList();
-            })
-            .catch(error => {
-                if (error.response.status === 700) {
-                    alert("최대 참가 인원이 초과되었습니다.");
+
+                if (requestStatus === 1) {
+                    console.log('요청이 수락됨, 호스트에게 젤리 추가');
+                    addJellyToHost();
+                } else if (requestStatus === 2) {
+                    console.log('요청이 거절됨, 사용자에게 젤리 환불');
+                    refundJelly(userSeq);
+
+                    const wasAccepted = prevList.find(request => request.userSeq === userSeq).meetUpRequestStatus === 1;
+                    if (wasAccepted) {
+                        console.log('수락된 후 거절됨, 호스트에게서 젤리 차감');
+                        deductJellyFromHost();
+                    }
+                } else {
+                    console.log('처리되지 않은 requestStatus:', requestStatus);
+                }
+
+                return updatedList;
+            });
+
+            fetchUserList();
+        } catch (error) {
+            if (error.response && error.response.status === 700) {
+                alert("최대 참가 인원이 초과되었습니다.");
+            } else {
+                console.error("상태 변경 실패:", error);
+            }
+        }
+    };
+
+
+    const refundJelly = async (userSeq) => {
+        try {
+            const token = localStorage.getItem("Authorization");
+            console.log(`Calling addJelly with userSeq: ${userSeq}`);
+            console.log(`userSeq: ${userSeq}, token: ${token}`);
+            const response = await axios.post(`http://localhost:9000/jelly/refund/${userSeq}`, {
+                jellyAmount: "20", // 예시로 젤리 2개 추가
+                amount: "0",
+                transactionType: "ADD" // 트랜잭션 타입
+            }, {
+                headers: {
+                    Authorization: token.startsWith("Bearer ") ? token : `Bearer ${token}`,
+                    'Content-Type': 'application/json'
                 }
             });
+            alert(response.data);
+        } catch (error) {
+            console.error("젤리 환불 실패:", error);
+        }
     };
+
+    const addJellyToHost = async () => {
+        try {
+            const token = localStorage.getItem("Authorization");
+            // 여기에 현재 로그인한 사용자의 시퀀스를 가져오는 로직을 추가합니다.
+            // 예를 들어, localStorage에 저장된 userSeq를 가져온다고 가정합니다.
+            const userSeq = localStorage.getItem("userSeq");
+
+            if (!userSeq) {
+                throw new Error("현재 로그인한 사용자의 시퀀스를 가져올 수 없습니다.");
+            }
+
+            console.log(`Calling addJellyToHost with userSeq: ${userSeq}`);
+            const response = await axios.post(`http://localhost:9000/jelly/add/host/${userSeq}`, {
+                jellyAmount: "15", // 예시로 젤리 15개 추가
+                amount: "0",
+                transactionType: "ADD" // 트랜잭션 타입
+            }, {
+                headers: {
+                    Authorization: token.startsWith("Bearer ") ? token : `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            alert(response.data);
+        } catch (error) {
+            console.error("젤리 추가 실패:", error);
+        }
+    };
+
+    const deductJellyFromHost = async () => {
+        try {
+            const token = localStorage.getItem("Authorization");
+            const userSeq = localStorage.getItem("userSeq");
+
+            if (!userSeq) {
+                throw new Error("현재 로그인한 사용자의 시퀀스를 가져올 수 없습니다.");
+            }
+
+            console.log(`Calling deductJellyFromHost with userSeq: ${userSeq}`);
+            const response = await axios.post(`http://localhost:9000/jelly/deduct/host/${userSeq}`, {
+                jellyAmount: "15", // 예시로 젤리 15개 차감
+                amount: "0",
+                transactionType: "DEDUCT" // 트랜잭션 타입
+            }, {
+                headers: {
+                    Authorization: token.startsWith("Bearer ") ? token : `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            alert(response.data);
+        } catch (error) {
+            console.error("젤리 차감 실패:", error);
+        }
+    };
+
 
     const handleErrorMessage = (err) => {
         return `${err.response.data.type}\n${err.response.data.title}\n${err.response.data.detail}\n${err.response.data.status}\n${err.response.data.instance}\n${err.response.data.timestamp}`;
