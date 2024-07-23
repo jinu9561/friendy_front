@@ -63,7 +63,7 @@ const MeetUpDetailPage = () => {
                 navigate('/MeetUpBoard');
             })
             .catch((error) => {
-                alert('Error deleting MeetUp. Please check the password and try again.');
+                alert('삭제에 실패했습니다 다시 시도해주세요.');
             });
         setShowDeleteConfirmation(false);
         setDeletePassword('');
@@ -99,7 +99,7 @@ const MeetUpDetailPage = () => {
                 },
             })
             .then(response => {
-                alert('MeetUp 신청이 성공적으로 완료되었습니다!');
+                alert(' 신청이 성공적으로 완료되었습니다!');
             })
             .catch(error => {
                 if (error.response.status === 400) {
@@ -193,8 +193,11 @@ const MeetUpDetailPage = () => {
 
                             }}
                         >
-                            <a> 취미 카테고리 : {meetUp.interestCate}</a>
-                            <a style={{marginLeft: "40%", fontSize: "100%"}}> 등록일 : {meetUp.meetUpRegDate}</a>
+                            <a> 취미 카테고리 : {meetUp.interestCate}</a> <br/>
+                             <a> 장소 : {meetUp.meetUpPlace}</a> <br/>
+
+                            <a style={{fontSize: "100%"}}> 등록일 : {meetUp.meetUpRegDate}</a>
+
                         </div>
                         <div>
                             {meetUp.meetUpBoardDetailImgNameList.map((imgName, index) => (

@@ -23,19 +23,13 @@ const AdminLogin = () => {
     userId:"",
     userPwd:""
   });
-
-  
-
-  // 로그인 데이터 입력될때마다 상태 값 수정
   const handleLoginDataChange = (e) => {
     const {name, value} = e.target;
     setLoginData({...loginData,[name]: value})
   }
-
   const submitLogin = (e) =>{
-    e.preventDefault();//submit이벤트 막음 
-
-    let formData = new FormData(); //폼전송으로 보내기위한 작업 
+    e.preventDefault();
+    let formData = new FormData();
     formData.append("userId", loginData.userId); 
     formData.append("userPwd", loginData.userPwd);
 
@@ -44,35 +38,20 @@ const AdminLogin = () => {
       url : "http://localhost:9000/login", 
       data : formData, 
       }) 
-      .then((res)=>{ 
-
-       // 인증된 사용자의 정보를 저장
-      //  localStorage.setItem("userId", res.data.userId); 
-      //  localStorage.setItem("userName", res.data.userName);
-      //  localStorage.setItem("userSeq", res.data.userSeq); 
-      //  localStorage.setItem("Authorization", res.headers.authorization);
-      sessionStorage.setItem("userId", res.data.userId); 
+      .then((res)=>{
+        sessionStorage.setItem("userId", res.data.userId);
       sessionStorage.setItem("userName", res.data.userName);
       sessionStorage.setItem("userSeq", res.data.userSeq); 
       sessionStorage.setItem("Authorization", res.headers.authorization);
 
        logingedCon.onAdminInChange(true);
-       console.log(logingedCon.isAdminIn);
        navigator("/adminUser");
      }) 
       .catch((err)=>{ 
-      console.log(err); 
-     
+
      });
 
   }
-
-
-
-
- 
-
-
 
   return (
     <Fragment>
