@@ -47,7 +47,32 @@ const Notification = () => {
                 setNotifications(prevNotifications => [...prevNotifications, ...newNotifications]);
             })
             .catch(error => {
-                console.error("Failed to fetch report results:", error);
+                console.error("Failed to f\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\etch report results:", error);
+            });
+    }, []);
+
+    useEffect(() => {
+        // 소모임 참가 신청 거절 알림 불러오기
+        axios.get("http://localhost:9000/partyBoard/request/changestatus", {
+            headers: {
+                Authorization: localStorage.getItem("Authorization"),
+            },
+        })
+            .then(response => {
+                const newNotifications = response.data.filter(notification => !notification.isRead)
+                    .map(notification => {
+                        switch(notification.type) {
+                            case 'MEETUP_REJECTION':
+                                return `소모임 참여 신청이 거절되어 20젤리가 환불되었습니다.`;
+                            default:
+                                return `새로운 알림이 있습니다.`;
+                        }
+                    });
+                setNotifications(prevNotifications => [...prevNotifications, ...newNotifications]);
+                setHasUnreadMessages(newNotifications.length > 0);
+            })
+            .catch(error => {
+                console.error("알림을 불러오는데 실패했습니다:", error);
             });
     }, []);
 

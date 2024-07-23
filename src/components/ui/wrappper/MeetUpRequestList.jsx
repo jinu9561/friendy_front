@@ -98,12 +98,72 @@ const MeetUpRequestList = () => {
                 );
                 // Fetch the updated user list
                 fetchUserList();
+
+                if (requestStatus === 1) {
+                    console.log('요청이 수락됨, 호스트에게 젤리 추가');
+                    addJellyToHost();
+                } else if (requestStatus === 2) {
+                    console.log('요청이 거절됨, 사용자에게 젤리 환불');
+                    refundJelly(userSeq);
+                } else {
+                    console.log('처리되지 않은 requestStatus:', requestStatus);
+                }
+
             })
             .catch(error => {
                 if (error.response.status === 700) {
                     alert("최대 참가 인원이 초과되었습니다.");
                 }
             });
+    };
+
+    const refundJelly = async (userSeq) => {
+        try {
+            const token = localStorage.getItem("Authorization");
+            console.log(`Calling addJelly with userSeq: ${userSeq}`);
+            console.log(`userSeq: ${userSeq}, token: ${token}`);
+            const response = await axios.post(`http://localhost:9000/jelly/refund/${userSeq}`, {
+                jellyAmount: "20", // 예시로 젤리 2개 추가
+                amount: "0",
+                transactionType: "ADD" // 트랜잭션 타입
+            }, {
+                headers: {
+                    Authorization: token.startsWith("Bearer ") ? token : `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            alert(response.data);
+        } catch (error) {
+            console.error("젤리 환불 실패:", error);
+        }
+    };
+
+    const addJellyToHost = async () => {
+        try {
+            const token = localStorage.getItem("Authorization");
+            // 여기에 현재 로그인한 사용자의 시퀀스를 가져오는 로직을 추가합니다.
+            // 예를 들어, localStorage에 저장된 userSeq를 가져온다고 가정합니다.
+            const userSeq = localStorage.getItem("userSeq");
+
+            if (!userSeq) {
+                throw new Error("현재 로그인한 사용자의 시퀀스를 가져올 수 없습니다.");
+            }
+
+            console.log(`Calling addJellyToHost with userSeq: ${userSeq}`);
+            const response = await axios.post(`http://localhost:9000/jelly/add/host/${userSeq}`, {
+                jellyAmount: "15", // 예시로 젤리 15개 추가
+                amount: "0",
+                transactionType: "ADD" // 트랜잭션 타입
+            }, {
+                headers: {
+                    Authorization: token.startsWith("Bearer ") ? token : `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            alert(response.data);
+        } catch (error) {
+            console.error("젤리 추가 실패:", error);
+        }
     };
 
     const handleErrorMessage = (err) => {
@@ -167,7 +227,7 @@ const MeetUpRequestList = () => {
                                             신청 상세보기
                                         </button>
                                     </div>
-                                    {request.meetUpRequestStatus === 0 && (
+                                    {request.meetUpRequestStatus === 0 ? (
                                         <Fragment>
                                             <button
                                                 style={{
@@ -197,44 +257,16 @@ const MeetUpRequestList = () => {
                                                 거절하기
                                             </button>
                                         </Fragment>
-                                    )}
-                                    {request.meetUpRequestStatus === 1 && (
-                                        <button
-                                            style={{
-                                                backgroundColor: '#dc3545',
-                                                color: 'white',
-                                                border: 'none',
-                                                padding: '0.5rem 1rem',
-                                                borderRadius: '4px',
-                                                cursor: 'pointer'
-                                            }}
-                                            onClick={() => handlerConfirm(2, request.userSeq)}
-                                        >
-                                            거절하기
-                                        </button>
-                                    )}
-                                    {request.meetUpRequestStatus === 2 && (
-                                        <button
-                                            style={{
-                                                backgroundColor: '#28a745',
-                                                color: 'white',
-                                                border: 'none',
-                                                padding: '0.5rem 1rem',
-                                                borderRadius: '4px',
-                                                cursor: 'pointer'
-                                            }}
-                                            onClick={() => handlerConfirm(1, request.userSeq)}
-                                        >
-                                            수락하기
-                                        </button>
+                                    ) : (
+                                        <p>{request.meetUpRequestStatus === 1 ? '수락됨' : '거절됨'}</p>
                                     )}
                                 </div>
                             ))}
                         </div>
 
                         <div className="pagination">
-                            {Array.from({ length: totalPages }, (_, index) => (
-                                <button style={{ margin: '1%' }}
+                            {Array.from({length: totalPages}, (_, index) => (
+                                <button style={{margin: '1%'}}
                                         key={index}
                                         onClick={() => paginate(index + 1)}
                                         className={`page-number ${currentPage === index + 1 ? 'active' : ''}`}
@@ -244,10 +276,17 @@ const MeetUpRequestList = () => {
                             ))}
                         </div>
                     </div>
-                    <div className="inviteList" style={{ flex: 4 }}>
+                    <div className="inviteList" style={{flex: 4}}>
                         <div style={
-                            { textAlign: 'center', marginTop: '1%', marginRight: '20%', backgroundColor: '#ffb3b3', borderRadius: '5px' }}>
-                            모임 참여자 명단  </div>
+                            {
+                                textAlign: 'center',
+                                marginTop: '1%',
+                                marginRight: '20%',
+                                backgroundColor: '#ffb3b3',
+                                borderRadius: '5px'
+                            }}>
+                            모임 참여자 명단
+                        </div>
 
                         {currentUserItems.map((user, index) => (
                             <div style={{
@@ -259,7 +298,7 @@ const MeetUpRequestList = () => {
                                 marginBottom: "3%"
                             }}
                                  key={user.userSeq || index}>
-                                <p style={{ marginRight: '5%' }}>{userIndexOfFirstItem + index + 1}</p>
+                                <p style={{marginRight: '5%'}}>{userIndexOfFirstItem + index + 1}</p>
                                 <p>{user.nickName}</p>
                                 <button
                                     style={{

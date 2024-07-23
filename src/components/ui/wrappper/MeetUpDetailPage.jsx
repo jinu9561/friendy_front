@@ -19,11 +19,14 @@ const MeetUpDetailPage = () => {
     const [showRequestConfirmation, setShowRequestConfirmation] = useState(false);
     const [requestText, setRequestText] = useState('');
     const [showReportModal, setShowReportModal] = useState(false); //신고버튼에서 사용
+    const [showJellyConfirmation, setShowJellyConfirmation] = useState(false);
+    const [useJelly, setUseJelly] = useState(false);
+    const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
 
     let localUserSeq = localStorage.getItem("userSeq");
 
     useEffect(() => {
-            console.log("+++++++++++++"+meetUpSeq)
+        console.log("+++++++++++++"+meetUpSeq)
         axios
             .get("http://localhost:9000/partyBoard/meetUpSeq", {
                 params: {
@@ -84,33 +87,53 @@ const MeetUpDetailPage = () => {
 
     const handleRequest = () => {
         setShowRequestConfirmation(!showRequestConfirmation);
+        if (window.confirm("20젤리를 사용하여 모임에 참여하시겠습니까?")) {
+            setIsRequestSuccessful(true);
+        }
     };
 
-    const confirmRequest = () => {
-        const formData = new FormData();
-        formData.append("userSeq", localUserSeq);
-        formData.append("meetUpSeq", meetUpSeq);
-        formData.append("requestText", requestText);
+    const confirmRequest = async () => {
+        try {
+            const formData = new FormData();
+            formData.append("userSeq", localUserSeq);
+            formData.append("meetUpSeq", meetUpSeq);
+            formData.append("requestText", requestText);
 
-        axios
-            .post("http://localhost:9000/partyBoard/request", formData, {
+            await axios.post("http://localhost:9000/partyBoard/request", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
-            })
-            .then(response => {
-                alert('MeetUp 신청이 성공적으로 완료되었습니다!');
-            })
-            .catch(error => {
-                if (error.response.status === 400) {
-                    alert(error.response.data.message);
-                } else {
-                    alert('Error occurred. Please try again.');
-                }
             });
 
-        setShowRequestConfirmation(false);
-        setRequestText('');
+            alert('MeetUp 신청이 성공적으로 완료되었습니다!');
+
+            const token = localStorage.getItem("Authorization");
+            if (!token) {
+                alert("로그인이 필요합니다.");
+                return;
+            }
+            const response = await axios.post(`http://localhost:9000/jelly/use/${localUserSeq}`, {
+                jellyAmount: "20", // 젤리 양
+                amount: "0", // 금액
+                transactionType: "USE" // 트랜잭션 타입
+            }, {
+                headers: {
+                    Authorization: token.startsWith("Bearer ") ? token : `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            alert(response.data);
+        } catch (error) {
+            if (error.response && error.response.status === 400) {
+                alert(error.response.data.message);
+            } else {
+                console.error("젤리 사용 실패:", error);
+                alert('Error occurred. Please try again.');
+            }
+        } finally {
+            setShowRequestConfirmation(false);
+            setRequestText('');
+        }
     };
 
     const handleCheckRequests = () => {

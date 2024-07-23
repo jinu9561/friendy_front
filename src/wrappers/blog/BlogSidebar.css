@@ -1,0 +1,97 @@
+/* BlogSidebar.css */
+
+.sidebar-style {
+    padding: 20px;
+    background: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-widget {
+    margin-bottom: 30px;
+}
+
+.search-widget {
+    margin-bottom: 50px;
+}
+
+.pro-sidebar-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.pro-sidebar-search-form {
+    display: flex;
+    align-items: center;
+}
+
+.pro-sidebar-search-form input {
+    flex: 1;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+}
+
+.pro-sidebar-search-form button {
+    padding: 8px 15px;
+    border: none;
+    background: #333;
+    color: #fff;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.popular-posts-widget .recent-post {
+    display: flex;
+    flex-direction: column;
+}
+
+.recent-single-post.styled-post {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.recent-post-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.post-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.post-title {
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #000;
+}
+
+.post-title:hover {
+    text-decoration: underline;
+}
+
+.post-likes {
+    font-size: 14px;
+    color: #888;
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* 추천수를 오른쪽 끝으로 이동 */
+    white-space: nowrap;
+}
+
+.post-likes-icon {
+    margin-right: 5px;
+}
+
+.post-likes-count {
+    width: 20px;
+    text-align: left;
+}
