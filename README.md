@@ -126,7 +126,7 @@
 
 👉 [자세히 보기](https://github.com/jinu9561/friendy/wiki/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85-%EB%B0%8F-%EB%A1%9C%EA%B7%B8%EC%9D%B8)
 
-### 소모임 및 채팅 -- 하는중
+### 소모임 및 채팅 
 👉 [자세히 보기](https://github.com/jinu9561/friendy/wiki/%EC%86%8C%EB%AA%A8%EC%9E%84-%EC%B1%84%ED%8C%85)
 
 ### 커뮤니티 게시판 
