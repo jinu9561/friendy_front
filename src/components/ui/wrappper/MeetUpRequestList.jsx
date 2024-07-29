@@ -323,7 +323,7 @@ const MeetUpRequestList = () => {
                                                 borderRadius: '4px',
                                                 cursor: 'pointer'
                                             }}
-                                            onClick={() => handlerConfirm(2, request.userSeq)}>
+                                            onClick={() =>  refuseHandler(request.userSeq)}>
                                             거절하기
                                         </button>
                                     )}
