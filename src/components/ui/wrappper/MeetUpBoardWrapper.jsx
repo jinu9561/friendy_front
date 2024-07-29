@@ -95,12 +95,13 @@ const MeetUpBoardWrapper = ({ interestList, meetUpListDesc, meetUpListAsc, onSav
                         isActive={selectedCategory === interest.interestCategory}
                     />
                 ))}
-            </div>
+
             <div style={{
                 display: 'flex',
                 justifyContent: 'flex-end',
                 width: '100%',
-                margin: '0.1%'
+                marginRight:'10%',
+                margin: '2%'
             }} className={'meetUpBoardSearch'}>
                 <input
                     style={{ width: '30%' }}
@@ -117,15 +118,17 @@ const MeetUpBoardWrapper = ({ interestList, meetUpListDesc, meetUpListAsc, onSav
                     border: 'none',
                     borderRadius: '0.25rem',
                     cursor: 'pointer',
-                    margin: '0.25rem'
+                    marginLeft:'0.25rem'
                 }}
                         onClick={searchMeetUpByName}
                 >검색</button>
             </div>
 
+
             <div style={{
                 display: 'flex',
                 justifyContent: 'flex-end',
+                marginRight:'10%',
                 width: '100%',
                 margin: '0.1%'
             }} className={'meetUpBoardFilter'}>
@@ -154,6 +157,7 @@ const MeetUpBoardWrapper = ({ interestList, meetUpListDesc, meetUpListAsc, onSav
                 }}>
                     오래된순
                 </button>
+            </div>
             </div>
             <div style={{
                 display: 'flex',

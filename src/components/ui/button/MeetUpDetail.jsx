@@ -25,7 +25,9 @@ const MeetUpDetail = ({ meetUpName , meetUpDesc , meetUpSeq}) => {
         }}>
             <button
                 style={{
-                    marginRight: '15%',
+                    margin:'3%',
+                    marginBottom:'5%',
+                    marginRight: '13%',
                     display: 'inline-block',
                     width: '30%',
                     height:'30%',

@@ -71,7 +71,7 @@ const LoginRegister = () => {
 
   const submitLogin = (e) =>{
     e.preventDefault();//submit이벤트 막음 
-
+    console.log("userId:"+ loginData.userId + "userJelly: "+ loginData.userJelly)
     let formData = new FormData(); //폼전송으로 보내기위한 작업 
     formData.append("userId", loginData.userId); 
     formData.append("userPwd", loginData.userPwd);

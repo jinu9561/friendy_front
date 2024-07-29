@@ -26,8 +26,7 @@ const PostRow = ({
     return (
         <div style={{
             width: '90%',
-            maxWidth: '600px',
-            height: 'auto',
+            height: 'auto', // Allow the container height to adjust
             margin: '2%',
             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
             borderRadius: '10px',
@@ -44,7 +43,6 @@ const PostRow = ({
                 {meetUpName}
             </h3>
             <div style={{
-                fontFamily: "Chivo-Medium",
                 display: 'flex',
                 justifyContent: 'space-around',
                 alignItems: 'center',
@@ -66,19 +64,24 @@ const PostRow = ({
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: '60%',
+                height: '300px',
+                width:'100%',
                 overflow: 'hidden',
                 border: '2px solid #ddd',
-                borderRadius: '5%',
+                borderRadius: '10px',
                 margin:'1%'
+
             }}>
                 <img
                     src={getImageSrc()}
                     alt="MeetUp"
                     style={{
+                        padding:'5px',
                         width: '100%',
                         height: '100%',
+                        borderRadius:'5%',
                         objectFit: 'cover',
+                        objectPosition: 'center',
                         boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
                     }}
                 />

@@ -1,93 +1,63 @@
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { setCurrency } from "../../../store/slices/currency-slice"
-import {useEffect, useState} from "react";
+import { setCurrency } from "../../../store/slices/currency-slice";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import data from "bootstrap/js/src/dom/data";
 
 const LanguageCurrencyChanger = ({ currency }) => {
-  const { i18n } = useTranslation();
-  const dispatch = useDispatch();
-  const changeLanguageTrigger = e => {
-    const languageCode = e.target.value;
-    i18n.changeLanguage(languageCode);
-  };
-  let userId = localStorage.getItem('userId')
-  let userSeq = localStorage.getItem('userSeq')
-  const setCurrencyTrigger = e => {
-    const currencyName = e.target.value;
-    dispatch(setCurrency(currencyName));
-  };
+    const [profile, setProfile] = useState({}); // 빈 객체로 초기화
 
-  return (
-    <div className="language-currency-wrap">
-      <div className="same-language-currency language-style">
-        <span>
-          {i18n.resolvedLanguage === "en"
-            ? "English"
-            : i18n.resolvedLanguage === "fn"
-            ? "French"
-            : i18n.resolvedLanguage === "de"
-            ? "Germany"
-            : ""}{" "}
-          <i className="fa fa-angle-down" />
-        </span>
-        <div className="lang-car-dropdown">
-          <ul>
-            <li>
-              <button value="en" onClick={e => changeLanguageTrigger(e)}>
-                English
-              </button>
-            </li>
-            <li>
-              <button value="fn" onClick={e => changeLanguageTrigger(e)}>
-                French
-              </button>
-            </li>
-            <li>
-              <button value="de" onClick={e => changeLanguageTrigger(e)}>
-                Germany
-              </button>
-            </li>
-          </ul>
+    const userSeq = localStorage.getItem('userSeq');
+
+    useEffect(() => {
+        if (userSeq) {
+            axios.get(`http://localhost:9000/profile/${userSeq}`)
+                .then((result) => {
+                    console.log(result.data);
+                    setProfile(result.data);
+                })
+                .catch((error) => {
+                    console.error("프로필을 가져오는 도중 오류 발생:", error);
+                });
+        }
+    }, [userSeq]);
+
+    const { i18n } = useTranslation();
+    const dispatch = useDispatch();
+
+    const changeLanguageTrigger = (e) => {
+        const languageCode = e.target.value;
+        i18n.changeLanguage(languageCode);
+    };
+
+    const userId = localStorage.getItem('userId');
+    const userJelly = localStorage.getItem('userJelly');
+
+    const setCurrencyTrigger = (e) => {
+        const currencyName = e.target.value;
+        dispatch(setCurrency(currencyName));
+    };
+
+    return (
+        <div style={{ marginTop: '3%' }} className="language-currency-wrap">
+            <div className="same-language-currency language-style"></div>
+            <div className="same-language-currency">
+                {userSeq !== null && (
+                    <p>환영합니다, {userId} 님</p>
+                )}
+            </div>
+            <div>
+                {profile.userJelly !== null && (
+                    <p>보유 젤리: {profile.userJelly ? profile.userJelly : 0} 개</p>
+                )}
+            </div>
         </div>
-      </div>
-      <div className="same-language-currency use-style">
-        <span>
-          {currency.currencyName} <i className="fa fa-angle-down" />
-        </span>
-        <div className="lang-car-dropdown">
-          <ul>
-            <li>
-              <button value="USD" onClick={e => setCurrencyTrigger(e)}>
-                USD
-              </button>
-            </li>
-            <li>
-              <button value="EUR" onClick={e => setCurrencyTrigger(e)}>
-                EUR
-              </button>
-            </li>
-            <li>
-              <button value="GBP" onClick={e => setCurrencyTrigger(e)}>
-                GBP
-              </button>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div className="same-language-currency">
-        {userSeq !== null && (
-            <p>Welcome, {userId}</p>
-        )}
-      </div>
-    </div>
-  );
+    );
 };
 
 LanguageCurrencyChanger.propTypes = {
-  currency: PropTypes.shape({}),
+    currency: PropTypes.shape({}),
 };
 
 export default LanguageCurrencyChanger;
