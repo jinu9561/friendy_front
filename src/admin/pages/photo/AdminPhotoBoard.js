@@ -125,7 +125,7 @@ const AdminPhotoBoard = () => {
         <Breadcrumb
           pages={[
             { label: "Home", path: process.env.PUBLIC_URL + "/" },
-            { label: "Gallery", path: process.env.PUBLIC_URL + pathname },
+            { label: "photoboard", path: process.env.PUBLIC_URL + pathname },
           ]}
         />
         <div className="shop-area pt-95 pb-100">

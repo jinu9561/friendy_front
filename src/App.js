@@ -16,6 +16,8 @@ import WritePost from "./pages/generalBoards/WritePost";
 import PublicDetail from "./pages/generalBoards/PublicDetail";
 import AnonymousDetail from "./pages/generalBoards/AnonymousDetail";
 import MyMeetUpPage from "./components/ui/wrappper/myMeetUpPage";
+import Test from "./pages/shop/Address";
+import Address from "./pages/shop/Address";
 
 export const LogingedContext = createContext();
 
@@ -206,8 +208,6 @@ const App = () => {
                                 path={process.env.PUBLIC_URL + "/myMeetUpPage"}
                                 element={<MyMeetUpPage />}
                             />
-
-
 
 
                             {/*사진 게시판 데모 */}
@@ -402,6 +402,14 @@ const App = () => {
                                 path={process.env.PUBLIC_URL + "/MainMeetUpDetail"}
                                 element={<MainMeetUpDetail/>}
                             />
+
+                            <Route
+                                path={process.env.PUBLIC_URL + "/Address"}
+                                element={<Address/>}
+                            />
+
+
+
 
 
                             <Route path="*" element={<NotFound/>} />

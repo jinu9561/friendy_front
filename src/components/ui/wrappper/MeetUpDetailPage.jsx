@@ -268,6 +268,7 @@ const MeetUpDetailPage = () => {
                             <div> 주최자 : {meetUp.userName}</div>
                             <div> 모집일 : {formatDeadline(meetUp.meetUpDeadLine)} 까지</div>
                             <div> 모집 인원 : {meetUp.nowEntry} /{meetUp.meetUpMaxEntry} 명</div>
+                            <div> 장소 : {meetUp.meetUpPlace }</div>
 
                             {/*신고버튼*/}
                             <button onClick={() => setShowReportModal(true)}

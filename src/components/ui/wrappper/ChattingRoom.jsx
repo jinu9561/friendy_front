@@ -319,7 +319,15 @@ const ChattingRoom = () => {
                         </div>
                     ))}
 
-                    <button onClick={closeModal}>Close</button>
+                    <button style={{
+                        backgroundColor: '#ffb3b3',
+                        color: 'white',
+                        border: 'none',
+                        padding: '0.5rem 1rem',
+                        borderRadius: '4px',
+                        cursor: 'pointer',
+                        margin: '1%',
+                    }} onClick={closeModal}>닫기</button>
                 </Modal>
             </div>
 
